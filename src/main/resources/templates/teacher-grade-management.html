@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Grade Management</title>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <h1>Grade Management</h1>
+    <div class="controller">
+        <div class="filter-container">
+            <select class="filter">
+                <option value="option4">All Courses</option>
+                <option value="option1">Software Engineer 2</option>
+                <option value="option2">Programming 2</option>
+                <option value="option3">Mobile Programming</option>
+            </select>
+            <select class="filter">
+                <option value="option4">All Classes</option>
+                <option value="option1">01</option>
+                <option value="option2">02</option>
+                <option value="option3">03</option>
+            </select>
+        </div>
+        <div class="options-container">
+            <button>Import from Excel</button>
+            <button>Export table</button>
+        </div>
+    </div>
+        <table>
+            <thead>
+            <tr>
+                <th class="course">Course</th>
+                <th>Class</th>
+                <th>Student ID</th>
+                <th>Mark (10%)</th>
+                <th>Mark (30%)</th>
+                <th>Mark (60%)</th>
+                <th>Average</th>
+                <th>Grade</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="course">Software Engineer 2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+
+</body>
+</html>
