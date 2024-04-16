@@ -7,11 +7,14 @@
 </head>
 <body>
 <p>test</p>
-<nav>
-    <a href="/employee/list">Employee List</a>
-    <a href="/employee/add">Add Employee</a>
-    <a href="/logout">Logout</a>
-</nav>
+<div th:fragment="header">
+    <nav>
+        <a href="/employee/list">Employee List</a>
+        <a href="/employee/add">Add Employee</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</div>
+
 <div th:replace="top-header :: topHeader"></div>
 <div th:replace="sidebar-teacher :: sidebar"></div>
 <div layout:fragment="content">
