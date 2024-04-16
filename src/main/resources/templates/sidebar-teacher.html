@@ -8,7 +8,7 @@
         font-family: 'Inter';
     }
 
-    .menu {
+    .sidebar-menu {
         background-color: #FA9F42;
         width: fit-content;
         align-items: center;
@@ -18,8 +18,8 @@
 
     }
 
-    .info-container {
-        display: flex; /* Add flex display to horizontally center the avatar and info */
+    .sidebar-info-container {
+        display: flex; /* Add flex display to horizontally center the sidebar-avatar and info */
         flex-direction: column; /* Arrange children vertically */
         align-items: center; /* Center items horizontally */
         padding-left: 20px;
@@ -28,71 +28,71 @@
     }
 
 
-    .avatar {
+    .sidebar-avatar {
         width: 100px;
         height: 100px;
         background-color: white; /* Change color as needed */
         border-radius: 50%; /* Make it round */
     }
 
-    .info p {
+    .sidebar-user-info p {
         text-align: center;
     }
 
-    .info #name {
+    .sidebar-user-info #name {
         font-size: 20px;
         font-weight: bold;
     }
 
-    .info #role {
+    .sidebar-user-info #role {
         font-size: 18px;
         font-weight: bold;
     }
 
-    nav {
+    .sidebar-navigation {
         display: flex;
         flex-direction: column;
+        #home, .option {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            height: 40px;
+            align-content: center;
+            text-decoration: none;
 
+
+        }
+
+        #home {
+            text-align: center;
+            background-color: #9A2229;
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .option-container {
+            align-items: center;
+            display: flex;
+            padding-left: 10px;
+            background-color: white;
+            border: black 1px solid;
+            border-collapse: collapse;
+        }
+
+        .arrow {
+            width: 20px;
+            height: auto;
+        }
+
+        .option {
+            color: black;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 18px;
+        }
     }
 
-    #home, .option {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        height: 40px;
-        align-content: center;
-        text-decoration: none;
 
-
-    }
-
-    #home {
-        text-align: center;
-        background-color: #9A2229;
-        color: white;
-        font-size: 25px;
-        font-weight: bold;
-    }
-
-    .option-container {
-        align-items: center;
-        display: flex;
-        padding-left: 10px;
-        background-color: white;
-        border: black 1px solid;
-        border-collapse: collapse;
-    }
-
-    .arrow {
-        width: 20px;
-        height: auto;
-    }
-
-    .option {
-        color: black;
-        padding-left: 10px;
-        padding-right: 10px;
-        font-size: 18px;
-    }
 
 
 </style>
@@ -102,32 +102,32 @@
 
 </head>
 <body>
-<div class="menu" th:fragment="sidebar">
-    <div class="info-container">
-        <div class="avatar"></div>
-        <div class="info">
+<div class="sidebar-menu" th:fragment="sidebar">
+    <div class="sidebar-info-container">
+        <div class="sidebar-avatar"></div>
+        <div class="sidebar-user-info">
             <p id="name">Phạm Thành An</p>
             <p id="role">Teacher</p>
         </div>
 
     </div>
-    <nav>
+    <nav class="sidebar-navigation">
 
         <a id="home" href="#">HOME</a>
         <div class="option-container">
-            <img class="arrow" src="../images/right-arrow.png" alt="arrow">
+            <img class="arrow" src="/images/right-arrow.png" alt="arrow">
             <a class="option" href="#">Account Details</a>
         </div>
         <div class="option-container">
-            <img class="arrow" src="../images/right-arrow.png" alt="arrow">
+            <img class="arrow" src="/images/right-arrow.png" alt="arrow">
             <a class="option" href="#">View Schedule</a>
         </div>
         <div class="option-container">
-            <img class="arrow" src="../images/right-arrow.png" alt="arrow">
+            <img class="arrow" src="/images/right-arrow.png" alt="arrow">
             <a class="option" href="#">Grade Management</a>
         </div>
         <div class="option-container">
-            <img class="arrow" src="../images/right-arrow.png" alt="arrow">
+            <img class="arrow" src="/images/right-arrow.png" alt="arrow">
             <a class="option" href="#">Logout</a>
         </div>
 

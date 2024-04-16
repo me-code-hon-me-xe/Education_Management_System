@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>Hanoi University</title>
 
 </head>
 <body>
-<p>test</p>
-<nav>
-    <a href="/employee/list">Employee List</a>
-    <a href="/employee/add">Add Employee</a>
-    <a href="/logout">Logout</a>
-</nav>
-<div th:replace="top-header :: topHeader"></div>
-<div th:replace="sidebar-teacher :: sidebar"></div>
+<div th:replace="~{top-header :: topHeader}"></div>
+<div class="body-container">
+<div th:replace="~{sidebar-teacher :: sidebar}"></div>
+    <div class="main-content-container">
 <div layout:fragment="content">
     <!-- content page will override this -->
+</div>
+    </div>
 </div>
 </body>
 </html>
