@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="View_Schedule_Student.css" />
+    <title>View Schedule</title>
+  </head>
+  <body>
+    <h1>View Schedule</h1>
+    <div class="filterContainer">
+      <select id="filter">
+        <option value="0">Semester 2 (2023 -2024)</option>
+        <!--The value can be add here-->
+        <option
+          th:each="semester : ${semester}"
+          th:value="${semester.id}"
+          th:text="${semester.name}"
+        ></option>
+      </select>
+      <select id="filter">
+        <option value="0">Week 32 (04/03/2024 - 10/03/2024)</option>
+        <option
+          th:each="week : ${week}"
+          th:value="${week.id}"
+          th:text="${week.name}"
+        ></option>
+      </select>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th class="icon">
+            <i class="fa-solid fa-arrow-left"></i>
+          </th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+          <th class="icon">
+            <i class="fa-solid fa-arrow-right"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="courseId">1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="courseId">2</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="courseId">3</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="courseId">4</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="courseId">5</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="courseId">6</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
