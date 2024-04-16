@@ -10,68 +10,93 @@
     <title>View Schedule</title>
   </head>
   <style>
-    body {
-    background-color: #F9F4EE;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-h1 {
-    color: black;
-    
-}
-.filterContainer {
-    padding: 20px;
-    justify-content: space-between;
-    align-items: center;
+    .View_Schdule_Student {
+      background-color: #f9f4ee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      color: black;
+    }
+    .FilterContain {
+      padding: 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #WeekFilter {
+      height: 30px;
+      width: 300px;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-right: 20px;
+    }
+    #SemesterFilter {
+      height: 30px;
+      width: 300px;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-right: 20px;
+    }
+    table {
+      margin-top: 30px;
+      border-collapse: collapse;
+      width: 80%;
+      border: 1px solid #ddd;
+    }
 
-}
-.filterContainer #filter{
-    height: 30px;
-    width: 300px;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-right: 20px;
-    
-}
-table {
-    margin-top: 30px;
-    border-collapse: collapse;
-    width: 80%;
-}
+    th,
+    td {
+      border: 1px solid black;
+      text-align: center;
+      width: 5px
+    }
 
-th,
-td {
-    border: 1px solid black;
-    text-align: center;
-}
+    th {
+      background-color: #9a2229;
+      color: white;
+      text-align: center;
+      padding: 10px 20px 10px;
+    }
 
-th {
-    background-color: #9A2229;
-    color: white;
-    text-align: center;
-    padding: 10px 20px 10px;
-}
+    td {
+      padding: 10px 10px 10px;
+      width: 100px;
+      height: 100px;
+      background-color: #f6ecec;
+    }
+    .courseId {
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      background-color: #9a2229;
+      color: white;
+      height: 40px;
+      width: 10px;
+      font-size: 20px;
+    }
+    .courseDetail {
+      text-align: left;
+      font-weight: bold;
+      background-color: #c18b8e;
+      color: black;
+    }
 
-td {
-    padding: 10px 15px 10px;
-    background-color: #F6ECEC
-}
-.courseId {
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    background-color: #9A2229;
-    color: white;
-}
+    .courseDetail #text {
+      font-weight: bold;
+      font-size: 14px;
+      color: black;
+    }
   </style>
-  <body>
+  <body class="View_Schdule_Student">
     <h1>View Schedule</h1>
-    <div class="filterContainer">
-      <select id="filter">
+    <div class="FilterContain">
+      <select id="SemesterFilter">
         <option value="0">Semester 2 (2023 -2024)</option>
         <!--The value can be add here-->
         <option
@@ -80,7 +105,7 @@ td {
           th:text="${semester.name}"
         ></option>
       </select>
-      <select id="filter">
+      <select id="WeekFilter">
         <option value="0">Week 32 (04/03/2024 - 10/03/2024)</option>
         <option
           th:each="week : ${week}"
@@ -109,18 +134,28 @@ td {
       <tbody>
         <tr>
           <td class="courseId">1</td>
+          <td class="courseDetail">
+            <p id="text">Software Engineer</p>
+            <p id="text">Class: 01</p>
+
+            <p id="text">Room: 401D1</p>
+          </td>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td class="courseId" ></td>
+          <td class="courseId"></td>
         </tr>
         <tr>
           <td class="courseId">2</td>
           <td></td>
-          <td></td>
+          <td class="courseDetail">
+            <p id="text">Software Engineer</p>
+            <p id="text">Class: 01</p>
+
+            <p id="text">Room: 401D1</p>
+          </td>
           <td></td>
           <td></td>
           <td></td>
