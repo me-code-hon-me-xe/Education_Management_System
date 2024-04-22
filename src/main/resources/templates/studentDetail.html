@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_adminLayout">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Detail</title>
+    <link rel="stylesheet" type="text/css" href="studentDetail.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Student Detail</h1>
+    <div>
+        <p>ID: <span th:text="${student.id}"></span></p>
+        <p>Username: <span th:text="${student.username}"></span></p>
+        <p>Password: <span th:text="${student.password}"></span></p>
+        <p>Student Code: <span th:text="${student.studentCode}"></span></p>
+        <p>Full Name: <span th:text="${student.fullName}"></span></p>
+        <p>Gender: <span th:text="${student.gender}"></span></p>
+        <p>Date of Birth: <span th:text="${student.dateOfBirth}"></span></p>
+        <p>Email: <span th:text="${student.email}"></span></p>
+        <p>Address: <span th:text="${student.address}"></span></p>
+        <p>Class Belong: <span th:text="${student.classBelong}"></span></p>
+        <p>Department: <span th:text="${student.department}"></span></p>
+        <p>Training System: <span th:text="${student.trainingSystem}"></span></p>
+    </div>
+</div>
+</body>
+</html>
