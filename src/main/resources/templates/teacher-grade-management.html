@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Grade Management</title>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/teacher-grade-management-style.css">
+    <link rel="stylesheet" href="../css/header-style.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <script type="text/javascript" th:src="@{/js/teacher-grade-management-js.js}"></script>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <h1>Grade Management</h1>
+    <div class="controller">
+        <div class="filter-container">
+            <select class="filter">
+                <option value="option4">All Courses</option>
+                <option value="option1">Software Engineer 2</option>
+                <option value="option2">Programming 2</option>
+                <option value="option3">Mobile Programming</option>
+            </select>
+            <select class="filter">
+                <option value="option4">All Classes</option>
+                <option value="option1">01</option>
+                <option value="option2">02</option>
+                <option value="option3">03</option>
+            </select>
+        </div>
+        <div class="options-container">
+            <button>Import from Excel</button>
+            <button>Export table</button>
+        </div>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+
+            <table class="info-table">
+                <tr>
+                    <th>Student ID:</th>
+                    <td>21010001</td>
+                </tr>
+                <tr>
+                    <th>Student's name:</th>
+                    <td>Nguyen Thanh An</td>
+                </tr>
+                <tr>
+                    <th>Class:</th>
+                    <td>01</td>
+                </tr>
+            </table>
+
+
+            <table class="grade-table">
+                <tr>
+                    <th>10% mark</th>
+                    <td>
+                        <label>
+                            <input type="number"/>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>30% mark</th>
+                    <td>
+                        <label>
+                            <input type="number"/>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>60% mark</th>
+                    <td>
+                        <label>
+                            <input type="number"/>
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            <div class="grade-options-container">
+                <button>Confirm</button>
+                <button>Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>Course</th>
+            <th>Class</th>
+            <th>Student ID</th>
+            <th>Mark (10%)</th>
+            <th>Mark (30%)</th>
+            <th>Mark (60%)</th>
+            <th>Average</th>
+            <th>Grade</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="course">Software Engineer 2</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="logo-edit-container">
+                    <input id="modalOpener" type="image" class="logo-edit" src="/images/edit.png" alt="edit"/>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
