@@ -38,7 +38,6 @@ select {
     display: flex;
     flex-direction: column;
     margin-left: 20px;
-
     button {
         padding: 5px 20px 5px;
         font-size: 20px;
@@ -58,7 +57,7 @@ table {
 }
 th, td {
     border: 1px solid black;
-    text-align: left;
+    text-align: auto;
 }
 th {
     background-color: #9A2229;
@@ -67,12 +66,12 @@ th {
     padding: 10px 20px 10px;
 }
 
- td {
+td {
     padding: 10px 15px 10px;
-     background-color: #F6ECEC
+     background-color: #F6ECEC;
+     text-align: center;
  }
 
  .course {
      width: 150px;
  }
-
