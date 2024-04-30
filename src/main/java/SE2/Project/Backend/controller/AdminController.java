@@ -30,8 +30,6 @@ public class AdminController {
     @Autowired
     private TeacherRepository teacherRepository;
     @Autowired
-    private AccountantRepository accountantRepository;
-    @Autowired
     private CourseRepository courseRepository;
 
     // CRUD admin
@@ -41,92 +39,14 @@ public class AdminController {
         return "adminAdd";
     }
 
-    @RequestMapping(value = "/insertAdmin")
-    public String insertAdmin(@Valid Admin admin, BindingResult result, Model model) {
-
-        if(result.hasErrors()){
-            return "adminAdd";
-        } else if (isDuplicateEntry(admin.getUser().getUsername())) {
-            result.rejectValue("user.username", "duplicate.key", "Username already exists");
-            return "adminAdd";
-        }
+    @RequestMapping("/insertAdmin")
+    public String insertAdmin(@Valid Admin admin, BindingResult result, Model model){
         User user = admin.getUser();
         admin.setUser(user);
         userRepository.save(user);
         adminRepository.save(admin);
-
-        return "redirect:/admin/listAdmin";
+        return "redirect:/admin/adminDetail/" + user.getUserID();
     }
-
-    @GetMapping(value = "/listAdmin")
-    public String showAllAdmin(Model model, @RequestParam(name = "adminCode", required = false) Integer adminCode,
-                               @RequestParam(name = "showAll", required = false) String showAll){
-        Iterable<Admin> admins;
-        Admin admin;
-        if (showAll != null) {
-            admins = adminRepository.findAll();
-            model.addAttribute("admins", admins);
-            return "adminList";
-        }
-        if(adminCode != null){
-            admin = adminRepository.findByAdminCode(adminCode);
-            if(admin != null){
-                model.addAttribute("admins", admin);
-            } else {
-                model.addAttribute("notFoundMessage", "No teacher found with the provided admin code");
-            }
-        } else {
-            admins = adminRepository.findAll();
-            model.addAttribute("admins", admins);
-        }
-
-        return "adminList";
-    }
-
-    @GetMapping(value = "/adminDetail/{adminCode}")
-    public String showAdminDetail(@PathVariable Integer adminCode, Model model){
-        Admin admin = adminRepository.findByAdminCode(adminCode);
-        model.addAttribute("admin", admin);
-        return "adminDetail";
-    }
-
-    @GetMapping(value = "/updateAdmin/{adminCode}")
-    public String updateAdmin(@PathVariable Integer adminCode, Model model){
-        Admin admin = adminRepository.findByAdminCode(adminCode);
-        model.addAttribute("admin", admin);
-        return "adminUpdate";
-    }
-
-    @PostMapping(value = "/saveAdmin")
-    public String saveAdmin(@Valid Admin admin, BindingResult result){
-        if(result.hasErrors()){
-            return "adminUpdate";
-        }
-        User user = admin.getUser();
-        userRepository.save(user);
-        adminRepository.save(admin);
-        return "redirect:/admin/listAdmin";
-    }
-
-    @RequestMapping(value = "/deleteAdmin/{adminCode}")
-    public String deleteAdmin(@PathVariable Integer adminCode){
-        Admin admin = adminRepository.findByAdminCode(adminCode);
-        User user = admin.getUser();
-        adminRepository.delete(admin);
-        userRepository.delete(user);
-        return "redirect:/admin/listAdmin";
-    }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -231,14 +151,6 @@ public class AdminController {
 
 
 
-
-
-
-
-
-
-
-
     // CRUD teacher
     @GetMapping("/addTeacher")
     public String addTeacher(Model model) {
@@ -267,6 +179,10 @@ public class AdminController {
         System.out.println(userRepository.existsByUsername(username));
         return userRepository.existsByUsername(username);
     }
+
+
+
+
 
     @GetMapping(value = "/listTeacher")
     public String showAllTeachers(Model model, @RequestParam(name = "teacherCode", required = false) Integer teacherCode,
@@ -326,106 +242,6 @@ public class AdminController {
         userRepository.delete(user);
         return "redirect:/admin/listTeacher";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // CRUD accountant
-    @GetMapping("/addAccountant")
-    public String addAccountant(Model model) {
-        model.addAttribute("accountant", new Accountant());
-        return "accountantAdd";
-    }
-    @RequestMapping(value = "/insertAccountant")
-    public String insertAccountant(@Valid Accountant accountant, BindingResult result, Model model) {
-        if(result.hasErrors()){
-            return "accountantAdd";
-        } else if (isDuplicateEntry(accountant.getUser().getUsername())) {
-            result.rejectValue("user.username", "duplicate.key", "Username already exists");
-            return "accountantAdd";
-        }
-
-        User user = accountant.getUser();
-        accountant.setUser(user);
-        userRepository.save(user);
-        accountantRepository.save(accountant);
-
-        return "redirect:/admin/listAccountant";
-    }
-    @GetMapping(value = "/listAccountant")
-    public String showAllAccountant(Model model, @RequestParam(name = "accountantCode", required = false) Integer accountantCode,
-                                    @RequestParam(name = "showAll", required = false) String showAll){
-        Iterable<Accountant> accountants;
-        Accountant accountant;
-        if (showAll != null) {
-            accountants = accountantRepository.findAll();
-            model.addAttribute("accountants", accountants);
-            return "accountantList";
-        }
-        if(accountantCode != null){
-            accountant = accountantRepository.findByAccountantCode(accountantCode);
-            if(accountant != null){
-                model.addAttribute("accountants", accountant);
-            } else {
-                model.addAttribute("notFoundMessage", "No teacher found with the provided teacher id");
-            }
-        } else {
-            accountants = accountantRepository.findAll();
-            model.addAttribute("accountants", accountants);
-        }
-
-        return "accountantList";
-    }
-    @GetMapping(value = "/accountantDetail/{accountantCode}")
-    public String showAccountantDetail(@PathVariable Integer accountantCode, Model model){
-        Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
-        model.addAttribute("accountant", accountant);
-        return "accountantDetail";
-    }
-    @GetMapping(value = "/updateAccountant/{accountantCode}")
-    public String updateAccountant(@PathVariable Integer accountantCode, Model model){
-        Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
-        model.addAttribute("accountant", accountant);
-        return "accountantUpdate";
-    }
-
-    @PostMapping(value = "/saveAccountant")
-    public String saveAccountant(@Valid Accountant accountant, BindingResult result){
-        if(result.hasErrors()){
-            return "accountantUpdate";
-        }
-        User user = accountant.getUser();
-        userRepository.save(user);
-        accountantRepository.save(accountant);
-        return "redirect:/admin/listAccountant";
-    }
-
-    @RequestMapping(value = "/deleteAccountant/{accountantCode}")
-    public String deleteAccountant(@PathVariable Integer accountantCode){
-        Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
-        User user = accountant.getUser();
-        accountantRepository.delete(accountant);
-        userRepository.delete(user);
-        return "redirect:/admin/listAccountant";
-    }
-
-
-
-
-
-
 
 
 

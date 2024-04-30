@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Student Detail</title>
+  <link rel="stylesheet" type="text/css" href="studentDetail.css" />
+</head>
+<body>
+<div layout:fragment="content" class="content">
+  <h1>Student Detail</h1>
+  <div class="detail-item">
+    <label>User ID: </label><span th:text="${student.user.userID}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Student Code: </label><span th:text="${student.studentCode}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Username: </label><span th:text="${student.user.username}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Password: </label><span th:text="${student.user.password}"></span>
+  </div>
+
+  <div class="detail-item">
+    <label>Full Name: </label><span th:text="${student.user.userFullname}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Gender: </label><span th:text="${student.user.gender}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Date of Birth: </label><span th:text="${student.user.dateOfBirth}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Email: </label><span th:text="${student.user.email}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Address: </label><span th:text="${student.user.address}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Class Belong: </label><span th:text="${student.classBelong}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Training System: </label><span th:text="${student.trainingSystem}"></span>
+  </div>
+</div>
+</body>
+</html>
