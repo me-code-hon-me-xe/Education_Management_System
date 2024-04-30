@@ -39,14 +39,87 @@ public class AdminController {
         return "adminAdd";
     }
 
-    @RequestMapping("/insertAdmin")
-    public String insertAdmin(@Valid Admin admin, BindingResult result, Model model){
+    @RequestMapping(value = "/insertAdmin")
+    public String insertAdmin(@Valid Admin admin, BindingResult result, Model model) {
+
+        if(result.hasErrors()){
+            return "adminAdd";
+        } else if (isDuplicateEntry(admin.getUser().getUsername())) {
+            result.rejectValue("user.username", "duplicate.key", "Username already exists");
+            return "adminAdd";
+        }
         User user = admin.getUser();
         admin.setUser(user);
         userRepository.save(user);
         adminRepository.save(admin);
-        return "redirect:/admin/adminDetail/" + user.getUserID();
+
+        return "redirect:/admin/listAdmin";
     }
+
+    @GetMapping(value = "/listAdmin")
+    public String showAllAdmin(Model model, @RequestParam(name = "adminCode", required = false) Integer adminCode,
+                                  @RequestParam(name = "showAll", required = false) String showAll){
+        Iterable<Admin> admins;
+        Admin admin;
+        if (showAll != null) {
+            admins = adminRepository.findAll();
+            model.addAttribute("admins", admins);
+            return "adminList";
+        }
+        if(adminCode != null){
+            admin = adminRepository.findByAdminCode(adminCode);
+            if(admin != null){
+                model.addAttribute("admins", admin);
+            } else {
+                model.addAttribute("notFoundMessage", "No teacher found with the provided admin code");
+            }
+        } else {
+            admins = adminRepository.findAll();
+            model.addAttribute("admins", admins);
+        }
+
+        return "adminList";
+    }
+
+    @GetMapping(value = "/adminDetail/{adminCode}")
+    public String showAdminDetail(@PathVariable Integer adminCode, Model model){
+        Admin admin = adminRepository.findByAdminCode(adminCode);
+        model.addAttribute("admin", admin);
+        return "adminDetail";
+    }
+
+    @GetMapping(value = "/updateAdmin/{adminCode}")
+    public String updateAdmin(@PathVariable Integer adminCode, Model model){
+        Admin admin = adminRepository.findByAdminCode(adminCode);
+        model.addAttribute("admin", admin);
+        return "adminUpdate";
+    }
+
+    @PostMapping(value = "/saveAdmin")
+    public String saveAdmin(@Valid Admin admin, BindingResult result){
+        if(result.hasErrors()){
+            return "adminUpdate";
+        }
+        User user = admin.getUser();
+        userRepository.save(user);
+        adminRepository.save(admin);
+        return "redirect:/admin/listAdmin";
+    }
+
+    @RequestMapping(value = "/deleteAdmin/{adminCode}")
+    public String deleteAdmin(@PathVariable Integer adminCode){
+        Admin admin = adminRepository.findByAdminCode(adminCode);
+        User user = admin.getUser();
+        adminRepository.delete(admin);
+        userRepository.delete(user);
+        return "redirect:/admin/listAdmin";
+    }
+
+
+
+
+
+
 
 
 
@@ -151,6 +224,14 @@ public class AdminController {
 
 
 
+
+
+
+
+
+
+
+
     // CRUD teacher
     @GetMapping("/addTeacher")
     public String addTeacher(Model model) {
@@ -179,10 +260,6 @@ public class AdminController {
         System.out.println(userRepository.existsByUsername(username));
         return userRepository.existsByUsername(username);
     }
-
-
-
-
 
     @GetMapping(value = "/listTeacher")
     public String showAllTeachers(Model model, @RequestParam(name = "teacherCode", required = false) Integer teacherCode,
@@ -242,6 +319,13 @@ public class AdminController {
         userRepository.delete(user);
         return "redirect:/admin/listTeacher";
     }
+
+
+
+
+
+
+
 
 
 

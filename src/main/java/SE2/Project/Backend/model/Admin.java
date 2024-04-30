@@ -11,18 +11,18 @@ public class Admin {
     // Backgound Information
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long adminID;
+    private Integer adminCode;
 
     @OneToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
 
-    public Long getAdminId() {
-        return adminID;
+    public Integer getAdminCode() {
+        return adminCode;
     }
 
-    public void setAdminId(Long adminID) {
-        this.adminID = adminID;
+    public void setAdminCode(Integer adminCode) {
+        this.adminCode = adminCode;
     }
 
     public User getUser() {

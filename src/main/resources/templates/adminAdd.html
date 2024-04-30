@@ -3,13 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
 <head>
   <meta charset="UTF-8">
-  <title>Add Teacher</title>
-  <link rel="stylesheet" type="text/css" href="css/teacherAdd.css">
+  <title>Add Admin</title>
+  <link rel="stylesheet" type="text/css" href="/css/adminAdd.css">
 </head>
 <body>
 <div layout:fragment="content" class="form-container">
-  <h2>Add Teacher</h2>
-  <form th:action="@{/admin/insertTeacher}" th:object="${teacher}" method="post">
+  <h2>Add Admin</h2>
+  <form th:action="@{/admin/insertAdmin}" th:object="${admin}" method="post">
     <div class="control-group">
       <label>Username: </label>
       <input type="text" th:field="*{user.username}">
