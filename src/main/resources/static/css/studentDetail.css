@@ -6,25 +6,26 @@ body {
     padding: 0;
 }
 
-h1 {
-    color: #333;
-    text-align: center;
-}
-
-div {
-    max-width: 600px;
+.content {
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
 }
 
-p {
-    margin: 10px 0;
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-span {
+.detail-item {
+    margin-bottom: 10px;
+}
+
+.detail-item label {
     font-weight: bold;
+}
+
+.detail-item span {
     color: #666;
 }
