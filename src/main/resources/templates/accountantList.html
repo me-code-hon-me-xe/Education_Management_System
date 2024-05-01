@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Accountant List</title>
+  <link rel="stylesheet" type="text/css" href="/css/accountantList.css"/>
+
+</head>
+<body>
+<div layout:fragment="content">
+  <h2>Accountant List</h2>
+  <!--Search teacher-->
+  <form th:action="@{/admin/listAccountant}" method="get">
+    <input type="text" name="accountantCode" placeholder="Search by Accountant Code">
+    <button type="submit">Search</button>
+  </form>
+  <form th:action="@{/admin/listAccountant}" method="get">
+    <button type="submit" name="showAll">Show All</button>
+  </form>
+
+  <!--Accountant list-->
+  <table>
+    <thead>
+    <tr>
+      <th>Accountant Code</th>
+      <th>Full Name</th>
+      <th>Gender</th>
+      <th>Date of Birth</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="accountant : ${accountants}">
+
+
+      <td>
+        <a th:href="'/admin/accountantDetail/' + ${accountant.accountantCode}" th:text="${accountant.accountantCode}"/>
+      </td>
+
+      <td th:text="${accountant.user.userFullname}"></td>
+      <td th:text="${accountant.user.gender}"></td>
+      <td th:text="${accountant.user.dateOfBirth}"></td>
+      <td th:text="${accountant.user.email}"></td>
+      <td th:text="${accountant.user.address}"></td>
+      <td>
+        <a th:href="'/admin/updateAccountant/' + ${accountant.accountantCode}">UPDATE</a>
+        <a th:href="'/admin/deleteAccountant/' + ${accountant.accountantCode}">DELETE</a>
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

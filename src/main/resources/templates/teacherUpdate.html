@@ -19,7 +19,7 @@
     <div th:if="${#fields.hasErrors('user.userID')}" class="error" th:errors="*{user.userID}" />
   </div>
   <div class="control-group">
-    <label>Teacher ID:</label>
+    <label>Teacher Code:</label>
     <input type="text" th:field="${teacher.teacherCode}" readonly/>
     <div th:if="${#fields.hasErrors('teacherCode')}" class="error" th:errors="*{teacher.teacherCode}" />
   </div>
@@ -68,6 +68,7 @@
       <option value="Student">Student</option>
       <option value="Teacher">Teacher</option>
       <option value="Admin">Admin</option>
+      <option value="Accountant">Accountant</option>
     </select>
     <div th:if="${#fields.hasErrors('user.role')}" class="error" th:errors="*{user.role}" />
   </div>

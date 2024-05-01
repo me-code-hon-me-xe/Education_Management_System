@@ -30,6 +30,8 @@ public class AdminController {
     @Autowired
     private TeacherRepository teacherRepository;
     @Autowired
+    private AccountantRepository accountantRepository;
+    @Autowired
     private CourseRepository courseRepository;
 
     // CRUD admin
@@ -114,6 +116,11 @@ public class AdminController {
         userRepository.delete(user);
         return "redirect:/admin/listAdmin";
     }
+
+
+
+
+
 
 
 
@@ -320,6 +327,99 @@ public class AdminController {
         return "redirect:/admin/listTeacher";
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // CRUD accountant
+    @GetMapping("/addAccountant")
+    public String addAccountant(Model model) {
+        model.addAttribute("accountant", new Accountant());
+        return "accountantAdd";
+    }
+    @RequestMapping(value = "/insertAccountant")
+    public String insertAccountant(@Valid Accountant accountant, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "accountantAdd";
+        } else if (isDuplicateEntry(accountant.getUser().getUsername())) {
+            result.rejectValue("user.username", "duplicate.key", "Username already exists");
+            return "accountantAdd";
+        }
+
+        User user = accountant.getUser();
+        accountant.setUser(user);
+        userRepository.save(user);
+        accountantRepository.save(accountant);
+
+        return "redirect:/admin/listAccountant";
+    }
+    @GetMapping(value = "/listAccountant")
+    public String showAllAccountant(Model model, @RequestParam(name = "accountantCode", required = false) Integer accountantCode,
+                                  @RequestParam(name = "showAll", required = false) String showAll){
+        Iterable<Accountant> accountants;
+        Accountant accountant;
+        if (showAll != null) {
+            accountants = accountantRepository.findAll();
+            model.addAttribute("accountants", accountants);
+            return "accountantList";
+        }
+        if(accountantCode != null){
+            accountant = accountantRepository.findByAccountantCode(accountantCode);
+            if(accountant != null){
+                model.addAttribute("accountants", accountant);
+            } else {
+                model.addAttribute("notFoundMessage", "No teacher found with the provided teacher id");
+            }
+        } else {
+            accountants = accountantRepository.findAll();
+            model.addAttribute("accountants", accountants);
+        }
+
+        return "accountantList";
+    }
+    @GetMapping(value = "/accountantDetail/{accountantCode}")
+    public String showAccountantDetail(@PathVariable Integer accountantCode, Model model){
+        Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
+        model.addAttribute("accountant", accountant);
+        return "accountantDetail";
+    }
+    @GetMapping(value = "/updateAccountant/{accountantCode}")
+    public String updateAccountant(@PathVariable Integer accountantCode, Model model){
+        Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
+        model.addAttribute("accountant", accountant);
+        return "accountantUpdate";
+    }
+
+    @PostMapping(value = "/saveAccountant")
+    public String saveAccountant(@Valid Accountant accountant, BindingResult result){
+        if(result.hasErrors()){
+            return "accountantUpdate";
+        }
+        User user = accountant.getUser();
+        userRepository.save(user);
+        accountantRepository.save(accountant);
+        return "redirect:/admin/listAccountant";
+    }
+
+    @RequestMapping(value = "/deleteAccountant/{accountantCode}")
+    public String deleteAccountant(@PathVariable Integer accountantCode){
+        Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
+        User user = accountant.getUser();
+        accountantRepository.delete(accountant);
+        userRepository.delete(user);
+        return "redirect:/admin/listAccountant";
+    }
 
 
 

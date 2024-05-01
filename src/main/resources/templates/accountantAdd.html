@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
 <head>
-    <meta charset="UTF-8">
-    <title>Add Teacher</title>
-  <link rel="stylesheet" type="text/css" href="/css/teacherAdd.css">
+  <meta charset="UTF-8">
+  <title>Add Accountant</title>
+  <link rel="stylesheet" type="text/css" href="/css/accountantAdd.css">
 </head>
 <body>
 <div layout:fragment="content" class="form-container">
-  <h2>Add Teacher</h2>
-  <form th:action="@{/admin/insertTeacher}" th:object="${teacher}" method="post">
+  <h2>Add Accountant</h2>
+  <form th:action="@{/admin/insertAccountant}" th:object="${accountant}" method="post">
     <div class="control-group">
       <label>Username: </label>
       <input type="text" th:field="*{user.username}">
