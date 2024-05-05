@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html
-        lang="en"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{_layout}"
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -15,7 +15,13 @@
       href="https://fonts.googleapis.com/css?family=Inter"
       rel="stylesheet"
     />
-
+    <link rel="stylesheet" href="../css/crud-course-admin-style.css" />
+    <link rel="stylesheet" href="../css/header-style.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <script
+      type="text/javascript"
+      th:src="@{/js/crud-add-course-admin-js.js}"
+    ></script>
     <title>View Mark</title>
   </head>
   <style>
@@ -87,6 +93,142 @@
     .row_2 {
       background-color: #c18b8e;
     }
+
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0); /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    }
+
+    .modal-content {
+      margin: 0 auto;
+      border: 1px solid black;
+      padding: 20px;
+      width: 40%;
+      background-color: #f6ecec;
+
+      .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        padding-right: 10px;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+
+    .grade-table {
+      border: 3px solid black;
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: 80%;
+      margin: 0 auto;
+
+      th,
+      td {
+        border: 1px solid black;
+        text-align: center;
+        padding: 10px 20px;
+        width: 50%;
+        color: black;
+      }
+
+      th {
+        font-weight: bold;
+        background-color: white;
+      }
+
+      input {
+        width: 230px;
+        text-align: center;
+        font-size: 20px;
+        border-radius: 2px;
+      }
+
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: textfield;
+      }
+    }
+
+    .grade-options-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding-top: 20px;
+      gap: 20px;
+
+      button {
+        padding: 5px 40px;
+        font-size: 20px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        background-color: #fa9f42;
+        font-weight: 600;
+      }
+    }
+
+    .content-table {
+      margin-top: 30px;
+      border-collapse: collapse;
+      width: 80%;
+
+      th,
+      td {
+        border: 1px solid black;
+        text-align: left;
+      }
+
+      th {
+        background-color: #9a2229;
+        color: white;
+        text-align: center;
+        padding: 10px 20px 10px;
+      }
+
+      td {
+        padding: 10px 15px 10px;
+        background-color: #f6ecec;
+      }
+    }
+
+    .logo-edit {
+      width: 30px;
+      height: auto;
+    }
+
+    .logo-edit-container {
+      text-align: center;
+    }
+    #add-a-course {
+      font-size: 24px;
+      font-weight: 800;
+      margin-left: 250px;
+    }
+    #major-option {
+      width: 235px;
+      height: 30px;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
   </style>
   <body class="crud-course-admin">
     <div layout:fragment="content" class="container">
@@ -95,6 +237,46 @@
         <button id="button-1">Add Course</button>
         <button id="button-2">Delete Selected</button>
       </div>
+
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p id="add-a-course">ADD A COURSE</p>
+
+          <table class="grade-table">
+            <tr>
+              <th>Major:</th>
+              <td>
+                <select id="major-option">
+                  <option value="0">FIT</option>
+                  <option value="1">FMT</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>Course's name</th>
+              <td>
+                <label>
+                  <input type="text" />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th>Course's ID</th>
+              <td>
+                <label>
+                  <input type="text" />
+                </label>
+              </td>
+            </tr>
+          </table>
+          <div class="grade-options-container">
+            <button>Confirm</button>
+            <button>Reset</button>
+          </div>
+        </div>
+      </div>
+
       <table>
         <thead>
           <tr>
@@ -231,4 +413,20 @@
       </table>
     </div>
   </body>
+  <script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("button-1");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
 </html>

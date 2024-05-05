@@ -11,93 +11,17 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+
     <link
       href="https://fonts.googleapis.com/css?family=Inter"
       rel="stylesheet"
     />
-
+    <link rel="stylesheet" href="../css/view-mark-student-style.css" />
+    <link rel="stylesheet" href="../css/header-style.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
     <title>View Mark</title>
   </head>
-  <style>
-    .View_Mark_Student {
-      background-color: #f9f4ee;
-      display: flex;
-      justify-content: center;
-      font-family: "Inter";
-      align-items: center;
-    }
-    h1 {
-      color: black;
-      margin-left: 530px;
-      font-size: 40px;
-    }
-    .FilterContain {
-      padding: 10px;
-      padding-bottom: 20px;
-      justify-content: space-between;
-      align-items: center;
-      margin-left: 350px;
-    }
-    #TuitionFilter {
-      height: 40px;
-      width: 300px;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 18px;
-    }
 
-    table {
-      margin-top: 20px;
-      border-collapse: collapse;
-      width: 100%;
-      border: 1px solid #ddd;
-    }
-
-    th,
-    td {
-      border: 1px solid black;
-      text-align: center;
-      width: 10px;
-    }
-
-    th {
-      background-color: #9a2229;
-      color: white;
-      text-align: center;
-      padding: 10px 20px 10px;
-    }
-    /*Chỉnh size của cells ở đây*/
-    td {
-      padding: 10px 10px 10px;
-      width: 120px;
-      height: 30px;
-      background-color: #f6ecec;
-    }
-    .mark-option-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      button {
-        padding: 5px 20px 5px;
-        font-size: 20px;
-        border-radius: 6px;
-        margin-bottom: 10px;
-        background-color: #fa9f42;
-        font-weight: 600;
-        cursor: pointer;
-        width: 300px;
-        height: 50px;
-      }
-      #button-1 {
-        margin-left: 300px;
-      }
-      #button-2 {
-        margin-right: 300px;
-      }
-    }
-  </style>
   <body class="View_Mark_Student">
     <div layout:fragment="content" class="container">
       <h1>View Mark</h1>
