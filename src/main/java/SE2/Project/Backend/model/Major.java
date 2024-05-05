@@ -1,6 +1,8 @@
 package SE2.Project.Backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "major")
@@ -11,13 +13,15 @@ public class Major {
     @Column(name = "major_id")
     private Long majorId;
 
-    @Column(name = "major_name", length = 20)
+    @Column(name = "major_name", length = 20, nullable = false)
+    @NotEmpty(message = "Major Name cannot be empty")
     private String majorName;
 
-    @Column(name = "tuition_based_course")
+    @NotNull
+    @Column(name = "tuition_based_course", nullable = false)
     private Double tuitionBasedCourse;
-
-    @Column(name = "tuition_specialized_course")
+    @NotNull
+    @Column(name = "tuition_specialized_course", nullable = false)
     private Double tuitionSpecializedCourse;
 
     public Long getMajorId() {

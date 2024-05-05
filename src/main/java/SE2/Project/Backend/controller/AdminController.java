@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.expression.Strings;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -33,6 +34,8 @@ public class AdminController {
     private AccountantRepository accountantRepository;
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private MajorRepository majorRepository;
 
     // CRUD admin
     @GetMapping("/addAdmin")
@@ -264,7 +267,6 @@ public class AdminController {
     }
 
     private boolean isDuplicateEntry(String username) {
-        System.out.println(userRepository.existsByUsername(username));
         return userRepository.existsByUsername(username);
     }
 
@@ -422,6 +424,91 @@ public class AdminController {
     }
 
 
+
+
+
+
+
+
+
+
+
+    // CRUD major
+    @GetMapping("/addMajor")
+    public String addMajor(Model model) {
+        model.addAttribute("major", new Major());
+
+        return "majorAdd";
+    }
+    @RequestMapping(value = "/insertMajor")
+    public String insertMajor(@Valid Major major, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "majorAdd";
+        }else if (isDuplicateMajorName(major.getMajorName())) {
+            result.rejectValue("majorName", "duplicate.key", "Major Name already exists");
+            return "majorAdd";
+        }
+        System.out.println(major.getMajorName());
+        majorRepository.save(major);
+
+        return "redirect:/admin/listMajor";
+    }
+
+    private boolean isDuplicateMajorName(String majorName) {
+        return majorRepository.existsByMajorName(majorName);
+    }
+
+    @GetMapping(value = "/listMajor")
+    public String showAllMajor(Model model, @RequestParam(name = "majorId", required = false) Long majorId,
+                                    @RequestParam(name = "showAll", required = false) String showAll){
+        Iterable<Major> majors;
+        Major major;
+        if (showAll != null) {
+            majors = majorRepository.findAll();
+            model.addAttribute("majors", majors);
+            return "majorList";
+        }
+        if(majorId != null){
+            major = majorRepository.findByMajorId(majorId);
+            if(major != null){
+                model.addAttribute("majors", major);
+            } else {
+                model.addAttribute("notFoundMessage", "No teacher found with the provided teacher id");
+            }
+        } else {
+            majors = majorRepository.findAll();
+            model.addAttribute("majors", majors);
+        }
+
+        return "majorList";
+    }
+    @GetMapping("/majorDetail/{majorId}")
+    public String showMajorDetail(@PathVariable Long majorId, Model model){
+        Major major = majorRepository.findByMajorId(majorId);
+        model.addAttribute("major", major);
+        return "majorDetail";
+    }
+    @GetMapping(value = "/updateMajor/{majorId}")
+    public String updateMajor(@PathVariable Long majorId, Model model){
+        Major major = majorRepository.findByMajorId(majorId);
+        model.addAttribute("major", major);
+        return "majorUpdate";
+    }
+
+    @PostMapping(value = "/saveMajor")
+    public String saveMajor(@Valid Major major, BindingResult result){
+        if(result.hasErrors()){
+            return "majorUpdate";
+        }
+        majorRepository.save(major);
+        return "redirect:/admin/listMajor";
+    }
+    @RequestMapping(value = "/deleteMajor/{majorId}")
+    public String deleteMajor(@PathVariable Long majorId){
+        Major major = majorRepository.findByMajorId(majorId);
+        majorRepository.delete(major);
+        return "redirect:/admin/listMajor";
+    }
 
 
 
