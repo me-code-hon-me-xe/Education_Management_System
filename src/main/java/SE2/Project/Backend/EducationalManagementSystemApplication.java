@@ -9,5 +9,5 @@ public class EducationalManagementSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EducationalManagementSystemApplication.class, args);
 	}
-// Anh dang test nhánh Dang tien dat _ backend 2 có pull vào main được k
+// Anh dang test nhánh Dang tien dat _ backend 2 có pull vào main được k lần 2
 }
