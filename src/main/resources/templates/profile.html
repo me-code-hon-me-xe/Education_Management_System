@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout_teacher}">
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', serif;
+        background-color: #F9F4EE;
+    }
+
+    .body-container {
+        display: flex;
+    }
+
+    .main-content-container {
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .padding{
+        margin:  20px 0
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        background: #9A2229;
+
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-color: #ddd;
+        margin-right: 30px;
+        position: absolute;
+        left: 12%;
+        bottom: 75%;
+    }
+
+    .profile-ID {
+        flex: 1;
+        padding-left:25%;
+    }
+
+    .profile-ID h1 {
+        font-size: 3rem;
+        margin-bottom: 0.2rem;
+        color:#fff;
+        font-weight: 700;
+    }
+
+    .profile-ID h2 {
+        font-size: 1.2rem;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .info-group {
+        margin-bottom: 20px;
+        width:400px;
+        max-width:400px;
+
+    }
+
+    .info-label {
+        font-weight: bold;
+        display: inline-block; /* Ensures that the label is treated as a block-level element but remains in the same line */
+        width: 180px; /* Set a fixed width for the label */
+        overflow: hidden; /* Hide any content that overflows the fixed width */
+        white-space: nowrap; /* Prevent the text from wrapping onto multiple lines */
+        margin-right: 10px; /* Add some space between the label and the input */
+        text-align: left;
+
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="number"] {
+        flex: 1;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #000;
+        width:400px;
+
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="tel"]:focus,
+    input[type="email"]:focus,
+    input[type="number"]:focus {
+        outline: none;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    }
+    .profile-des {
+        display: flex;
+        justify-content: center;
+
+    }
+    .profile-des-1, .profile-des-2{
+        max-width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .container{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>profile</title>
+  <link rel="stylesheet" href="../css/header-style.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
+  <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Inter'>
+  <link rel="stylesheet" href="../css/profile.css">
+
+  <!-- <link rel="stylesheet" href="/Student/Students styles/profile.css"> -->
+</head>
+
+<body>
+<div layout:fragment="content"  >
+  <div class="profile">
+    <div class="padding"></div>
+    <div class="profile-pic">
+
+    </div>
+    <div class="profile-header">
+      <div class="profile-ID">
+        <h1>Pham Thanh An</h1>
+        <h2>Class 1c21</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-des">
+    <div class="profile-des-1">
+      <div class="info-group">
+        <div class="info-label">ID:</div>
+        <input type="number">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Name:</div>
+        <input type="text">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Date of Birth:</div>
+        <input type="date">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Gender:</div>
+        <input type="text">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Nationality:</div>
+        <input type="text">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Status:</div>
+        <input type="text">
+      </div>
+    </div>
+    <div class="profile-des-2">
+      <div class="info-group">
+        <div class="info-label">School Year:</div>
+        <input type="text">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Major:</div>
+        <input type="text">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Telephone:</div>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Email:</div>
+        <input type="email" id="email" name="email">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Role:</div>
+        <input type="text">
+      </div>
+      <div class="info-group">
+        <div class="info-label">Bank Account Number:</div>
+        <input type="number">
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

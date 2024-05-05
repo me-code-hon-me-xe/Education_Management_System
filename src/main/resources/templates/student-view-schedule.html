@@ -2,7 +2,7 @@
 <html
   lang="en"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{_layout}"
+  layout:decorate="~{_layout}" xmlns:th="http://www.thymeleaf.org">
 >
   <head>
     <meta charset="UTF-8" />
@@ -21,7 +21,96 @@
 
     <title>View Schedule</title>
   </head>
- 
+  <style>
+    .View_Schedule_Student {
+      background-color: #f9f4ee;
+      display: flex;
+      justify-content: center;
+      font-family: "Inter";
+      align-items: center;
+    }
+    h1 {
+      color: black;
+    }
+    .FilterContain {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+    }
+
+    #SemesterFilter,
+    #WeekFilter {
+      width: 300px;
+      height: 40px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .FilterContain {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-left: 270px;
+        align-items: center;
+      }
+    }
+
+    table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #ddd;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      text-align: center;
+      width: 10px;
+    }
+
+    th {
+      background-color: #9a2229;
+      color: white;
+      text-align: center;
+      padding: 10px 20px 10px;
+    }
+
+    td {
+      padding: 10px 10px 10px;
+      width: 180px;
+      height: 80px;
+      background-color: #f6ecec;
+    }
+
+    .courseId {
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      background-color: #9a2229;
+      color: white;
+      height: 40px;
+      width: 10px;
+      font-size: 20px;
+    }
+    .courseDetail {
+      text-align: left;
+      font-weight: bold;
+      background-color: #c18b8e;
+      color: black;
+    }
+
+    .courseDetail #text {
+      font-weight: bold;
+      font-size: 13px;
+      color: black;
+    }
+  </style>
   <body class="View_Schedule_Student">
     <div layout:fragment="content" class="container">
       <h1>View Schedule</h1>
@@ -69,8 +158,8 @@
           <tr>
             <td class="courseId">1</td>
             <td class="courseDetail">
-              <p id="text">Software Engineer</p>
-              <p id="text">Class: 01</p>
+              <p class="text">Software Engineer</p>
+              <p class="text">Class: 01</p>
 
               <p id="text">Room: 401D1</p>
             </td>

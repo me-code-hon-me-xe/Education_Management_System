@@ -5,18 +5,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import org.checkerframework.common.aliasing.qual.Unique;
+import org.hibernate.boot.model.naming.Identifier;
 
 import java.util.List;
 
 @Entity
 @Table(name = "teacher")
 public class Teacher {
-
+    @Valid
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "teacher_id")
-    private Long teacherId;
+    private Integer teacherCode;
 
+    @Valid
     @OneToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
@@ -24,12 +27,12 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher")
     private List<Course> courses;
 
-    public Long getTeacherId() {
-        return teacherId;
+    public Integer getTeacherCode() {
+        return teacherCode;
     }
 
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacherCode(Integer teacherCode) {
+        this.teacherCode = teacherCode;
     }
 
     public User getUser() {

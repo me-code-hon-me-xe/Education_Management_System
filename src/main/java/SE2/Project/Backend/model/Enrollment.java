@@ -3,7 +3,6 @@ package SE2.Project.Backend.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -59,8 +58,6 @@ public class Enrollment {
     public void setCourse(Course course) {
         this.course = course;
     }
-
-
 
     public Semester getSemester() {
         return semester;

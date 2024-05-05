@@ -18,8 +18,8 @@ public class User {
     private Long userID;
 
     @Length(min = 3, max = 20)
-    @NotEmpty(message = "username cannot be empty" )
-    @Column(nullable = false, unique = true)
+    @NotEmpty(message = "password cannot be empty")
+    @Column(nullable = false)
     private String username;
 
     @Length(min = 3, max = 20)
@@ -49,11 +49,11 @@ public class User {
     @NotEmpty(message = "address cannot be empty")
     private String address;
 
-    public Long getId() {
+    public Long getUserID() {
         return userID;
     }
 
-    public void setId(Long id) {
+    public void setUserID(Long id) {
         this.userID = id;
     }
 
