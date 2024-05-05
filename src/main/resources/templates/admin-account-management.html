@@ -33,7 +33,7 @@
     <div id="add-modal" class="modal">
         <form
                 th:action="@{/admin/insertUser}"
-                th:object="${admin}"
+                th:object="${user}"
                 method="post"
         >
             <div class="modal-content">
@@ -45,7 +45,7 @@
                             <th>User Name:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.username}"/>
+                                    <input type="text" field="*{user.username}" name="username"/>
                                 </label>
                                 <!--                                <div th:if="${#fields.hasErrors('user.username')}"-->
                                 <!--                                     th:errors="*{user.username}"-->
@@ -53,10 +53,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>User Gender:</th>
+                            <th>Role:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.gender}"/>
+                                    <select field="*{user.role}" name="role">
+                                        <option value="Student">Student</option>
+                                        <option value="Teacher">Teacher</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Accountant">Accountant</option>
+                                    </select>
                                 </label>
                                 <!--                                <div th:if="${#fields.hasErrors('user.gender')}"-->
                                 <!--                                     th:errors="*{user.gender}"-->
@@ -67,7 +72,7 @@
                             <th>User Address:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.address}"/>
+                                    <input type="text" field="*{user.address}" name="address"/>
                                 </label>
                             </td>
                         </tr>
@@ -75,7 +80,7 @@
                             <th>User Email:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.email}"/>
+                                    <input type="text" field="*{user.email}" name="email"/>
                                 </label>
                             </td>
                         </tr>
@@ -83,7 +88,7 @@
                             <th>User Dob:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.dateOfBirth}"/>
+                                    <input type="text" field="*{user.dateOfBirth}" name="dateOfBirth"/>
                                 </label>
                             </td>
                         </tr>
@@ -91,7 +96,7 @@
                             <th>User Pass:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.password}"/>
+                                    <input type="text" field="*{user.password}" name="password"/>
                                 </label>
                             </td>
                         </tr>
@@ -99,7 +104,7 @@
                             <th>User Phone Num:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.phoneNumber}"/>
+                                    <input type="text" field="*{user.phoneNumber}" name="phoneNumber"/>
                                 </label>
                             </td>
                         </tr>
@@ -107,26 +112,30 @@
                             <th>User Full Name:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.userFullname}"/>
+                                    <input type="text" field="*{user.userFullname}" name="userFullname"/>
                                 </label>
                             </td>
                         </tr>
                         <tr>
-                            <th>User Role:</th>
+                            <th>User Gender:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.role}"/>
+                                    <select field="*{user.gender}" name="gender">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
 
                                     <!--                                    <select-->
-<!--                                            name="roles"-->
-<!--                                            class="roles"-->
-<!--                                            field="*{user.role}"-->
-<!--                                    >-->
-<!--                                        <option value="Student">Student</option>-->
-<!--                                        <option value="Teacher">Teacher</option>-->
-<!--                                        <option value="Admin">Admin</option>-->
-<!--                                        <option value="Accountant">Admin</option>-->
-<!--                                    </select>-->
+                                    <!--                                            name="roles"-->
+                                    <!--                                            class="roles"-->
+                                    <!--                                            field="*{user.role}"-->
+                                    <!--                                    >-->
+                                    <!--                                        <option value="Student">Student</option>-->
+                                    <!--                                        <option value="Teacher">Teacher</option>-->
+                                    <!--                                        <option value="Admin">Admin</option>-->
+                                    <!--                                        <option value="Accountant">Admin</option>-->
+                                    <!--                                    </select>-->
                                     <!--                      <div-->
                                     <!--                        th:if="${#fields.hasErrors('user.role')}"-->
                                     <!--                        th:errors="*{user.role}"-->

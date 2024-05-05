@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.expression.Strings;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -41,7 +42,7 @@ public class AdminController {
     @GetMapping("/addUser")
     public String addAdmin(Model model){
         model.addAttribute("user", new User());
-        return "adminAdd";
+        return "admin-account-management";
     }
 
     @RequestMapping(value = "/insertUser")
@@ -52,27 +53,27 @@ public class AdminController {
         }
         String role=user.getRole();
         userRepository.save(user);
-        if(role=="student"){
+        if(Objects.equals(role, "student")){
             Student student=new Student();
             student.setUser(user);
             studentRepository.save(student);
         }
-        else if(role=="teacher"){
+        else if(Objects.equals(role, "Teacher")){
             Teacher teacher=new Teacher();
             teacher.setUser(user);
             teacherRepository.save(teacher);
         }
-        else if(role=="accountant"){
+        else if(Objects.equals(role, "Accountant")){
             Accountant accountant=new Accountant();
             accountant.setUser(user);
             accountantRepository.save(accountant);
         }
-        else if(role=="admin"){
+        else if(Objects.equals(role, "Admin")){
             Admin admin=new Admin();
             admin.setUser(user);
             adminRepository.save(admin);
         }
-
+        System.out.println("Success");
         return "redirect:/admin/listAdmin";
     }
 
