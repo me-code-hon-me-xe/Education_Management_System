@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher List</title>
+    <link rel="stylesheet" type="text/css" href="/css/teacherList.css"/>
+
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Teacher List</h2>
+    <!--Search teacher-->
+    <form th:action="@{/admin/listTeacher}" method="get">
+        <input type="text" name="teacherCode" placeholder="Search by Teacher Code">
+        <button type="submit">Search</button>
+    </form>
+    <form th:action="@{/admin/listTeacher}" method="get">
+        <button type="submit" name="showAll">Show All</button>
+    </form>
+
+    <!--Student list-->
+    <table>
+        <thead>
+        <tr>
+            <th>Teacher Code</th>
+            <th>Full Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Major</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teacher : ${teachers}">
+
+
+            <td>
+                <a th:href="'/admin/teacherDetail/' + ${teacher.teacherCode}" th:text="${teacher.teacherCode}"/>
+            </td>
+
+            <td th:text="${teacher.user.userFullname}"></td>
+            <td th:text="${teacher.user.gender}"></td>
+            <td th:text="${teacher.user.dateOfBirth}"></td>
+            <td th:text="${teacher.user.email}"></td>
+            <td th:text="${teacher.user.address}"></td>
+            <td></td>
+            <td>
+                <a th:href="'/admin/updateTeacher/' + ${teacher.teacherCode}">UPDATE</a>
+                <a th:href="'/admin/deleteTeacher/' + ${teacher.teacherCode}">DELETE</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
