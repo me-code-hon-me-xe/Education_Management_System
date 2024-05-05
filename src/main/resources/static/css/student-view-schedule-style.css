@@ -1,20 +1,36 @@
-.View_Schedule_Student {
-  background-color: #f9f4ee;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', serif;
+  background-color: #F9F4EE;
+}
+
+.body-container {
   display: flex;
-  justify-content: center;
-  font-family: "Inter";
+}
+
+.main-content-container {
   align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.container {
+  justify-content: center; /* Horizontally center items */
+  align-items: center; /* Vertically center items */
+  display: flex;
+  flex-direction: column;
 }
 h1 {
   color: black;
-  margin-left: 500px;
+  font-size: 40px;
+  align-content: center;
 }
 .FilterContain {
   padding: 10px;
   padding-bottom: 20px;
   justify-content: space-between;
   align-items: center;
-  margin-left: 270px;
 }
 #WeekFilter {
   height: 40px;
@@ -36,7 +52,7 @@ h1 {
 table {
   margin-top: 20px;
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
   border: 1px solid #ddd;
 }
 

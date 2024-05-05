@@ -1,45 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout_student}">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
 
     <link
-      href="https://fonts.googleapis.com/css?family=Inter"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Inter"
+            rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/student-view-mark-style.css" />
-    <link rel="stylesheet" href="../css/header-style.css" />
-    <link rel="stylesheet" href="../css/sidebar.css" />
+    <link rel="stylesheet" href="../css/student-view-mark-style.css"/>
+    <link rel="stylesheet" href="../css/header-style.css"/>
+    <link rel="stylesheet" href="../css/sidebar.css"/>
+    <link
+            href="https://fonts.googleapis.com/css?family=Inter"
+            rel="stylesheet"
+    />
     <title>View Mark</title>
-  </head>
+</head>
 
-  <body class="View_Mark_Student">
-    <div layout:fragment="content" class="container">
-      <h1>View Mark</h1>
-      <div class="mark-option-container">
+<body>
+<div layout:fragment="content" class="container">
+    <h1>View Mark</h1>
+    <div class="mark-option-container">
         <button id="button-1">Calculate Average GPA</button>
         <button id="button-2">Calculate Estimate GPA</button>
-      </div>
-      <div
-        style="
+    </div>
+    <div
+            style="
           background-color: white;
           width: fit-content;
           border: 1px black solid;
           border-radius: 10px;
         "
-      >
+    >
         <p style="padding: 5px 10px 5px; font-weight: bold">
-          Semester 1, 2023-2024
+            Semester 1, 2023-2024
         </p>
-      </div>
-      <table>
+    </div>
+    <table>
         <thead>
-          <tr>
+        <tr>
             <th style="width: 1%; height: 20px">ID</th>
             <th style="width: 10%; height: 20px">Course ID</th>
             <th style="width: 15%; height: 20px">Course Name</th>
@@ -49,10 +55,10 @@
             <th style="width: 4%; height: 20px">Grade</th>
             <th style="width: 3%; height: 20px">Pass</th>
             <th style="width: 5%; height: 20px">Details</th>
-          </tr>
+        </tr>
         </thead>
         <tbody>
-          <tr>
+        <tr>
             <td style="font-weight: bold">1</td>
             <td style="font-weight: bold">61FITSE1</td>
             <td style="font-weight: bold">Software Engineer 1</td>
@@ -61,13 +67,13 @@
             <td style="font-weight: bold">3.5</td>
             <td style="font-weight: bold">A</td>
             <td style="font-weight: bold; cursor: pointer">
-              <i class="fa-solid fa-check fa-2x"></i>
+                <i class="fa-solid fa-check fa-2x"></i>
             </td>
             <td style="font-weight: bold; cursor: pointer">
-              <i class="fa-solid fa-bars fa-2x"></i>
+                <i class="fa-solid fa-bars fa-2x"></i>
             </td>
-          </tr>
-          <tr>
+        </tr>
+        <tr>
             <td style="font-weight: bold">2</td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
@@ -77,8 +83,8 @@
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
-          </tr>
-          <tr>
+        </tr>
+        <tr>
             <td style="font-weight: bold">3</td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
@@ -88,8 +94,8 @@
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
-          </tr>
-          <tr>
+        </tr>
+        <tr>
             <td style="font-weight: bold">4</td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
@@ -99,8 +105,8 @@
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
-          </tr>
-          <tr>
+        </tr>
+        <tr>
             <td style="font-weight: bold">5</td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
@@ -110,8 +116,8 @@
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
-          </tr>
-          <tr>
+        </tr>
+        <tr>
             <td style="font-weight: bold">6</td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
@@ -121,138 +127,136 @@
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
             <td style="font-weight: bold"></td>
-          </tr>
+        </tr>
         </tbody>
         <div>
-          <tfoot>
-            <tr>
-              <td colspan="4" style="font-weight: bold; font-size: 20px">
-                Total
-              </td>
-              <td style="font-weight: bold">8.5</td>
-              <td style="font-weight: bold">8.5</td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-            </tr>
-          </tfoot>
-        </div>
-      </table>
-      <div style="padding-top: 30px">
-        <table>
-          <div
-            style="
-              background-color: white;
-              width: fit-content;
-              border: 1px black solid;
-              border-radius: 10px;
-            "
-          >
-            <p style="padding: 5px 10px 5px; font-weight: bold">
-              Semester 2, 2023-2024
-            </p>
-          </div>
-          <thead>
-            <tr>
-              <th style="width: 1%; height: 20px">ID</th>
-              <th style="width: 10%; height: 20px">Course ID</th>
-              <th style="width: 15%; height: 20px">Course Name</th>
-              <th style="width: 3%; height: 20px">Credit</th>
-              <th style="width: 3%; height: 20px">Grade (10)</th>
-              <th style="width: 3%; height: 20px">Grade (4)</th>
-              <th style="width: 4%; height: 20px">Grade</th>
-              <th style="width: 3%; height: 20px">Pass</th>
-              <th style="width: 5%; height: 20px">Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="font-weight: bold">1</td>
-              <td style="font-weight: bold">61FITSE2</td>
-              <td style="font-weight: bold">Software Engineer 2</td>
-              <td style="font-weight: bold">3</td>
-              <td style="font-weight: bold">8.5</td>
-              <td style="font-weight: bold">3.5</td>
-              <td style="font-weight: bold">A</td>
-              <td style="font-weight: bold; cursor: pointer">
-                <i class="fa-solid fa-check fa-2x"></i>
-              </td>
-              <td style="font-weight: bold; cursor: pointer">
-                <i class="fa-solid fa-bars fa-2x"></i>
-              </td>
-            </tr>
-            <tr>
-              <td style="font-weight: bold">2</td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-            </tr>
-            <tr>
-              <td style="font-weight: bold">3</td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-            </tr>
-            <tr>
-              <td style="font-weight: bold">4</td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-            </tr>
-            <tr>
-              <td style="font-weight: bold">5</td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-            </tr>
-            <tr>
-              <td style="font-weight: bold">6</td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-              <td style="font-weight: bold"></td>
-            </tr>
-          </tbody>
-          <div>
             <tfoot>
-              <tr>
+            <tr>
                 <td colspan="4" style="font-weight: bold; font-size: 20px">
-                  Total
+                    Total
                 </td>
                 <td style="font-weight: bold">8.5</td>
                 <td style="font-weight: bold">8.5</td>
                 <td style="font-weight: bold"></td>
                 <td style="font-weight: bold"></td>
                 <td style="font-weight: bold"></td>
-              </tr>
+            </tr>
             </tfoot>
-          </div>
-        </table>
-      </div>
-    </div>
-  </body>
+        </div>
+    </table>
+    <table>
+        <div
+                style="
+              background-color: white;
+              width: fit-content;
+              border: 1px black solid;
+              border-radius: 10px;
+            "
+        >
+            <p style="padding: 5px 10px 5px; font-weight: bold">
+                Semester 2, 2023-2024
+            </p>
+        </div>
+        <thead>
+        <tr>
+            <th style="width: 1%; height: 20px">ID</th>
+            <th style="width: 10%; height: 20px">Course ID</th>
+            <th style="width: 15%; height: 20px">Course Name</th>
+            <th style="width: 3%; height: 20px">Credit</th>
+            <th style="width: 3%; height: 20px">Grade (10)</th>
+            <th style="width: 3%; height: 20px">Grade (4)</th>
+            <th style="width: 4%; height: 20px">Grade</th>
+            <th style="width: 3%; height: 20px">Pass</th>
+            <th style="width: 5%; height: 20px">Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="font-weight: bold">1</td>
+            <td style="font-weight: bold">61FITSE2</td>
+            <td style="font-weight: bold">Software Engineer 2</td>
+            <td style="font-weight: bold">3</td>
+            <td style="font-weight: bold">8.5</td>
+            <td style="font-weight: bold">3.5</td>
+            <td style="font-weight: bold">A</td>
+            <td style="font-weight: bold; cursor: pointer">
+                <i class="fa-solid fa-check fa-2x"></i>
+            </td>
+            <td style="font-weight: bold; cursor: pointer">
+                <i class="fa-solid fa-bars fa-2x"></i>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">2</td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">3</td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">4</td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">5</td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">6</td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+            <td style="font-weight: bold"></td>
+        </tr>
+        </tbody>
+        <div>
+            <tfoot>
+            <tr>
+                <td colspan="4" style="font-weight: bold; font-size: 20px">
+                    Total
+                </td>
+                <td style="font-weight: bold">8.5</td>
+                <td style="font-weight: bold">8.5</td>
+                <td style="font-weight: bold"></td>
+                <td style="font-weight: bold"></td>
+                <td style="font-weight: bold"></td>
+            </tr>
+            </tfoot>
+        </div>
+    </table>
+</div>
+</body>
 </html>

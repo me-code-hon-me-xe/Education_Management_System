@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout_student}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +20,7 @@
     <title>View Tuition</title>
   </head>
 
-  <body class="View_Tuition_Student">
+  <body>
     <div layout:fragment="content" class="container">
       <h1>View Tuition</h1>
       <div class="FilterContain">
