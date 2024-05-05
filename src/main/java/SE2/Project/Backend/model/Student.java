@@ -1,6 +1,7 @@
 package SE2.Project.Backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +15,6 @@ public class Student {
     // Backgound Information
     @Id
     @Column(name = "student_code")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer studentCode;
 
     @Column(name = "class_belong", nullable = false)
@@ -23,6 +23,7 @@ public class Student {
     @Column(name = "training_system")
     private String trainingSystem; // Bachelor, Master, Part-Time
 
+    @Valid
     @OneToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
