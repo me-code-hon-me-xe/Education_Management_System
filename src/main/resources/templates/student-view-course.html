@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{_layout}"
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +11,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <link rel="stylesheet" href="../css/student-view-course-style.css" />
+    <link rel="stylesheet" href="../css/header-style.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Inter"
       rel="stylesheet"
@@ -14,66 +21,7 @@
 
     <title>View Course</title>
   </head>
-  <style>
-    .View_Course_Student {
-      background-color: #f9f4ee;
-      display: flex;
-      justify-content: center;
-      font-family: "Inter";
-      align-items: center;
-    }
-    h1 {
-      color: black;
-      margin-left: 380px;
-      font-size: 40px;
-    }
-    .FilterContain {
-      padding: 10px;
-      padding-bottom: 20px;
-      justify-content: space-between;
-      align-items: center;
-      margin-left: 350px;
-    }
-    #CourseFilter {
-      height: 40px;
-      width: 300px;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 16px;
-    }
 
-    table {
-      margin-top: 20px;
-      border-collapse: collapse;
-      width: 100%;
-      border: 1px solid #ddd;
-    }
-
-    th,
-    td {
-      border: 1px solid black;
-      text-align: center;
-      width: 10px;
-    }
-
-    th {
-      background-color: #9a2229;
-      color: white;
-      text-align: center;
-      padding: 10px 20px 10px;
-    }
-    /*Chỉnh size của cells ở đây*/
-    td {
-      padding: 10px 10px 10px;
-      width: 180px;
-      height: 30px;
-      background-color: #f6ecec;
-    }
-    #row_2 {
-      background-color: #C18B8E
-    }
-  </style>
   <body class="View_Course_Student">
     <div layout:fragment="content" class="container">
       <h1>View Course</h1>
@@ -100,9 +48,10 @@
         <tbody>
           <tr>
             <td id="row_2">
-              <span style="color: black;">
-              <i class="fa-solid fa-magnifying-glass fa-2x"></i></td>
+              <span style="color: black">
+                <i class="fa-solid fa-magnifying-glass fa-2x"></i>
               </span>
+            </td>
             <td id="row_2" style="font-size: 30px">...</td>
             <td id="row_2" style="font-size: 30px">...</td>
             <td id="row_2" style="font-size: 30px">...</td>

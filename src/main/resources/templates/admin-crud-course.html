@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html
-        lang="en"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{_layout}"
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{_layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -15,12 +15,16 @@
       href="https://fonts.googleapis.com/css?family=Inter"
       rel="stylesheet"
     />
-
+    <link rel="stylesheet" href="../css/admin-crud-course-style.css" />
+    <link rel="stylesheet" href="../css/header-style.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <script
+      type="text/javascript"
+      th:src="@{/js/admin-crud-add-course-js.js}"
+    ></script>
     <title>View Mark</title>
   </head>
-  <style rel="stylesheet" href="css/crud-course-admin-style.css">
 
-  </style>
   <body class="crud-course-admin">
     <div layout:fragment="content" class="container">
       <h1>Course Information</h1>
@@ -28,6 +32,46 @@
         <button id="button-1">Add Course</button>
         <button id="button-2">Delete Selected</button>
       </div>
+
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p id="add-a-course">ADD A COURSE</p>
+
+          <table class="grade-table">
+            <tr>
+              <th>Major:</th>
+              <td>
+                <select id="major-option">
+                  <option value="0">FIT</option>
+                  <option value="1">FMT</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>Course's name</th>
+              <td>
+                <label>
+                  <input type="text" />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th>Course's ID</th>
+              <td>
+                <label>
+                  <input type="text" />
+                </label>
+              </td>
+            </tr>
+          </table>
+          <div class="grade-options-container">
+            <button>Confirm</button>
+            <button>Reset</button>
+          </div>
+        </div>
+      </div>
+
       <table>
         <thead>
           <tr>
