@@ -40,7 +40,7 @@ body {
 
 .profile-ID {
     flex: 1;
-    padding-left:25%;
+    padding-left:10%;
 }
 
 .profile-ID h1 {
@@ -58,8 +58,10 @@ body {
 
 .info-group {
     margin-bottom: 20px;
-    width:400px;
-    max-width:400px;
+    width:300px;
+    flex-direction: column;
+    display: flex;
+    gap: 10px
 
 }
 
@@ -71,6 +73,7 @@ body {
     white-space: nowrap; /* Prevent the text from wrapping onto multiple lines */
     margin-right: 10px; /* Add some space between the label and the input */
     text-align: left;
+    font-size: 20px;
 
 }
 
@@ -78,13 +81,15 @@ input[type="text"],
 input[type="date"],
 input[type="tel"],
 input[type="email"],
-input[type="number"] {
+input[type="number"],
+select{
     flex: 1;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #000;
-    width:400px;
-
+    width: 100%;
+    font-size: 18px;
+    box-sizing: border-box;
 }
 
 input[type="text"]:focus,
@@ -97,13 +102,15 @@ input[type="number"]:focus {
 }
 .profile-des {
     display: flex;
-    justify-content: center;
+    padding-bottom: 30px;
+    justify-content: space-evenly;
 
 }
 .profile-des-1, .profile-des-2{
     max-width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .container{
     justify-content: center;
@@ -111,3 +118,25 @@ input[type="number"]:focus {
     display: flex;
     flex-direction: column;
 }
+
+.read-only {
+    input {
+        background-color: lightgrey;
+    }
+}
+button {
+    padding: 5px 20px 5px;
+    font-size: 20px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background-color: #fa9f42;
+    font-weight: 600;
+    width: 200px;
+    cursor: pointer;
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+}
+

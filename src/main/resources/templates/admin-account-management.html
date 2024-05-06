@@ -3,7 +3,7 @@
         lang="en"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{_layout_admin}" >
+        layout:decorate="~{_layout_admin}">
 <head>
     <meta charset="UTF-8"/>
     <title>Account Management</title>
@@ -11,9 +11,9 @@
             href="https://fonts.googleapis.com/css?family=Inter"
             rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/admin-account-management-style.css"/>
-    <link rel="stylesheet" href="../css/header-style.css"/>
-    <link rel="stylesheet" href="../css/sidebar.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/admin-account-management-style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/header-style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css"/>
     <script
             type="text/javascript"
             th:src="@{/js/admin-account-management-js.js}"
@@ -26,12 +26,12 @@
     <div class="controller">
         <div class="options-container">
             <div id="first-col">
-            <button id="add-admin-button">Add Admin</button>
-            <button id="add-student-button">Add Student</button>
+                <button id="add-admin-button">Add Admin</button>
+                <button id="add-student-button">Add Student</button>
             </div>
             <div id="second-col">
-            <button id="add-teacher-button">Add Teacher</button>
-            <button id="add-accountant-button">Add Accountant</button>
+                <button id="add-teacher-button">Add Teacher</button>
+                <button id="add-accountant-button">Add Accountant</button>
             </div>
             <button>Delete Selected</button>
         </div>
@@ -45,64 +45,22 @@
                 method="post"
         >
             <div class="modal-content">
-                <span id="close-add" class="close">&times;</span>
-                <h1>ADD AN ADMIN</h1>
+                <h1>ADD ADMIN</h1>
                 <div class="table-container">
                     <table class="info-table">
                         <tr>
-                            <th>Role:</th>
-                            <td>
-                                    <select th:field="*{user.role}" name="role">
-                                        <option value="Student">Student</option>
-                                        <option value="Teacher">Teacher</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="Accountant">Accountant</option>
-                                    </select>
-                                <!--                                <div th:if="${#fields.hasErrors('user.gender')}"-->
-                                <!--                                     th:errors="*{user.gender}"-->
-                                <!--                                ></div>-->
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>User Name:</th>
+                            <th>Username:</th>
                             <td>
                                 <div>
-                                    <label>Username:</label>
-                                    <input type="text" th:field="*{user.username}" name="username" />
-                                <!--                                <div th:if="${#fields.hasErrors('user.username')}"-->
-                                <!--                                     th:errors="*{user.username}"-->
-                                <!--                                ></div>-->
+                                    <input type="text" th:field="*{user.username}" name="username"/>
+                                    <!--                                <div th:if="${#fields.hasErrors('user.username')}"-->
+                                    <!--                                     th:errors="*{user.username}"-->
+                                    <!--                                ></div>-->
                                 </div>
                             </td>
                         </tr>
-
                         <tr>
-                            <th>User Address:</th>
-                            <td>
-                                <label>
-                                    <input type="text" th:field="*{user.address}" name="address"/>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>User Email:</th>
-                            <td>
-                                <label>
-                                    <input type="text" th:field="*{user.email}" name="email"/>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>User Dob:</th>
-                            <td>
-                                <label>
-                                    <input type="text" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>User Pass:</th>
+                            <th>Password:</th>
                             <td>
                                 <label>
                                     <input type="text" th:field="*{user.password}" name="password"/>
@@ -110,15 +68,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>User Phone Num:</th>
-                            <td>
-                                <label>
-                                    <input type="text" th:field="*{user.phoneNumber}" name="phoneNumber"/>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>User Full Name:</th>
+                            <th>Full Name:</th>
                             <td>
                                 <label>
                                     <input type="text" th:field="*{user.userFullname}" name="userFullname"/>
@@ -126,7 +76,41 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>User Gender:</th>
+                            <th>Address:</th>
+                            <td>
+                                <label>
+                                    <input type="text" th:field="*{user.address}" name="address"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>
+                                <label>
+                                    <input type="text" th:field="*{user.email}" name="email"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Date of Birth:</th>
+                            <td>
+                                <label>
+                                    <input type="text" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
+                                </label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Phone Number:</th>
+                            <td>
+                                <label>
+                                    <input type="text" th:field="*{user.phoneNumber}" name="phoneNumber"/>
+                                </label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Gender:</th>
                             <td>
                                 <label>
                                     <select th:field="*{user.gender}" name="gender">
@@ -134,21 +118,6 @@
                                         <option value="Female">Female</option>
                                         <option value="Other">Other</option>
                                     </select>
-
-                                    <!--                                    <select-->
-                                    <!--                                            name="roles"-->
-                                    <!--                                            class="roles"-->
-                                    <!--                                            field="*{user.role}"-->
-                                    <!--                                    >-->
-                                    <!--                                        <option value="Student">Student</option>-->
-                                    <!--                                        <option value="Teacher">Teacher</option>-->
-                                    <!--                                        <option value="Admin">Admin</option>-->
-                                    <!--                                        <option value="Accountant">Admin</option>-->
-                                    <!--                                    </select>-->
-                                    <!--                      <div-->
-                                    <!--                        th:if="${#fields.hasErrors('user.role')}"-->
-                                    <!--                        th:errors="*{user.role}"-->
-                                    <!--                      />-->
                                 </label>
                             </td>
                         </tr>
@@ -156,63 +125,13 @@
                 </div>
                 <div class="grade-options-container">
                     <button type="submit" class="confirm-field">Confirm</button>
-                    <button id="cancel-add" class="close-field">Cancel</button>
+                    <button type="reset" id="cancel-add-admin" class="close-field">Cancel</button>
                 </div>
             </div>
         </form>
     </div>
 
-    <div id="edit-modal" class="modal">
-        <form
-                th:action="@{/admin/saveAdmin}"
-                method="post"
-                th:object="${admin}"
-        >
-            <div class="modal-content">
-                <span id="close-edit" class="close">&times;</span>
-                <h1>EDIT AN ACCOUNT</h1>
-                <div class="table-container">
-                    <table class="info-table">
-                        <tr>
-                            <th>User Name:</th>
-                            <td>
-                                <label
-                                ><input type="text" field="*{user.username}"/>
-                                    <!--                      <div-->
-                                    <!--                        th:if="${#fields.hasErrors('user.username')}"-->
-                                    <!--                        th:errors="*{user.username}"-->
-                                    <!--                      />-->
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>User Role:</th>
-                            <td>
-                                <label>
-                                    <select field="${user.role}">
-                                        <option value="Student">Student</option>
-                                        <option value="Teacher">Teacher</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="Accountant">Accountant</option>
-                                    </select>
-                                    <!--                      <div-->
-                                    <!--                        th:if="${#fields.hasErrors('user.role')}"-->
-                                    <!--                        class="error"-->
-                                    <!--                        th:errors="*{user.role}"-->
-                                    <!--                      />-->
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="grade-options-container">
-                    <button type="submit" class="confirm-field">Confirm</button>
-                    <button id="cancel-edit" class="close-field">Cancel</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
+    <!--Admin accounts table-->
 
     <table class="content-table">
         <thead>
@@ -240,7 +159,7 @@
             <th>...</th>
             <th class="utility-column">
                 <div class="logo-table-container">
-                    <input type="image" class="logo-table"  alt="edit" th:src="@{../images/edit.png}" id="edit-button" />
+                    <input type="image" class="logo-table" alt="edit" th:src="@{../images/edit.png}" id="edit-button"/>
                 </div>
             </th>
             <th></th>
@@ -254,24 +173,29 @@
                     <input type="checkbox" class="checkbox"/>
                 </label>
             </td>
-            <td>
-                <a th:href="'/admin/adminDetail/' + ${admin.adminCode}" th:text="${admin.adminCode}"/>
+            <td th:text="${admin.adminCode}">
             </td>
-            <td th:text="${user.userFullname}"></td>
-            <td th:text="${user.role}"></td>
+            <td th:text="${admin.user.userFullname}"></td>
+            <td th:text="${admin.user.role}"></td>
             <td class="utility-column">
-                <div class="logo-table-container" >
-                    <input type="image" class="logo-table"  alt="edit" th:src="@{../images/edit.png}" />
+                <div class="logo-table-container">
+                    <a th:href="'/admin/updateAdmin/' + ${admin.adminCode}">
+                        <input type="image" class="logo-table" alt="edit" th:src="@{../images/edit.png}"/>
+                    </a>
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <input type="image" class="logo-table" th:src="@{../images/menu.png}" alt="menu"/>
+                    <a th:href="'/admin/adminDetail/' + ${admin.adminCode}">
+                        <input type="image" class="logo-table" th:src="@{../images/menu.png}" alt="menu"/>
+                    </a>
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <input type="image" class="logo-table" th:src="@{../images/delete.png}" alt="delete"/>
+                    <a th:href="'/admin/deleteAdmin/' + ${admin.adminCode}">
+                        <input type="image" class="logo-table" th:src="@{../images/delete.png}" alt="delete"/>
+                    </a>
                 </div>
             </td>
         </tr>

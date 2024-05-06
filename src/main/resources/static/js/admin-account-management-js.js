@@ -5,15 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // Get the button that opens the editModal
     var editBtn = document.getElementById("edit-button");
     var addBtn = document.getElementById("add-admin-button");
-    if (editBtn !== null) {
-        // Element with the specified ID was found
-        console.log("Element found:", editBtn);
-    } else {
-        // Element with the specified ID was not found
-        console.log("Element not found");
-    }
-    var editSpan = document.getElementById("close-edit");
-    var addSpan = document.getElementById("close-add");
+    var addAdminCancel = document.getElementById("cancel-add-admin")
+
 
 
 // When the user clicks the button, open the editModal
@@ -27,12 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 // When the user clicks on <editSpan> (x), close the editModal
-    editSpan.onclick = function () {
-        editModal.style.display = "none";
-    }
-
-    addSpan.onclick = function () {
-        addAdminModal.style.display = "none";
+    addAdminCancel.onclick = function() {
+        addAdminModal.style.display = "none"
     }
 
 

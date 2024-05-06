@@ -44,6 +44,22 @@ public class AdminController {
     public Admin admin() {
         return new Admin();
     }
+
+    @ModelAttribute("student")
+    public Student student() {
+        return new Student();
+    }
+
+    @ModelAttribute("teacher")
+    public Teacher teacher() {
+        return new Teacher();
+    }
+
+    @ModelAttribute("accountant")
+    public Accountant accountant() {
+        return new Accountant();
+    }
+
     // CRUD admin
     @GetMapping("/addUser")
     public String addUser(Model model){
@@ -64,6 +80,7 @@ public class AdminController {
             return "admin-account-management";
         }
         User user = admin.getUser();
+        user.setRole("Admin");
         admin.setUser(user);
         userRepository.save(user);
         adminRepository.save(admin);
@@ -100,20 +117,20 @@ public class AdminController {
     public String showAdminDetail(@PathVariable Integer adminCode, Model model){
         Admin admin = adminRepository.findByAdminCode(adminCode);
         model.addAttribute("admin", admin);
-        return "adminDetail";
+        return "admin-profile";
     }
 
     @GetMapping(value = "/updateAdmin/{adminCode}")
     public String updateAdmin(@PathVariable Integer adminCode, Model model){
         Admin admin = adminRepository.findByAdminCode(adminCode);
         model.addAttribute("admin", admin);
-        return "adminUpdate";
+        return "admin-profile-edit";
     }
 
     @PostMapping(value = "/saveAdmin")
     public String saveAdmin(@Valid Admin admin, BindingResult result){
         if(result.hasErrors()){
-            return "adminUpdate";
+            return "admin-profile-edit";
         }
         User user = admin.getUser();
         userRepository.save(user);
