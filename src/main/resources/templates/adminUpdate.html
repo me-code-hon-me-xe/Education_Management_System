@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Update Admin</title>
+  <link rel="stylesheet" href="/css/teacherUpdate.css">
+</head>
+
+<body>
+<div layout:fragment="content" class="form-container">
+
+  <form th:action="@{/admin/saveAdmin}" method="post" th:object="${admin}">
+    <input type="hidden" th:field="*{adminCode}">
+    <div class="control-group">
+      <label>User ID:</label>
+      <input type="text" th:field="${admin.user.userID}" readonly/>
+      <div th:if="${#fields.hasErrors('user.userID')}" class="error" th:errors="*{user.userID}" />
+    </div>
+    <div class="control-group">
+      <label>Admin Code:</label>
+       <input type="text" th:field="${admin.adminCode}" readonly/>
+      <div th:if="${#fields.hasErrors('adminCode')}" class="error" th:errors="*{admin.adminCode}" />
+    </div>
+    <div class="control-group">
+      <label>Username:</label>
+      <input type="text" th:field="${admin.user.username}" readonly/>
+      <div th:if="${#fields.hasErrors('user.username')}" class="error" th:errors="*{user.username}" />
+    </div>
+    <div class="control-group">
+      <label>Password:</label>
+      <input type="text" th:field="${admin.user.password}" />
+      <div th:if="${#fields.hasErrors('user.password')}" class="error" th:errors="${user.password}" />
+    </div>
+    <div class="control-group">
+      <label>User Fullname:</label>
+      <input type="text" th:field="${admin.user.userFullname}" />
+      <div th:if="${#fields.hasErrors('user.userFullname')}" class="error" th:errors="${user.userFullname}" />
+    </div>
+    <div class="control-group">
+      <label>Gender:</label>
+      <select th:field="${admin.user.gender}">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <div th:if="${#fields.hasErrors('user.gender')}" class="error" th:errors="*{user.gender}" />
+    </div>
+    <div class="control-group">
+      <label>Date of Birth:</label>
+      <input type="date" th:field="${admin.user.dateOfBirth}" />
+      <div th:if="${#fields.hasErrors('user.dateOfBirth')}" class="error" th:errors="*{user.dateOfBirth}" />
+    </div>
+    <div class="control-group">
+      <label>Email:</label>
+      <input type="email" th:field="${admin.user.email}" />
+      <div th:if="${#fields.hasErrors('user.email')}" class="error" th:errors="*{user.email}" />
+    </div>
+    <div class="control-group">
+      <label>Phone Number:</label>
+      <input type="text" th:field="${admin.user.phoneNumber}" />
+      <div th:if="${#fields.hasErrors('user.phoneNumber')}" class="error" th:errors="*{user.phoneNumber}" />
+    </div>
+    <div class="control-group">
+      <label>Role:</label>
+      <select th:field="${admin.user.role}">
+        <option value="Student">Student</option>
+        <option value="Teacher">Teacher</option>
+        <option value="Admin">Admin</option>
+        <option value="Accountant">Accountant</option>
+      </select>
+      <div th:if="${#fields.hasErrors('user.role')}" class="error" th:errors="*{user.role}" />
+    </div>
+    <div class="control-group">
+      <label>Address:</label>
+      <input type="text" th:field="${admin.user.address}" />
+      <div th:if="${#fields.hasErrors('user.address')}" class="error" th:errors="*{user.address}" />
+    </div>
+    <button type="submit">Update</button>
+  </form>
+</div>
+</body>
+</html>

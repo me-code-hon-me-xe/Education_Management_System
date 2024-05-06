@@ -9,4 +9,3 @@ import org.springframework.stereotype.Repository;
 public interface AccountantRepository extends JpaRepository<Accountant, Long> {
     Accountant findByAccountantCode(Integer accountantCode);
 }
-

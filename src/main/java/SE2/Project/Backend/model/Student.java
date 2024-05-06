@@ -64,6 +64,4 @@ public class Student {
         this.user = user;
     }
 
-
 }
-

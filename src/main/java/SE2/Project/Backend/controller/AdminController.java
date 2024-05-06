@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.expression.Strings;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 
 @Controller
@@ -33,40 +35,74 @@ public class AdminController {
     private AccountantRepository accountantRepository;
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private MajorRepository majorRepository;
 
     // CRUD admin
-    @GetMapping("/addAdmin")
+    @GetMapping("/addUser")
     public String addAdmin(Model model){
-        model.addAttribute("admin", new Admin());
-        return "adminAdd";
+        model.addAttribute("user", new User());
+        return "admin-account-management";
     }
 
-    @RequestMapping(value = "/insertAdmin")
-    public String insertAdmin(@Valid Admin admin, BindingResult result, Model model) {
+    @RequestMapping(value = "/insertUser")
+    public String insertAdmin(@Valid User user, BindingResult result, Model model) {
 
         if(result.hasErrors()){
-            return "adminAdd";
-        } else if (isDuplicateEntry(admin.getUser().getUsername())) {
-            result.rejectValue("user.username", "duplicate.key", "Username already exists");
-            return "adminAdd";
+            return "admin-account-management";
         }
-        User user = admin.getUser();
-        admin.setUser(user);
+        String role=user.getRole();
         userRepository.save(user);
-        adminRepository.save(admin);
-
+        if(Objects.equals(role, "student")){
+            Student student=new Student();
+            student.setUser(user);
+            studentRepository.save(student);
+        }
+        else if(Objects.equals(role, "Teacher")){
+            Teacher teacher=new Teacher();
+            teacher.setUser(user);
+            teacherRepository.save(teacher);
+        }
+        else if(Objects.equals(role, "Accountant")){
+            Accountant accountant=new Accountant();
+            accountant.setUser(user);
+            accountantRepository.save(accountant);
+        }
+        else if(Objects.equals(role, "Admin")){
+            Admin admin=new Admin();
+            admin.setUser(user);
+            adminRepository.save(admin);
+        }
+        System.out.println("Success");
         return "redirect:/admin/listAdmin";
     }
 
+//    @RequestMapping(value = "/insertAdmin")
+//    public String insertAdmin(@Valid Admin admin, BindingResult result, Model model) {
+//
+//        if(result.hasErrors()){
+//            return "adminAdd";
+//        } else if (isDuplicateEntry(admin.getUser().getUsername())) {
+//            result.rejectValue("user.username", "duplicate.key", "Username already exists");
+//            return "adminAdd";
+//        }
+//        User user = admin.getUser();
+//        admin.setUser(user);
+//        userRepository.save(user);
+//        adminRepository.save(admin);
+//
+//        return "redirect:/admin/listAdmin";
+//    }
+
     @GetMapping(value = "/listAdmin")
     public String showAllAdmin(Model model, @RequestParam(name = "adminCode", required = false) Integer adminCode,
-                                  @RequestParam(name = "showAll", required = false) String showAll){
+                               @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Admin> admins;
         Admin admin;
         if (showAll != null) {
             admins = adminRepository.findAll();
             model.addAttribute("admins", admins);
-            return "adminList";
+            return "admin-account-management";
         }
         if(adminCode != null){
             admin = adminRepository.findByAdminCode(adminCode);
@@ -80,7 +116,7 @@ public class AdminController {
             model.addAttribute("admins", admins);
         }
 
-        return "adminList";
+        return "admin-account-management";
     }
 
     @GetMapping(value = "/adminDetail/{adminCode}")
@@ -264,7 +300,6 @@ public class AdminController {
     }
 
     private boolean isDuplicateEntry(String username) {
-        System.out.println(userRepository.existsByUsername(username));
         return userRepository.existsByUsername(username);
     }
 
@@ -366,7 +401,7 @@ public class AdminController {
     }
     @GetMapping(value = "/listAccountant")
     public String showAllAccountant(Model model, @RequestParam(name = "accountantCode", required = false) Integer accountantCode,
-                                  @RequestParam(name = "showAll", required = false) String showAll){
+                                    @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Accountant> accountants;
         Accountant accountant;
         if (showAll != null) {
@@ -422,6 +457,91 @@ public class AdminController {
     }
 
 
+
+
+
+
+
+
+
+
+
+    // CRUD major
+    @GetMapping("/addMajor")
+    public String addMajor(Model model) {
+        model.addAttribute("major", new Major());
+
+        return "majorAdd";
+    }
+    @RequestMapping(value = "/insertMajor")
+    public String insertMajor(@Valid Major major, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "majorAdd";
+        }else if (isDuplicateMajorName(major.getMajorName())) {
+            result.rejectValue("majorName", "duplicate.key", "Major Name already exists");
+            return "majorAdd";
+        }
+        System.out.println(major.getMajorName());
+        majorRepository.save(major);
+
+        return "redirect:/admin/listMajor";
+    }
+
+    private boolean isDuplicateMajorName(String majorName) {
+        return majorRepository.existsByMajorName(majorName);
+    }
+
+    @GetMapping(value = "/listMajor")
+    public String showAllMajor(Model model, @RequestParam(name = "majorId", required = false) Long majorId,
+                               @RequestParam(name = "showAll", required = false) String showAll){
+        Iterable<Major> majors;
+        Major major;
+        if (showAll != null) {
+            majors = majorRepository.findAll();
+            model.addAttribute("majors", majors);
+            return "majorList";
+        }
+        if(majorId != null){
+            major = majorRepository.findByMajorId(majorId);
+            if(major != null){
+                model.addAttribute("majors", major);
+            } else {
+                model.addAttribute("notFoundMessage", "No teacher found with the provided teacher id");
+            }
+        } else {
+            majors = majorRepository.findAll();
+            model.addAttribute("majors", majors);
+        }
+
+        return "majorList";
+    }
+    @GetMapping("/majorDetail/{majorId}")
+    public String showMajorDetail(@PathVariable Long majorId, Model model){
+        Major major = majorRepository.findByMajorId(majorId);
+        model.addAttribute("major", major);
+        return "majorDetail";
+    }
+    @GetMapping(value = "/updateMajor/{majorId}")
+    public String updateMajor(@PathVariable Long majorId, Model model){
+        Major major = majorRepository.findByMajorId(majorId);
+        model.addAttribute("major", major);
+        return "majorUpdate";
+    }
+
+    @PostMapping(value = "/saveMajor")
+    public String saveMajor(@Valid Major major, BindingResult result){
+        if(result.hasErrors()){
+            return "majorUpdate";
+        }
+        majorRepository.save(major);
+        return "redirect:/admin/listMajor";
+    }
+    @RequestMapping(value = "/deleteMajor/{majorId}")
+    public String deleteMajor(@PathVariable Long majorId){
+        Major major = majorRepository.findByMajorId(majorId);
+        majorRepository.delete(major);
+        return "redirect:/admin/listMajor";
+    }
 
 
 

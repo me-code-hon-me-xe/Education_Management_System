@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT u.userID AS id, u.userFullname AS username FROM User u WHERE u.role = 'teacher'")
     List<Map<String, Object>> findAllTeacherUsernames();
+
     Teacher findByTeacherCode(Integer teacherCode);
 }

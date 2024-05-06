@@ -16,10 +16,8 @@ public class Course {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-
     @Column(name = "course_name")
     private String courseName;
-
 
     public Long getCourseId() {
         return courseId;

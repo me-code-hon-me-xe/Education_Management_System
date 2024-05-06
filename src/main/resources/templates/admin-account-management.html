@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{_layout_admin}">
+<html
+        lang="en"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{_layout_admin}" xmlns:th="http://www.thymeleaf.org">
+>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Account Management</title>
-    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-    <link rel="stylesheet" href="../css/admin-account-management-style.css">
-    <link rel="stylesheet" href="../css/header-style.css">
-    <link rel="stylesheet" href="../css/sidebar.css">
-    <script type="text/javascript" th:src="@{/js/admin-account-management-js.js}"></script>
+    <link
+            href="https://fonts.googleapis.com/css?family=Inter"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/admin-account-management-style.css"/>
+    <link rel="stylesheet" href="../css/header-style.css"/>
+    <link rel="stylesheet" href="../css/sidebar.css"/>
+    <script
+            type="text/javascript"
+            th:src="@{/js/admin-account-management-js.js}"
+    ></script>
 </head>
+
 <body>
 <div layout:fragment="content" class="container">
     <h1>Account Information</h1>
@@ -21,90 +30,178 @@
         </div>
     </div>
 
-    <div id="add-modal" class="modal" >
-        <div class="modal-content">
-            <span id="close-add" class="close">&times;</span>
-            <h1>ADD AN ACCOUNT</h1>
-            <div class="table-container">
-                <table class="info-table">
-                    <tr>
-                        <th>User ID:</th>
-                        <td>
-                            <label>
-                                <input type="number">
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>User Name:</th>
-                        <td>
-                            <label>
-                                <input type="text">
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>User Role:</th>
-                        <td>
-                            <label>
-                                <select name="roles" class="roles">
-                                    <option value="student">Student</option>
-                                    <option value="teacher">Teacher</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </label>
-                        </td>
-                    </tr>
-                </table>
+    <div id="add-modal" class="modal">
+        <form
+                th:action="@{/admin/insertUser}"
+                th:object="${user}"
+                method="post"
+        >
+            <div class="modal-content">
+                <span id="close-add" class="close">&times;</span>
+                <h1>ADD AN ACCOUNT</h1>
+                <div class="table-container">
+                    <table class="info-table">
+                        <tr>
+                            <th>User Name:</th>
+                            <td>
+                                <label>
+                                    <input type="text" field="*{user.username}" name="username"/>
+                                </label>
+                                <!--                                <div th:if="${#fields.hasErrors('user.username')}"-->
+                                <!--                                     th:errors="*{user.username}"-->
+                                <!--                                ></div>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Role:</th>
+                            <td>
+                                <label>
+                                    <select field="*{user.role}" name="role">
+                                        <option value="Student">Student</option>
+                                        <option value="Teacher">Teacher</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Accountant">Accountant</option>
+                                    </select>
+                                </label>
+                                <!--                                <div th:if="${#fields.hasErrors('user.gender')}"-->
+                                <!--                                     th:errors="*{user.gender}"-->
+                                <!--                                ></div>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>User Address:</th>
+                            <td>
+                                <label>
+                                    <input type="text" field="*{user.address}" name="address"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>User Email:</th>
+                            <td>
+                                <label>
+                                    <input type="text" field="*{user.email}" name="email"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>User Dob:</th>
+                            <td>
+                                <label>
+                                    <input type="text" field="*{user.dateOfBirth}" name="dateOfBirth"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>User Pass:</th>
+                            <td>
+                                <label>
+                                    <input type="text" field="*{user.password}" name="password"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>User Phone Num:</th>
+                            <td>
+                                <label>
+                                    <input type="text" field="*{user.phoneNumber}" name="phoneNumber"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>User Full Name:</th>
+                            <td>
+                                <label>
+                                    <input type="text" field="*{user.userFullname}" name="userFullname"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>User Gender:</th>
+                            <td>
+                                <label>
+                                    <select field="*{user.gender}" name="gender">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+
+                                    <!--                                    <select-->
+                                    <!--                                            name="roles"-->
+                                    <!--                                            class="roles"-->
+                                    <!--                                            field="*{user.role}"-->
+                                    <!--                                    >-->
+                                    <!--                                        <option value="Student">Student</option>-->
+                                    <!--                                        <option value="Teacher">Teacher</option>-->
+                                    <!--                                        <option value="Admin">Admin</option>-->
+                                    <!--                                        <option value="Accountant">Admin</option>-->
+                                    <!--                                    </select>-->
+                                    <!--                      <div-->
+                                    <!--                        th:if="${#fields.hasErrors('user.role')}"-->
+                                    <!--                        th:errors="*{user.role}"-->
+                                    <!--                      />-->
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="grade-options-container">
+                    <button type="submit" class="confirm-field">Confirm</button>
+                    <button id="cancel-add" class="close-field">Cancel</button>
+                </div>
             </div>
-            <div class="grade-options-container">
-                <button>Confirm</button>
-                <button>Cancel</button>
-            </div>
-        </div>
+        </form>
     </div>
 
-    <div id="edit-modal" class="modal" >
-        <div class="modal-content">
-            <span id="close-edit" class="close">&times;</span>
-            <h1>EDIT AN ACCOUNT</h1>
-            <div class="table-container">
-                <table class="info-table">
-                    <tr>
-                        <th>User ID:</th>
-                        <td>
-                            <label>
-                                <input type="number">
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>User Name:</th>
-                        <td>
-                            <label>
-                                <input type="text">
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>User Role:</th>
-                        <td>
-                            <label>
-                                <select name="roles" class="roles">
-                                    <option value="student">Student</option>
-                                    <option value="teacher">Teacher</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </label>
-                        </td>
-                    </tr>
-                </table>
+    <div id="edit-modal" class="modal">
+        <form
+                th:action="@{/admin/saveAdmin}"
+                method="post"
+                th:object="${admin}"
+        >
+            <div class="modal-content">
+                <span id="close-edit" class="close">&times;</span>
+                <h1>EDIT AN ACCOUNT</h1>
+                <div class="table-container">
+                    <table class="info-table">
+                        <tr>
+                            <th>User Name:</th>
+                            <td>
+                                <label
+                                ><input type="text" field="*{user.username}"/>
+                                    <!--                      <div-->
+                                    <!--                        th:if="${#fields.hasErrors('user.username')}"-->
+                                    <!--                        th:errors="*{user.username}"-->
+                                    <!--                      />-->
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>User Role:</th>
+                            <td>
+                                <label>
+                                    <select field="${admin.user.role}">
+                                        <option value="Student">Student</option>
+                                        <option value="Teacher">Teacher</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Accountant">Accountant</option>
+                                    </select>
+                                    <!--                      <div-->
+                                    <!--                        th:if="${#fields.hasErrors('user.role')}"-->
+                                    <!--                        class="error"-->
+                                    <!--                        th:errors="*{user.role}"-->
+                                    <!--                      />-->
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="grade-options-container">
+                    <button type="submit" class="confirm-field">Confirm</button>
+                    <button id="cancel-edit" class="close-field">Cancel</button>
+                </div>
             </div>
-            <div class="grade-options-container">
-                <button>Confirm</button>
-                <button>Cancel</button>
-            </div>
-        </div>
+        </form>
     </div>
 
 
@@ -115,14 +212,18 @@
             <th id="course-column">User ID</th>
             <th id="class-column">User Name</th>
             <th id="total-column">User Role</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th colspan="3" style="width: 10%; height: 20px">Option</th>
         </tr>
         <tr id="table-searcher">
             <th class="utility-column">
                 <div class="logo-table-container">
-                    <input id="modalOpener" type="image" class="logo-table" src="/images/search.png" alt="search"/>
+                    <input
+                            id="modalOpener"
+                            type="image"
+                            class="logo-table"
+                            src="/images/search.png"
+                            alt="search"
+                    />
                 </div>
             </th>
             <th>...</th>
@@ -134,33 +235,47 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr th:each="admin : ${admins}">
             <td class="checkbox-container">
                 <label>
-                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox"/>
                 </label>
             </td>
-            <td class="course">21010001</td>
-            <td>Nguyen Van A</td>
-            <td>Student</td>
+            <td>
+                <a th:href="'/admin/adminDetail/' + ${admin.adminCode}" th:text="${admin.adminCode}"/>
+            </td>
+            <td th:text="${admin.user.userFullname}"></td>
+            <td th:text="${admin.user.role}"></td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <input type="image" class="logo-table" id="logo-edit" src="/images/edit.png" alt="edit"/>
+                    <input type="image" class="logo-table" id="logo-edit" src="/static/images/edit.png" alt="edit"/>
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <input type="image" class="logo-table" src="/images/menu.png" alt="menu"/>
+                    <input type="image" class="logo-table" src="/static/images/menu.png" alt="menu"/>
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <input type="image" class="logo-table" src="/images/delete.png" alt="delete"/>
+                    <input type="image" class="logo-table" src="/static/images/delete.png" alt="delete"/>
                 </div>
             </td>
         </tr>
         </tbody>
+
     </table>
+    <div class="pagination">
+        <a href="#">&lt; </a>
+        <a href="#" class="current-page">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">&gt;</a>
+    </div>
 </div>
+
 </body>
 </html>

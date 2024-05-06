@@ -8,17 +8,16 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.tags.form.SelectTag;
 
 @Repository
-public interface StudentRepository extends JpaRepository <Student, Long>{
+public interface StudentRepository extends JpaRepository<Student, Long> {
     // We can customize @SQL statement to check the condition with database
     // This is JPA Query by Name Convention
-//    boolean existsByUsername(String username);
-//    boolean existsByEmail(String email);
-//    boolean existsByStudentCode(String studentCode);
+    // boolean existsByUsername(String username);
+    // boolean existsByEmail(String email);
+    // boolean existsByStudentCode(String studentCode);
 
     // Define a custom query method to find a Student by userID
     @Query("SELECT s FROM Student s WHERE s.user.userID = :userID")
     Student findByUserId(@Param("userID") Long userID);
-
 
     @Query("SELECT s FROM Student s WHERE s.studentCode = :studentCode")
     Student findByStudentCode(@Param("studentCode") Integer studentCode);

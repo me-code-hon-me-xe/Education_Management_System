@@ -1,6 +1,5 @@
 package SE2.Project.Backend.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
