@@ -1,6 +1,7 @@
 package SE2.Project.Backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "semester")
@@ -11,9 +12,15 @@ public class Semester {
     @Column(name = "semester_id")
     private Long semesterId;
 
-    @Column(name = "year")
-    private int year;
+    @Column(name = "start_year")
+    @NotNull
+    private int startYear;
 
+    @NotNull
+    @Column(name = "end_year")
+    private int endYear;
+
+    @NotNull
     @Column(name = "semester_num")
     private int semesterNum;
 
@@ -25,12 +32,20 @@ public class Semester {
         this.semesterId = semesterId;
     }
 
-    public int getYear() {
-        return year;
+    public int getStartYear() {
+        return startYear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setStartYear(int startYear) {
+        this.startYear = startYear;
+    }
+
+    public int getEndYear() {
+        return endYear;
+    }
+
+    public void setEndYear(int endYear) {
+        this.endYear = endYear;
     }
 
     public int getSemesterNum() {

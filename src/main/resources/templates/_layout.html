@@ -6,11 +6,37 @@
 
 </head>
 <body>
+<!--<div th:replace="~{top-header :: topHeader}"></div>-->
+<!--<div class="body-container">-->
+<!--<div th:replace="~{sidebar-teacher :: sidebar}"></div>-->
+<!--    <div class="main-content-container">-->
+<nav>
+    <a href="/admin/listStudent">Student List</a>
+    <a href="/admin/addStudent">Add Student</a>
 
-<div th:replace="~{top-header :: topHeader}"></div>
-<div class="body-container">
-<div th:replace="~{sidebar-teacher :: sidebar}"></div>
-    <div class="main-content-container">
+    <a href="/admin/listAdmin">Admin List</a>
+    <a href="/admin/addAdmin">Add Admin</a>
+
+    <a href="/admin/listTeacher">Teacher List</a>
+    <a href="/admin/addTeacher">Add Teacher</a>
+
+    <a href="/admin/listAccountant">Accountant List</a>
+    <a href="/admin/addAccountant">Add Accountant</a>
+
+    <a href="/admin/listSemester">Semester List</a>
+    <a href="/admin/addSemester">Add Semester</a>
+
+    <a href="/admin/listMajor">Major List</a>
+    <a href="/admin/addMajor">Add Major</a>
+
+    <a href="/admin/listCourse">Course List</a>
+    <a href="/admin/addCourse">Add Course</a>
+
+
+
+    <a href="/logout">Logout</a>
+
+</nav>
 <div layout:fragment="content">
     <!-- content page will override this -->
 </div>
