@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.expression.Strings;
 
 import java.util.List;
@@ -36,6 +37,8 @@ public class AdminController {
     private CourseRepository courseRepository;
     @Autowired
     private MajorRepository majorRepository;
+    @Autowired
+    private SemesterRepository semesterRepository;
 
     // CRUD admin
     @GetMapping("/addAdmin")
@@ -517,18 +520,165 @@ public class AdminController {
 
 
 
+
+    // CRUD semester
+    @GetMapping("/addSemester")
+    public String addSemester(Model model) {
+        model.addAttribute("semester", new Semester());
+
+        return "semesterAdd";
+    }
+    @RequestMapping(value = "/insertSemester")
+    public String insertSemester(@Valid Semester semester, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "semesterAdd";
+        }else if (isDuplicateSemester(semester.getStartYear(), semester.getEndYear(), semester.getSemesterNum())) {
+            result.rejectValue("startYear", "duplicate.key", "Semester already exists");
+            return "semesterAdd";
+        }
+        semesterRepository.save(semester);
+        return "redirect:/admin/listSemester";
+    }
+    private boolean isDuplicateSemester(Integer startYear, Integer endYear, Integer semesterNum) {
+        return semesterRepository.existsByStartYearAndEndYearAndSemesterNum(startYear, endYear, semesterNum);
+
+    }
+
+    @GetMapping(value = "/listSemester")
+    public String showAllSemester(Model model, @RequestParam(name = "semesterId", required = false) Long semesterId,
+                               @RequestParam(name = "showAll", required = false) String showAll){
+        Iterable<Semester> semesters;
+        Semester semester;
+        if (showAll != null) {
+            semesters = semesterRepository.findAll();
+            model.addAttribute("semesters", semesters);
+            return "semesterList";
+        }
+        if(semesterId != null){
+            semester = semesterRepository.findBySemesterId(semesterId);
+            if(semester != null){
+                model.addAttribute("semesters", semester);
+            } else {
+                model.addAttribute("notFoundMessage", "No teacher found with the provided teacher id");
+            }
+        } else {
+            semesters = semesterRepository.findAll();
+            model.addAttribute("semesters", semesters);
+        }
+
+        return "semesterList";
+    }
+
+    @GetMapping("/semesterDetail/{semesterId}")
+    public String showSemesterDetail(@PathVariable Long semesterId, Model model){
+        Semester semester = semesterRepository.findBySemesterId(semesterId);
+        model.addAttribute("semester", semester);
+        return "semesterDetail";
+    }
+    @GetMapping(value = "/updateSemester/{semesterId}")
+    public String updateSemester(@PathVariable Long semesterId, Model model){
+        Semester semester = semesterRepository.findBySemesterId(semesterId);
+        model.addAttribute("semester", semester);
+        return "semesterUpdate";
+    }
+
+    @PostMapping(value = "/saveSemester")
+    public String saveSemester(@Valid Semester semester, BindingResult result){
+        if(result.hasErrors()){
+            return "semesterUpdate";
+        }
+        semesterRepository.save(semester);
+        return "redirect:/admin/listSemester";
+    }
+    @RequestMapping(value = "/deleteSemester/{semesterId}")
+    public String deleteSemester(@PathVariable Long semesterId){
+        Semester semester = semesterRepository.findBySemesterId(semesterId);
+        semesterRepository.delete(semester);
+        return "redirect:/admin/listSemester";
+    }
+
+
+
+
     @GetMapping("/addCourse")
-    public String addCourse(Model model) {
+    public String addCourse(Model model, RedirectAttributes redirectAttributes) {
         model.addAttribute("course", new Course());
-        model.addAttribute("teacherUsernames", teacherRepository.findAllTeacherUsernames());
-        System.out.println(teacherRepository.findAllTeacherUsernames());
+        model.addAttribute("majors", majorRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
+        model.addAttribute("semesters", semesterRepository.findAll());
+        if (redirectAttributes.containsAttribute("errorMessage")) {
+            model.addAttribute("errorMessage", redirectAttributes.getAttribute("errorMessage"));
+        }
         return "courseAdd";
     }
 
     @RequestMapping(value = "/insertCourse")
-    public String insertCourse(@Valid Course course, BindingResult result, Model model) {
+    public String insertCourse(@Valid Course course, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        if(result.hasErrors()){
+            return "redirect:/admin/addCourse";
+        }else if (isDuplicateCourse(course.getCourseCode(), course.getCourseName())) {
+            System.out.println("yo");
+            redirectAttributes.addFlashAttribute("errorMessage", "Course already exists");
+
+            return "redirect:/admin/addCourse";
+        }
         courseRepository.save(course);
-        return "redirect:/admin/courseDetail/" + course.getCourseId();
+        return "redirect:/admin/listCourse";
+    }
+
+    private boolean isDuplicateCourse(String courseCode, String courseName) {
+        return courseRepository.existsByCourseCodeAndCourseName(courseCode, courseName);
+    }
+
+
+    @GetMapping(value = "/listCourse")
+    public String showAllCourse(Model model, @RequestParam(name = "courseId", required = false) Long courseId,
+                                  @RequestParam(name = "showAll", required = false) String showAll){
+        Iterable<Course> courses;
+        Course course;
+        if (showAll != null) {
+            courses = courseRepository.findAll();
+            model.addAttribute("courses", courses);
+            return "courseList";
+        }
+        if(courseId != null){
+            course = courseRepository.findByCourseId(courseId);
+            System.out.println("Iam");
+            if(course != null){
+                model.addAttribute("courses", course);
+            } else {
+                model.addAttribute("notFoundMessage", "No Course found with the provided course code");
+            }
+        } else {
+            courses = courseRepository.findAll();
+            model.addAttribute("courses", courses);
+        }
+        return "courseList";
+    }
+
+    @GetMapping(value = "/updateCourse/{courseId}")
+    public String updateCourse(@PathVariable Long courseId, Model model){
+        Course course = courseRepository.findByCourseId(courseId);
+        model.addAttribute("course", course);
+        model.addAttribute("majors", majorRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
+        model.addAttribute("semesters", semesterRepository.findAll());
+        return "courseUpdate";
+    }
+
+    @PostMapping(value = "/saveCourse")
+    public String saveCourse(@Valid Course course, BindingResult result){
+        if(result.hasErrors()){
+            return "courseUpdate";
+        }
+        courseRepository.save(course);
+        return "redirect:/admin/listCourse";
+    }
+    @RequestMapping(value = "/deleteCourse/{courseId}")
+    public String deleteCourse(@PathVariable Long courseId){
+        Course course = courseRepository.findByCourseId(courseId);
+        courseRepository.delete(course);
+        return "redirect:/admin/listCourse";
     }
 
 }

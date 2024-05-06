@@ -13,7 +13,7 @@ public class Major {
     @Column(name = "major_id")
     private Long majorId;
 
-    @Column(name = "major_name", length = 20, nullable = false)
+    @Column(name = "major_name", nullable = false)
     @NotEmpty(message = "Major Name cannot be empty")
     private String majorName;
 
