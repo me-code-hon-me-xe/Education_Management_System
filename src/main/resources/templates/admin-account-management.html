@@ -52,7 +52,7 @@
                         <tr>
                             <th>Role:</th>
                             <td>
-                                    <select field="*{user.role}" name="role">
+                                    <select th:field="*{user.role}" name="role">
                                         <option value="Student">Student</option>
                                         <option value="Teacher">Teacher</option>
                                         <option value="Admin">Admin</option>
@@ -81,7 +81,7 @@
                             <th>User Address:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.address}" name="address"/>
+                                    <input type="text" th:field="*{user.address}" name="address"/>
                                 </label>
                             </td>
                         </tr>
@@ -89,7 +89,7 @@
                             <th>User Email:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.email}" name="email"/>
+                                    <input type="text" th:field="*{user.email}" name="email"/>
                                 </label>
                             </td>
                         </tr>
@@ -97,7 +97,7 @@
                             <th>User Dob:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.dateOfBirth}" name="dateOfBirth"/>
+                                    <input type="text" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
                                 </label>
                             </td>
                         </tr>
@@ -105,7 +105,7 @@
                             <th>User Pass:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.password}" name="password"/>
+                                    <input type="text" th:field="*{user.password}" name="password"/>
                                 </label>
                             </td>
                         </tr>
@@ -113,7 +113,7 @@
                             <th>User Phone Num:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.phoneNumber}" name="phoneNumber"/>
+                                    <input type="text" th:field="*{user.phoneNumber}" name="phoneNumber"/>
                                 </label>
                             </td>
                         </tr>
@@ -121,7 +121,7 @@
                             <th>User Full Name:</th>
                             <td>
                                 <label>
-                                    <input type="text" field="*{user.userFullname}" name="userFullname"/>
+                                    <input type="text" th:field="*{user.userFullname}" name="userFullname"/>
                                 </label>
                             </td>
                         </tr>
@@ -129,7 +129,7 @@
                             <th>User Gender:</th>
                             <td>
                                 <label>
-                                    <select field="*{user.gender}" name="gender">
+                                    <select th:field="*{user.gender}" name="gender">
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                         <option value="Other">Other</option>

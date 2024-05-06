@@ -40,6 +40,10 @@ public class AdminController {
     @Autowired
     private SemesterRepository semesterRepository;
 
+    @ModelAttribute("admin")
+    public Admin admin() {
+        return new Admin();
+    }
     // CRUD admin
     @GetMapping("/addUser")
     public String addUser(Model model){
