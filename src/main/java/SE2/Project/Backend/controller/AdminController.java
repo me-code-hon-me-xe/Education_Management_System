@@ -41,9 +41,12 @@ public class AdminController {
     private SemesterRepository semesterRepository;
 
     // CRUD admin
-    @GetMapping("/addAdmin")
-    public String addAdmin(Model model){
+    @GetMapping("/addUser")
+    public String addUser(Model model){
+        model.addAttribute("student", new Student());
         model.addAttribute("admin", new Admin());
+        model.addAttribute("teacher", new Teacher());
+        model.addAttribute("accountant", new Accountant());
         return "adminAdd";
     }
 
@@ -141,11 +144,6 @@ public class AdminController {
 
 
     // CRUD student
-    @GetMapping("/addStudent")
-    public String addStudent(Model model) {
-        model.addAttribute("student", new Student());
-        return "studentAdd";
-    }
 
     @RequestMapping(value = "/insertStudent")
     public String insertStudent(@Valid Student student, BindingResult result, Model model) {
@@ -246,11 +244,6 @@ public class AdminController {
 
 
     // CRUD teacher
-    @GetMapping("/addTeacher")
-    public String addTeacher(Model model) {
-        model.addAttribute("teacher", new Teacher());
-        return "teacherAdd";
-    }
 
     @RequestMapping(value = "/insertTeacher")
     public String insertTeacher(@Valid Teacher teacher, BindingResult result, Model model) {
@@ -348,11 +341,7 @@ public class AdminController {
 
 
     // CRUD accountant
-    @GetMapping("/addAccountant")
-    public String addAccountant(Model model) {
-        model.addAttribute("accountant", new Accountant());
-        return "accountantAdd";
-    }
+
     @RequestMapping(value = "/insertAccountant")
     public String insertAccountant(@Valid Accountant accountant, BindingResult result, Model model) {
         if(result.hasErrors()){
