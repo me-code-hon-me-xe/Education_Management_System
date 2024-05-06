@@ -61,6 +61,11 @@
         width: 200px;
         cursor: pointer;
       }
+
+        #first-col, #second-col {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     .modal {
@@ -209,7 +214,7 @@
 
     .logo-table {
       width: 30px;
-      height: auto;
+      height: 30px;
     }
 
     .logo-table-container {

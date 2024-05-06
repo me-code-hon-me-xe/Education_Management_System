@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html
         lang="en"
+        xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{_layout_admin}" xmlns:th="http://www.thymeleaf.org">
->
+        layout:decorate="~{_layout_admin}" >
 <head>
     <meta charset="UTF-8"/>
     <title>Account Management</title>
@@ -25,49 +25,58 @@
     <h1>Account Information</h1>
     <div class="controller">
         <div class="options-container">
-            <button id="add-button">Add Account</button>
+            <div id="first-col">
+            <button id="add-admin-button">Add Admin</button>
+            <button id="add-student-button">Add Student</button>
+            </div>
+            <div id="second-col">
+            <button id="add-teacher-button">Add Teacher</button>
+            <button id="add-accountant-button">Add Accountant</button>
+            </div>
             <button>Delete Selected</button>
         </div>
     </div>
 
-    <div id="add-modal" class="modal">
+    <!--Admin modal-->
+    <div id="add-admin-modal" class="modal">
         <form
-                th:action="@{/admin/insertUser}"
-                th:object="${user}"
+                th:action="@{/admin/insertAdmin}"
+                th:object="${admin}"
                 method="post"
         >
             <div class="modal-content">
                 <span id="close-add" class="close">&times;</span>
-                <h1>ADD AN ACCOUNT</h1>
+                <h1>ADD AN ADMIN</h1>
                 <div class="table-container">
                     <table class="info-table">
                         <tr>
-                            <th>User Name:</th>
-                            <td>
-                                <label>
-                                    <input type="text" field="*{user.username}" name="username"/>
-                                </label>
-                                <!--                                <div th:if="${#fields.hasErrors('user.username')}"-->
-                                <!--                                     th:errors="*{user.username}"-->
-                                <!--                                ></div>-->
-                            </td>
-                        </tr>
-                        <tr>
                             <th>Role:</th>
                             <td>
-                                <label>
                                     <select field="*{user.role}" name="role">
                                         <option value="Student">Student</option>
                                         <option value="Teacher">Teacher</option>
                                         <option value="Admin">Admin</option>
                                         <option value="Accountant">Accountant</option>
                                     </select>
-                                </label>
                                 <!--                                <div th:if="${#fields.hasErrors('user.gender')}"-->
                                 <!--                                     th:errors="*{user.gender}"-->
                                 <!--                                ></div>-->
                             </td>
                         </tr>
+
+                        <tr>
+                            <th>User Name:</th>
+                            <td>
+                                <div>
+                                    <label>Username:</label>
+                                    <input type="text" th:field="*{user.username}" name="username" />
+                                <!--                                <div th:if="${#fields.hasErrors('user.username')}"-->
+                                <!--                                     th:errors="*{user.username}"-->
+                                <!--                                ></div>-->
+                                </div>
+                            </td>
+                        </tr>
+
                         <tr>
                             <th>User Address:</th>
                             <td>
@@ -180,7 +189,7 @@
                             <th>User Role:</th>
                             <td>
                                 <label>
-                                    <select field="${admin.user.role}">
+                                    <select field="${user.role}">
                                         <option value="Student">Student</option>
                                         <option value="Teacher">Teacher</option>
                                         <option value="Admin">Admin</option>
@@ -229,7 +238,11 @@
             <th>...</th>
             <th>...</th>
             <th>...</th>
-            <th></th>
+            <th class="utility-column">
+                <div class="logo-table-container">
+                    <input type="image" class="logo-table"  alt="edit" th:src="@{../images/edit.png}" id="edit-button" />
+                </div>
+            </th>
             <th></th>
             <th></th>
         </tr>
@@ -244,21 +257,21 @@
             <td>
                 <a th:href="'/admin/adminDetail/' + ${admin.adminCode}" th:text="${admin.adminCode}"/>
             </td>
-            <td th:text="${admin.user.userFullname}"></td>
-            <td th:text="${admin.user.role}"></td>
+            <td th:text="${user.userFullname}"></td>
+            <td th:text="${user.role}"></td>
             <td class="utility-column">
-                <div class="logo-table-container">
-                    <input type="image" class="logo-table" id="logo-edit" src="/static/images/edit.png" alt="edit"/>
+                <div class="logo-table-container" >
+                    <input type="image" class="logo-table"  alt="edit" th:src="@{../images/edit.png}" />
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <input type="image" class="logo-table" src="/static/images/menu.png" alt="menu"/>
+                    <input type="image" class="logo-table" th:src="@{../images/menu.png}" alt="menu"/>
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <input type="image" class="logo-table" src="/static/images/delete.png" alt="delete"/>
+                    <input type="image" class="logo-table" th:src="@{../images/delete.png}" alt="delete"/>
                 </div>
             </td>
         </tr>

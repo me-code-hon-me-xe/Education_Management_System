@@ -47,17 +47,17 @@ public class AdminController {
         model.addAttribute("admin", new Admin());
         model.addAttribute("teacher", new Teacher());
         model.addAttribute("accountant", new Accountant());
-        return "adminAdd";
+        return "admin-account-management";
     }
 
     @RequestMapping(value = "/insertAdmin")
     public String insertAdmin(@Valid Admin admin, BindingResult result, Model model) {
 
         if(result.hasErrors()){
-            return "adminAdd";
+            return "admin-account-management";
         } else if (isDuplicateEntry(admin.getUser().getUsername())) {
             result.rejectValue("user.username", "duplicate.key", "Username already exists");
-            return "adminAdd";
+            return "admin-account-management";
         }
         User user = admin.getUser();
         admin.setUser(user);
@@ -75,7 +75,7 @@ public class AdminController {
         if (showAll != null) {
             admins = adminRepository.findAll();
             model.addAttribute("admins", admins);
-            return "adminList";
+            return "admin-account-management";
         }
         if(adminCode != null){
             admin = adminRepository.findByAdminCode(adminCode);
@@ -89,7 +89,7 @@ public class AdminController {
             model.addAttribute("admins", admins);
         }
 
-        return "adminList";
+        return "admin-account-management";
     }
 
     @GetMapping(value = "/adminDetail/{adminCode}")
