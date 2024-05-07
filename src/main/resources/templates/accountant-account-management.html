@@ -104,7 +104,7 @@
                             <th>Date of Birth:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
+                                    <input type="date" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
                                 </label>
                                 <div th:if="${#fields.hasErrors('user.dateOfBirth')}"
                                      th:errors="*{user.dateOfBirth}"

@@ -45,7 +45,7 @@ public class AdminController {
     public Student student() {
         Student student=new Student();
         User user = new User();
-        user.setRole("Admin");
+        user.setRole("Student");
         student.setUser(user);
         return student;
     }
@@ -220,23 +220,27 @@ public class AdminController {
         Student student = studentRepository.findByStudentCode(studentCode);
         System.out.println(student.getUser().getEmail());
         model.addAttribute("student", student);
-        return "studentDetail";
+        return "student-detail";
     }
 
 
 
     @GetMapping(value = "/updateStudent/{studentCode}")
     public String updateStudent(@PathVariable Integer studentCode, Model model){
+        Iterable<Major> majors;
+        Major major;
         Student student = studentRepository.findByStudentCode(studentCode);
         model.addAttribute("student", student);
-        return "studentUpdate";
+        majors = majorRepository.findAll();
+        model.addAttribute("majors", majors);
+        return "student-detail-edit";
     }
 
 
     @PostMapping("/saveStudent")
     public String saveStudent(@Valid @ModelAttribute("student") Student student, BindingResult result) {
         if (result.hasErrors()) {
-            return "studentUpdate"; // Return to the update form if there are validation errors
+            return "student-detail-edit"; // Return to the update form if there are validation errors
         }
         User user = student.getUser();
         userRepository.save(user);
