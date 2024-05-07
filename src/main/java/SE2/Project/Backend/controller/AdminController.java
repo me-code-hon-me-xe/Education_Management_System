@@ -505,7 +505,7 @@ public class AdminController {
         if (showAll != null) {
             majors = majorRepository.findAll();
             model.addAttribute("majors", majors);
-            return "majorList";
+            return "major-management";
         }
         if(majorId != null){
             major = majorRepository.findByMajorId(majorId);
@@ -519,7 +519,7 @@ public class AdminController {
             model.addAttribute("majors", majors);
         }
 
-        return "majorList";
+        return "major-management";
     }
     @GetMapping("/majorDetail/{majorId}")
     public String showMajorDetail(@PathVariable Long majorId, Model model){
@@ -531,13 +531,13 @@ public class AdminController {
     public String updateMajor(@PathVariable Long majorId, Model model){
         Major major = majorRepository.findByMajorId(majorId);
         model.addAttribute("major", major);
-        return "majorUpdate";
+        return "major-detail-edit";
     }
 
     @PostMapping(value = "/saveMajor")
     public String saveMajor(@Valid Major major, BindingResult result){
         if(result.hasErrors()){
-            return "majorUpdate";
+            return "major-detail-edit";
         }
         majorRepository.save(major);
         return "redirect:/admin/listMajor";
