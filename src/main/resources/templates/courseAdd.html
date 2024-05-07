@@ -2,61 +2,88 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
 <head>
-  <meta charset="UTF-8">
-  <title>Add Course</title>
-  <link rel="stylesheet" type="text/css" href="/css/courseAdd.css">
+    <meta charset="UTF-8">
+    <title>Add Course</title>
+    <link rel="stylesheet" type="text/css" href="/css/courseAdd.css">
+    <script src="/js/courseAdd.js" defer></script>
+
 </head>
 <body>
 <div layout:fragment="content" class="form-container">
-  <h2>Add Course</h2>
-  <form th:action="@{/admin/insertCourse}" th:object="${course}" method="post">
-    <div class = "control-group">
-      <label>Semester: </label>
-      <select th:field="*{semester.semesterId}">
-        <option th:each="semester : ${semesters}"
-                th:value="${semester.semesterId}"
-                th:text="'Semester ' + ${semester.semesterNum} + ', Year: ' + ${semester.startYear} + '-' + ${semester.endYear}">
-        </option>
-      </select>
-    </div>
-    <div class = "control-group">
-      <label>Major: </label>
-      <select th:field="*{major.majorId}">
-        <option th:each="major : ${majors}"
-                th:value="${major.majorId}"
-                th:text="${major.majorName}">
-        </option>
-      </select>
-    </div>
-
-    <div class = "control-group">
-      <label>Course Name: </label>
-      <input type="text" th:field="*{courseName}" placeholder="e.g., se1, se2, hci, pit">
-      <div th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}"></div>
-    </div>
+    <h2>Add Course</h2>
     <div th:if="${errorMessage}" class="error-message">
-      <span th:text="${errorMessage}" class="error-text"></span>
+        <span th:text="${errorMessage}" class="error-text"></span>
     </div>
-
-    <div class = "control-group">
-      <label>Course Code: </label>
-      <input type="text" th:field="*{courseCode}" placeholder="e.g., lect, lect01, tut, tut01">
-      <div th:if="${#fields.hasErrors('courseCode')}" th:errors="*{courseCode}"></div>
-    </div>
-    <div class = "control-group">
-      <label>Teacher: </label>
-      <select th:field="*{teacher.teacherCode}">
-        <option th:each="teacher : ${teachers}"
-                th:value="${teacher.teacherCode}"
-                th:text="${teacher.user.userFullname}">
-        </option>
-      </select>
-    </div>
+    <form th:action="@{/admin/insertCourse}" th:object="${course}" method="post">
+        <div class="control-group">
+            <label>Course Name: </label>
+            <input type="text" th:field="*{courseName}" placeholder="e.g., se1, se2, hci, pit">
+            <div th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}"></div>
+        </div>
 
 
-    <button type="submit">Submit</button>
+        <div class="control-group">
+            <label>Course Code: </label>
+            <input type="text" th:field="*{courseCode}" placeholder="e.g., lect, lect01, tut, tut01">
+            <div th:if="${#fields.hasErrors('courseCode')}" th:errors="*{courseCode}"></div>
+        </div>
 
-  </form>
+        <div class="control-group">
+            <label>Course Type: </label>
+            <select th:id="courseType" th:field="*{courseType}">
+                <option value="Select Course Type">Select Course Type</option>
+                <option value="Special Course">Special Course</option>
+                <option value="Basic Course">Basic Course</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Credit: </label>
+            <input th:id="credit" type="text" th:field="*{credit}" placeholder="e.g., 1,2,3">
+            <div th:if="${#fields.hasErrors('credit')}" th:errors="*{credit}"></div>
+        </div>
+
+        <div class="control-group">
+            <label>Semester: </label>
+            <select th:field="*{semester.semesterId}">
+                <option value="Select Semester">Select Semester</option>
+                <option th:each="semester : ${semesters}"
+                        th:value="${semester.semesterId}"
+                        th:text="'Semester ' + ${semester.semesterNum} + ', Year: ' + ${semester.startYear} + '-' + ${semester.endYear}">
+                </option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Major: </label>
+            <select th:id="majorSelect" th:field="*{major.majorId}">
+                <option value="select major">Select Major</option>
+                <option th:each="major : ${majors}"
+                        th:value="${major.majorId}"
+                        th:text="${major.majorName}"
+                        th:attr="data-special-fee=${major.tuitionSpecializedCourse}, data-basic-fee=${major.tuitionBasedCourse}">
+                </option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Teacher: </label>
+            <select th:field="*{teacher.teacherCode}">
+                <option value="Select Teacher">Select Teacher</option>
+                <option th:each="teacher : ${teachers}"
+                        th:value="${teacher.teacherCode}"
+                        th:text="${teacher.user.userFullname}">
+                </option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Fee:</label>
+            <input type="text" th:field="*{fee}" id="fee" readonly>
+        </div>
+
+
+        <button type="submit">Submit</button>
+
+    </form>
 
 </div>
 

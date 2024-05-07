@@ -23,9 +23,13 @@
       <th>Course Id</th>
       <th>Course Name</th>
       <th>Course Code</th>
+      <th>Course Type</th>
+      <th>Credit</th>
       <th>Semester</th>
       <th>Major</th>
       <th>Teacher</th>
+      <th>Fee</th>
+
       <th>Actions</th>
     </tr>
     </thead>
@@ -36,10 +40,14 @@
       </td>
       <td th:text="${course.courseName}"></td>
       <td th:text="${course.courseCode}"></td>
+      <td th:text="${course.courseType}"></td>
+      <td th:text="${course.credit}"></td>
       <td th:text="'Semester ' + ${course.semester.semesterNum} +
-      ' Year ' + ${course.semester.startYear} + '-' + ${course.semester.endYear}"></td>
+      ', Year: ' + ${course.semester.startYear} + '-' + ${course.semester.endYear}"></td>
       <td th:text="${course.major.majorName}"></td>
       <td th:text="${course.teacher.user.userFullname}"></td>
+      <td th:text="${course.fee}"></td>
+
       <td>
         <a th:href="'/admin/updateCourse/' + ${course.courseId}">UPDATE</a>
         <a th:href="'/admin/deleteCourse/' + ${course.courseId}">DELETE</a>

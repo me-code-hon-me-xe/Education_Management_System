@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Timetable Detail</title>
+  <link rel="stylesheet" type="text/css" href="/css/timetableDetail.css">
+</head>
+<body>
+<div layout:fragment="content" class="content">
+  <h1>Timetable Detail</h1>
+  <div class="detail-item">
+    <label>Timetable Id: </label>
+    <span th:text="${timetable.timetableId}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Course: </label>
+    <span th:text="${timetable.course.courseName}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Course Code: </label>
+    <span th:text="${timetable.course.courseCode}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Classroom: </label>
+    <span th:text="${timetable.classroom.roomNumber}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Teacher: </label>
+    <span th:text="${timetable.course.teacher.user.userFullname}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Teaching Day: </label>
+    <span th:text="${timetable.teachingDay}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Starting Date: </label>
+    <span th:text="${timetable.startDate}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Ending Date: </label>
+    <span th:text="${timetable.endDate}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Starting Time: </label>
+    <span th:text="${timetable.startTime}"></span>
+  </div>
+  <div class="detail-item">
+    <label>Ending Time: </label>
+    <span th:text="${timetable.endTime}"></span>
+  </div>
+
+</div>
+
+</body>
+</html>

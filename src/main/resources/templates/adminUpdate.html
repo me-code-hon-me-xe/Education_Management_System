@@ -12,6 +12,7 @@
 <div layout:fragment="content" class="form-container">
 
   <form th:action="@{/admin/saveAdmin}" method="post" th:object="${admin}">
+    <h2>Update Admin</h2>
     <input type="hidden" th:field="*{adminCode}">
     <div class="control-group">
       <label>User ID:</label>
