@@ -27,7 +27,15 @@
     <div class="controller">
         <div class="options-container">
             <button id="add-button">Add Admin</button>
-            <button>Delete Selected</button>
+            <form th:action="@{/admin/listAdmin}" method="get">
+                <button type="submit" name="showAll">Show All</button>
+            </form>
+        </div>
+        <div id="searcher">
+            <form th:action="@{/admin/listAdmin}" method="get">
+                <input type="text" name="adminCode" placeholder="Search by Admin Code">
+                <button type="submit">Search</button>
+            </form>
         </div>
     </div>
 
@@ -212,16 +220,6 @@
         </tbody>
 
     </table>
-    <div class="pagination">
-        <a href="#">&lt; </a>
-        <a href="#" class="current-page">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-        <a href="#">&gt;</a>
-    </div>
 </div>
 
 </body>

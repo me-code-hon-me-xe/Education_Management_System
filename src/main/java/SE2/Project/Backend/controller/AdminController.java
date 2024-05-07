@@ -179,7 +179,6 @@ public class AdminController {
             return "student-account-management";
         }
         User user = student.getUser();
-        user.setRole("Student");
         student.setUser(user);
         userRepository.save(user);
         studentRepository.save(student);
@@ -192,6 +191,8 @@ public class AdminController {
                                   @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Student> students;
         Student student;
+        Iterable<Major> majors;
+        Major major;
         if (showAll != null) {
             students = studentRepository.findAll();
             model.addAttribute("students", students);
@@ -205,6 +206,8 @@ public class AdminController {
                 model.addAttribute("notFoundMessage", "No student found with the provided student code");
             }
         } else {
+            majors = majorRepository.findAll();
+            model.addAttribute("majors", majors);
             students = studentRepository.findAll();
             model.addAttribute("students", students);
         }
@@ -369,10 +372,10 @@ public class AdminController {
     @RequestMapping(value = "/insertAccountant")
     public String insertAccountant(@Valid Accountant accountant, BindingResult result) {
         if(result.hasErrors()){
-            return "accountantAdd";
+            return "accountant-account-management";
         } else if (isDuplicateEntry(accountant.getUser().getUsername())) {
             result.rejectValue("user.username", "duplicate.key", "Username already exists");
-            return "accountantAdd";
+            return "accountant-account-management";
         }
 
         User user = accountant.getUser();
@@ -391,7 +394,7 @@ public class AdminController {
         if (showAll != null) {
             accountants = accountantRepository.findAll();
             model.addAttribute("accountants", accountants);
-            return "accountantList";
+            return "accountant-account-management";
         }
         if(accountantCode != null){
             accountant = accountantRepository.findByAccountantCode(accountantCode);
@@ -405,25 +408,25 @@ public class AdminController {
             model.addAttribute("accountants", accountants);
         }
 
-        return "accountantList";
+        return "accountant-account-management";
     }
     @GetMapping(value = "/accountantDetail/{accountantCode}")
     public String showAccountantDetail(@PathVariable Integer accountantCode, Model model){
         Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
         model.addAttribute("accountant", accountant);
-        return "accountantDetail";
+        return "accountant-detail";
     }
     @GetMapping(value = "/updateAccountant/{accountantCode}")
     public String updateAccountant(@PathVariable Integer accountantCode, Model model){
         Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
         model.addAttribute("accountant", accountant);
-        return "accountantUpdate";
+        return "accountant-detail-edit";
     }
 
     @PostMapping(value = "/saveAccountant")
     public String saveAccountant(@Valid Accountant accountant, BindingResult result){
         if(result.hasErrors()){
-            return "accountantUpdate";
+            return "accountant-detail-edit";
         }
         User user = accountant.getUser();
         userRepository.save(user);

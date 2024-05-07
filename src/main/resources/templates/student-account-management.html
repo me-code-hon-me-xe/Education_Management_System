@@ -26,7 +26,15 @@
     <div class="controller">
         <div class="options-container">
             <button id="add-button">Add Student</button>
-            <button>Delete Selected</button>
+            <form th:action="@{/admin/listStudent}" method="get">
+                <button type="submit" name="showAll">Show All</button>
+            </form>
+        </div>
+        <div id="searcher">
+            <form th:action="@{/admin/listStudent}" method="get">
+                <input type="text" name="studentCode" placeholder="Search by Student Code">
+                <button type="submit">Search</button>
+            </form>
         </div>
     </div>
 
@@ -118,7 +126,7 @@
                             <th>Student Code:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{studentCode}" name="phoneNumber"/>
+                                    <input type="text" th:field="*{studentCode}" name="studentCode"/>
                                 </label>
                             </td>
                         </tr>
@@ -126,7 +134,7 @@
                             <th>Class:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{classBelong}" name="phoneNumber"/>
+                                    <input type="text" th:field="*{classBelong}" name="classBelong"/>
                                 </label>
                             </td>
                         </tr>
@@ -134,7 +142,7 @@
                             <th>Training System:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{trainingSystem}" name="phoneNumber"/>
+                                    <input type="text" th:field="*{trainingSystem}" name="trainingSystem"/>
                                 </label>
                             </td>
                         </tr>
@@ -142,7 +150,9 @@
                             <th>Major:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{major}" name="phoneNumber"/>
+                                    <select th:field="*{major}">
+                                        <option th:each="major : ${majors}" th:value="${major}" th:text="${major.majorName}"></option>
+                                    </select>
                                 </label>
                             </td>
                         </tr>
@@ -227,16 +237,6 @@
         </tbody>
 
     </table>
-    <div class="pagination">
-        <a href="#">&lt; </a>
-        <a href="#" class="current-page">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-        <a href="#">&gt;</a>
-    </div>
 </div>
 
 </body>
