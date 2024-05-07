@@ -64,4 +64,11 @@ public class Student {
         this.user = user;
     }
 
+    public Major getMajor() {
+        return major;
+    }
+
+    public void setMajor(Major major) {
+        this.major = major;
+    }
 }

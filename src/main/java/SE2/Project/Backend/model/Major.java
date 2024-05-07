@@ -52,6 +52,8 @@ public class Major {
         return tuitionSpecializedCourse;
     }
 
+
+
     public void setTuitionSpecializedCourse(Double tuitionSpecializedCourse) {
         this.tuitionSpecializedCourse = tuitionSpecializedCourse;
     }

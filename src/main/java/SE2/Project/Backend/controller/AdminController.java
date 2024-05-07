@@ -170,12 +170,13 @@ public class AdminController {
     public String insertStudent(@Valid Student student, BindingResult result, Model model) {
 
         if(result.hasErrors()){
-            return "studentAdd";
+            return "student-account-management";
         } else if (isDuplicateEntry(student.getUser().getUsername())) {
             result.rejectValue("user.username", "duplicate.key", "Username already exists");
-            return "studentAdd";
+            return "student-account-management";
         }
         User user = student.getUser();
+        user.setRole("Student");
         student.setUser(user);
         userRepository.save(user);
         studentRepository.save(student);
@@ -191,7 +192,7 @@ public class AdminController {
         if (showAll != null) {
             students = studentRepository.findAll();
             model.addAttribute("students", students);
-            return "studentList";
+            return "student-account-management";
         }
         if(studentCode != null){
             student = studentRepository.findByStudentCode(studentCode);
@@ -205,7 +206,7 @@ public class AdminController {
             model.addAttribute("students", students);
         }
 
-        return "studentList";
+        return "student-account-management";
     }
 
     @GetMapping(value = "/studentDetail/{studentCode}")
@@ -269,13 +270,14 @@ public class AdminController {
     @RequestMapping(value = "/insertTeacher")
     public String insertTeacher(@Valid Teacher teacher, BindingResult result, Model model) {
         if(result.hasErrors()){
-            return "teacherAdd";
+            return "teacher-account-management";
         } else if (isDuplicateEntry(teacher.getUser().getUsername())) {
             result.rejectValue("user.username", "duplicate.key", "Username already exists");
-            return "teacherAdd";
+            return "teacher-account-management";
         }
 
         User user = teacher.getUser();
+        user.setRole("Teacher");
         teacher.setUser(user);
         userRepository.save(user);
         teacherRepository.save(teacher);
@@ -295,7 +297,7 @@ public class AdminController {
         if (showAll != null) {
             teachers = teacherRepository.findAll();
             model.addAttribute("teachers", teachers);
-            return "teacherList";
+            return "teacher-account-management";
         }
         if(teacherCode != null){
             teacher = teacherRepository.findByTeacherCode(teacherCode);
@@ -309,7 +311,7 @@ public class AdminController {
             model.addAttribute("teachers", teachers);
         }
 
-        return "teacherList";
+        return "teacher-account-management";
     }
 
     @GetMapping(value = "/teacherDetail/{teacherCode}")

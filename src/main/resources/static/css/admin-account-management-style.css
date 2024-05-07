@@ -48,7 +48,6 @@
     .options-container {
       display: flex;
       flex-direction: row;
-      margin-left: 20px;
       gap: 30px;
 
       button {
@@ -83,13 +82,13 @@
     }
 
     .modal-content {
-      margin: 0 auto;
-      border: 1px solid black;
+        border: 1px solid black;
       padding: 20px;
       width: 40%;
       background-color: #f6ecec;
-
-      h1 {
+        margin: 0 auto 40px;
+        h1
+    {
         margin-bottom: 0;
       }
       .close {

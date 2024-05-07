@@ -6,7 +6,7 @@
         layout:decorate="~{_layout_admin}">
 <head>
     <meta charset="UTF-8"/>
-    <title>Admin Account Management</title>
+    <title>Student Account Management</title>
     <link
             href="https://fonts.googleapis.com/css?family=Inter"
             rel="stylesheet"
@@ -22,25 +22,26 @@
 
 <body>
 <div layout:fragment="content" class="container">
-    <h1>Admin Account Information</h1>
+    <h1>Student Account Information</h1>
     <div class="controller">
         <div class="options-container">
-            <button id="add-button">Add Admin</button>
+            <button id="add-button">Add Student</button>
             <button>Delete Selected</button>
         </div>
     </div>
 
-    <!--Admin modal-->
+    <!--Student modal-->
     <div id="add-modal" class="modal">
         <form
-                th:action="@{/admin/insertAdmin}"
-                th:object="${admin}"
+                th:action="@{/admin/insertStudent}"
+                th:object="${student}"
                 method="post"
         >
             <div class="modal-content">
-                <h1>ADD ADMIN</h1>
+                <h1>ADD STUDENT</h1>
                 <div class="table-container">
                     <table class="info-table">
+                        <input type="text" th:value="Teacher" th:field="*{user.role}" hidden />
                         <tr>
                             <th>Username:</th>
                             <td>
@@ -80,7 +81,7 @@
                             <th>Email:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{user.email}" name="email"/>
+                                    <input type="email" th:field="*{user.email}" name="email"/>
                                 </label>
                             </td>
                         </tr>
@@ -88,7 +89,7 @@
                             <th>Date of Birth:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
+                                    <input type="date" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
                                 </label>
                             </td>
                         </tr>
@@ -101,7 +102,6 @@
                                 </label>
                             </td>
                         </tr>
-
                         <tr>
                             <th>Gender:</th>
                             <td>
@@ -111,6 +111,38 @@
                                         <option value="Female">Female</option>
                                         <option value="Other">Other</option>
                                     </select>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Student Code:</th>
+                            <td>
+                                <label>
+                                    <input type="text" th:field="*{studentCode}" name="phoneNumber"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Class:</th>
+                            <td>
+                                <label>
+                                    <input type="text" th:field="*{classBelong}" name="phoneNumber"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Training System:</th>
+                            <td>
+                                <label>
+                                    <input type="text" th:field="*{trainingSystem}" name="phoneNumber"/>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Major:</th>
+                            <td>
+                                <label>
+                                    <input type="text" th:field="*{major}" name="phoneNumber"/>
                                 </label>
                             </td>
                         </tr>
@@ -124,7 +156,7 @@
         </form>
     </div>
 
-    <!--Admin accounts table-->
+    <!--Student accounts table-->
 
     <table class="content-table">
         <thead>
@@ -160,33 +192,33 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="admin : ${admins}">
+        <tr th:each="student : ${students}">
             <td class="checkbox-container">
                 <label>
                     <input type="checkbox" class="checkbox"/>
                 </label>
             </td>
-            <td th:text="${admin.adminCode}">
+            <td th:text="${student.studentCode}">
             </td>
-            <td th:text="${admin.user.userFullname}"></td>
-            <td th:text="${admin.user.role}"></td>
+            <td th:text="${student.user.userFullname}"></td>
+            <td th:text="${student.user.role}"></td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <a th:href="'/admin/updateAdmin/' + ${admin.adminCode}">
+                    <a th:href="'/student/updateStudent/' + ${student.studentCode}">
                         <input type="image" class="logo-table" alt="edit" th:src="@{../images/edit.png}"/>
                     </a>
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <a th:href="'/admin/adminDetail/' + ${admin.adminCode}">
+                    <a th:href="'/student/studentDetail/' + ${student.studentCode}">
                         <input type="image" class="logo-table" th:src="@{../images/menu.png}" alt="menu"/>
                     </a>
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <a th:href="'/admin/deleteAdmin/' + ${admin.adminCode}">
+                    <a th:href="'/student/deleteStudent/' + ${student.studentCode}">
                         <input type="image" class="logo-table" th:src="@{../images/delete.png}" alt="delete"/>
                     </a>
                 </div>

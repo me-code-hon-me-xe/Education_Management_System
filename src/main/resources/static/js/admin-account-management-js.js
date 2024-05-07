@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     var editModal = document.getElementById("edit-modal");
-    var addAdminModal = document.getElementById("add-admin-modal");
+    var addAdminModal = document.getElementById("add-modal");
 // Get the button that opens the editModal
     var editBtn = document.getElementById("edit-button");
-    var addBtn = document.getElementById("add-admin-button");
-    var addAdminCancel = document.getElementById("cancel-add-admin")
+    var addBtn = document.getElementById("add-button");
+    var addAdminCancel = document.getElementById("cancel-add")
 
 
 
