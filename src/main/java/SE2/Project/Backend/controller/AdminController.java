@@ -645,18 +645,18 @@ public class AdminController {
         if (redirectAttributes.containsAttribute("errorMessage")) {
             model.addAttribute("errorMessage", redirectAttributes.getAttribute("errorMessage"));
         }
-        return "courseAdd";
+        return "course-management";
     }
 
     @RequestMapping(value = "/insertCourse")
     public String insertCourse(@Valid Course course, BindingResult result, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()){
-            return "redirect:/admin/addCourse";
+            return "course-management";
         }else if (isDuplicateCourse(course.getCourseCode(), course.getCourseName())) {
             System.out.println("yo");
             redirectAttributes.addFlashAttribute("errorMessage", "Course already exists");
 
-            return "redirect:/admin/addCourse";
+            return "course-management";
         }
         courseRepository.save(course);
         return "redirect:/admin/listCourse";
@@ -672,10 +672,14 @@ public class AdminController {
                                   @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Course> courses;
         Course course;
+        model.addAttribute("course", new Course());
+        model.addAttribute("majors", majorRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
+        model.addAttribute("semesters", semesterRepository.findAll());
         if (showAll != null) {
             courses = courseRepository.findAll();
             model.addAttribute("courses", courses);
-            return "courseList";
+            return "course-management";
         }
         if(courseId != null){
             course = courseRepository.findByCourseId(courseId);
@@ -689,7 +693,7 @@ public class AdminController {
             courses = courseRepository.findAll();
             model.addAttribute("courses", courses);
         }
-        return "courseList";
+        return "course-management";
     }
 
     @GetMapping(value = "/updateCourse/{courseId}")
@@ -699,13 +703,13 @@ public class AdminController {
         model.addAttribute("majors", majorRepository.findAll());
         model.addAttribute("teachers", teacherRepository.findAll());
         model.addAttribute("semesters", semesterRepository.findAll());
-        return "courseUpdate";
+        return "course-detail-edit";
     }
 
     @PostMapping(value = "/saveCourse")
     public String saveCourse(@Valid Course course, BindingResult result){
         if(result.hasErrors()){
-            return "courseUpdate";
+            return "course-detail-edit";
         }
         courseRepository.save(course);
         return "redirect:/admin/listCourse";

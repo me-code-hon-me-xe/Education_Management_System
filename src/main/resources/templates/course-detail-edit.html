@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout_admin}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Details</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/css/profile.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/header-style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css"/>
+    <!-- <link rel="stylesheet" href="/Student/Students styles/profile.css"> -->
+</head>
+<body>
+<div layout:fragment="content">
+    <form th:action="@{/admin/saveCourse}" method="post" th:object="${course}">
+        <div class="profile">
+            <div class="padding"></div>
+            <div class="profile-header">
+                <div class="profile-ID">
+                </div>
+            </div>
+            <div class="profile-des">
+                <div class="profile-des-1">
+                    <div class="info-group read-only">
+                        <div class="info-label">ID:</div>
+                        <input type="number" th:field="${course.courseId}" readonly>
+                    </div>
+                    <div class="info-group">
+                        <div class="info-label">Course Name:</div>
+                        <input type="text" th:field="${course.courseName}">
+                    </div>
+                    <div class="info-group">
+                        <div class="info-label">Course Code:</div>
+                        <input type="text" th:field="${course.courseCode}">
+                    </div>
+                </div>
+                <div class="profile-des-2">
+                    <div class="info-group">
+                        <div class="info-label">Semester:</div>
+                        <label>
+                            <select th:field="*{semester.semesterId}">
+                                <option th:each="semester : ${semesters}"
+                                        th:value="${semester.semesterId}"
+                                        th:text="'Semester ' + ${semester.semesterNum} + ', Year: ' + ${semester.startYear} + '-' + ${semester.endYear}">
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="info-group">
+                        <div class="info-label">Major:</div>
+                        <select th:field="*{major}">
+                            <option th:each="major : ${majors}" th:value="${major.majorId}"
+                                    th:text="${major.majorName}"></option>
+                        </select>
+                    </div>
+                    <div class="info-group">
+                        <div class="info-label">Teacher:</div>
+                        <select th:field="*{teacher.teacherCode}">
+                            <option th:each="teacher : ${teachers}"
+                                    th:value="${teacher.teacherCode}"
+                                    th:text="${teacher.user.userFullname}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="button-container">
+                <button type="submit">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
