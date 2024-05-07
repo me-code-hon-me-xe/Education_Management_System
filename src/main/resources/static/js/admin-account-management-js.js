@@ -8,11 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
     var addAdminCancel = document.getElementById("cancel-add")
 
 
-
 // When the user clicks the button, open the editModal
-    editBtn.onclick = function () {
-        console.log("HEllo")
-        editModal.style.display = "block";
+    if (editBtn) {
+        editBtn.onclick = function () {
+            console.log("HEllo")
+            editModal.style.display = "block";
+        }
     }
 
     addBtn.onclick = function () {
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 // When the user clicks on <editSpan> (x), close the editModal
-    addAdminCancel.onclick = function() {
+    addAdminCancel.onclick = function () {
         addAdminModal.style.display = "none"
     }
 

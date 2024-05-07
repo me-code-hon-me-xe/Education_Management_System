@@ -4,19 +4,11 @@ import SE2.Project.Backend.model.*;
 import SE2.Project.Backend.repository.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.expression.Strings;
-
-import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -63,6 +55,7 @@ public class AdminController {
     // CRUD admin
     @GetMapping("/addUser")
     public String addUser(Model model){
+
         model.addAttribute("student", new Student());
         model.addAttribute("admin", new Admin());
         model.addAttribute("teacher", new Teacher());
@@ -117,20 +110,20 @@ public class AdminController {
     public String showAdminDetail(@PathVariable Integer adminCode, Model model){
         Admin admin = adminRepository.findByAdminCode(adminCode);
         model.addAttribute("admin", admin);
-        return "admin-profile";
+        return "admin-detail";
     }
 
     @GetMapping(value = "/updateAdmin/{adminCode}")
     public String updateAdmin(@PathVariable Integer adminCode, Model model){
         Admin admin = adminRepository.findByAdminCode(adminCode);
         model.addAttribute("admin", admin);
-        return "admin-profile-edit";
+        return "admin-detail-edit";
     }
 
     @PostMapping(value = "/saveAdmin")
     public String saveAdmin(@Valid Admin admin, BindingResult result){
         if(result.hasErrors()){
-            return "admin-profile-edit";
+            return "admin-detail-edit";
         }
         User user = admin.getUser();
         userRepository.save(user);
@@ -318,20 +311,20 @@ public class AdminController {
     public String showTeacherDetail(@PathVariable Integer teacherCode, Model model){
         Teacher teacher = teacherRepository.findByTeacherCode(teacherCode);
         model.addAttribute("teacher", teacher);
-        return "teacherDetail";
+        return "teacher-detail";
     }
 
     @GetMapping(value = "/updateTeacher/{teacherCode}")
     public String updateTeacher(@PathVariable Integer teacherCode, Model model){
         Teacher teacher = teacherRepository.findByTeacherCode(teacherCode);
         model.addAttribute("teacher", teacher);
-        return "teacherUpdate";
+        return "teacher-detail-edit";
     }
 
     @PostMapping(value = "/saveTeacher")
     public String saveTeacher(@Valid Teacher teacher, BindingResult result){
         if(result.hasErrors()){
-            return "teacherUpdate";
+            return "teacher-detail-edit";
         }
         User user = teacher.getUser();
         userRepository.save(user);
@@ -375,6 +368,7 @@ public class AdminController {
         }
 
         User user = accountant.getUser();
+        user.setRole("Accountant");
         accountant.setUser(user);
         userRepository.save(user);
         accountantRepository.save(accountant);

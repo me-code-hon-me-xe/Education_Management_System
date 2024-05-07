@@ -6,7 +6,7 @@
         layout:decorate="~{_layout_admin}">
 <head>
     <meta charset="UTF-8"/>
-    <title>Teacher Account Management</title>
+    <title>Accountant Account Management</title>
     <link
             href="https://fonts.googleapis.com/css?family=Inter"
             rel="stylesheet"
@@ -22,10 +22,10 @@
 
 <body>
 <div layout:fragment="content" class="container">
-    <h1>Teacher Account Information</h1>
+    <h1>Accountant Account Information</h1>
     <div class="controller">
         <div class="options-container">
-            <button id="add-button">Add Teacher</button>
+            <button id="add-button">Add Accountant</button>
             <button>Delete Selected</button>
         </div>
     </div>
@@ -33,12 +33,12 @@
     <!--Admin modal-->
     <div id="add-modal" class="modal">
         <form
-                th:action="@{/admin/insertTeacher}"
-                th:object="${teacher}"
+                th:action="@{/admin/insertAccountant}"
+                th:object="${accountant}"
                 method="post"
         >
             <div class="modal-content">
-                <h1>ADD TEACHER</h1>
+                <h1>ADD ACCOUNTANT</h1>
                 <div class="table-container">
                     <table class="info-table">
                         <tr>
@@ -117,7 +117,7 @@
                     </table>
                 </div>
                 <div class="grade-options-container">
-                    <button type="submit" class="confirm-field" value="Teacher" th:value="*{user.role}">Confirm</button>
+                    <button type="submit" class="confirm-field">Confirm</button>
                     <button type="reset" id="cancel-add" class="close-field">Cancel</button>
                 </div>
             </div>
@@ -130,12 +130,9 @@
         <thead>
         <tr id="table-header">
             <th></th>
-            <th>Teacher Code</th>
-            <th>Full Name</th>
-            <th>Gender</th>
-            <th>Date of Birth</th>
-            <th>Email</th>
-            <th>Address</th>
+            <th id="course-column">User ID</th>
+            <th id="class-column">User Name</th>
+            <th id="total-column">User Role</th>
             <th colspan="3" style="width: 10%; height: 20px">Option</th>
         </tr>
         <tr id="table-searcher">
@@ -153,46 +150,43 @@
             <th>...</th>
             <th>...</th>
             <th>...</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th class="utility-column">
+                <div class="logo-table-container">
+                    <input type="image" class="logo-table" alt="edit" th:src="@{../images/edit.png}" id="edit-button"/>
+                </div>
+            </th>
             <th></th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="teacher : ${teachers}">
+        <tr th:each="accountant : ${accountants}">
             <td class="checkbox-container">
                 <label>
                     <input type="checkbox" class="checkbox"/>
                 </label>
             </td>
-            <td th:text="${teacher.teacherCode}">
+            <td th:text="${accountant.accountantCode}">
             </td>
-            <td th:text="${teacher.user.userFullname}"></td>
-            <td th:text="${teacher.user.gender}"></td>
-            <td th:text="${teacher.user.dateOfBirth}"></td>
-            <td th:text="${teacher.user.email}"></td>
-            <td th:text="${teacher.user.address}"></td>
-
+            <td th:text="${accountant.user.userFullname}"></td>
+            <td th:text="${accountant.user.role}"></td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <a th:href="'/admin/updateTeacher/' + ${teacher.teacherCode}">
+                    <a th:href="'/admin/updateAccountant/' + ${accountant.accountantCode}">
                         <input type="image" class="logo-table" alt="edit" th:src="@{../images/edit.png}"/>
                     </a>
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <a th:href="'/admin/teacherDetail/' + ${teacher.teacherCode}">
+                    <a th:href="'/admin/accountantDetail/' + ${accountant.accountantCode}">
                         <input type="image" class="logo-table" th:src="@{../images/menu.png}" alt="menu"/>
                     </a>
                 </div>
             </td>
             <td class="utility-column">
                 <div class="logo-table-container">
-                    <a th:href="'/admin/deleteTeacher/' + ${teacher.teacherCode}">
+                    <a th:href="'/admin/deleteAccountant/' + ${accountant.accountantCode}">
                         <input type="image" class="logo-table" th:src="@{../images/delete.png}" alt="delete"/>
                     </a>
                 </div>

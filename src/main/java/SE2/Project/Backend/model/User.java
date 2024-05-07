@@ -42,7 +42,7 @@ public class User {
     @Length(min = 0, max = 12)
     private String phoneNumber;
 
-    @NotEmpty(message = "role cannot be empty")
+//    @NotEmpty(message = "role cannot be empty")
     private String role;
 
     @Length(min = 3, max = 100)

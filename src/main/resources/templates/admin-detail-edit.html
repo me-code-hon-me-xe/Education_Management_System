@@ -28,6 +28,10 @@
                         <input type="text" th:field="${admin.user.userID}" readonly>
                     </div>
                     <div class="info-group read-only">
+                        <div class="info-label">Role:</div>
+                        <input type="text" th:field="${admin.user.role}" readonly>
+                    </div>
+                    <div class="info-group read-only">
                         <div class="info-label">Admin Code:</div>
                         <input type="text" th:field="${admin.adminCode}" readonly>
                     </div>
@@ -45,10 +49,6 @@
                         <div class="info-label">Full Name:</div>
                         <input type="text" th:field="${admin.user.userFullname}">
                     </div>
-                    <div class="info-group">
-                        <div class="info-label">Phone Number:</div>
-                        <input type="text" th:field="${admin.user.phoneNumber}">
-                    </div>
                 </div>
                 <div class="profile-des-2">
                     <div class="info-group">
@@ -64,8 +64,8 @@
                         <input type="text" th:field="${admin.user.address}">
                     </div>
                     <div class="info-group">
-                        <div class="info-label">Role:</div>
-                        <input type="text" th:field="${admin.user.role}" readonly>
+                        <div class="info-label">Phone Number:</div>
+                        <input type="text" th:field="${admin.user.phoneNumber}">
                     </div>
                     <div class="info-group">
                         <div class="info-label">Gender:</div>
