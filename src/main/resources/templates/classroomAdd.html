@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Classroom</title>
+  <link rel="stylesheet" type="text/css" href="/css/classroomAdd.css">
+</head>
+<body>
+<div layout:fragment="content" class="form-container">
+  <h2>Add Classroom</h2>
+  <form th:action="@{/admin/insertClassroom}" th:object="${classroom}" method="post">
+    <div class="control-group">
+      <label>Room Number: </label>
+      <input type="text" th:field="*{roomNumber}">
+      <div th:if="${#fields.hasErrors('roomNumber')}" th:errors="*{roomNumber}"></div>
+    </div>
+    <div class="control-group">
+      <label>Room Capacity: </label>
+      <input type="text" th:field="*{roomCapacity}">
+      <div th:if="${#fields.hasErrors('roomCapacity')}" th:errors="*{roomCapacity}"></div>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+</body>
+</html>

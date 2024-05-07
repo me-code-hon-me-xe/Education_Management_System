@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Classroom List</title>
+  <link rel="stylesheet" type="text/css" href="/css/classroomList.css">
+</head>
+<body>
+<div layout:fragment="content">
+
+  <h2>Major List</h2>
+  <form th:action="@{/admin/listClassroom}" method="get">
+    <input type="text" name="classroomId" placeholder="Search by Classroom Id">
+    <button type="submit">Search</button>
+  </form>
+  <form th:action="@{/admin/listClassroom}" method="get">
+    <button type="submit" name="showAll">Show All</button>
+  </form>
+  <table>
+    <thead>
+    <tr>
+      <th>Classroom Id</th>
+      <th>Room Number</th>
+      <th>Room Capacity</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="classroom : ${classrooms}">
+      <td>
+        <a th:href="'/admin/classroomDetail/' + ${classroom.classroomId}" th:text="${classroom.classroomId}"/>
+      </td>
+      <td th:text="${classroom.roomNumber}"></td>
+      <td th:text="${classroom.roomCapacity}"></td>
+      <td>
+        <a th:href="'/admin/updateClassroom/' + ${classroom.classroomId}">UPDATE</a>
+        <a th:href="'/admin/deleteClassroom/' + ${classroom.classroomId}">DELETE</a>
+
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

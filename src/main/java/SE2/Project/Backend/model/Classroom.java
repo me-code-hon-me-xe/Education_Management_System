@@ -27,9 +27,6 @@ public class Classroom {
         this.classroomId = classroomId;
     }
 
-
-
-
     public int getRoomCapacity() {
         return roomCapacity;
     }

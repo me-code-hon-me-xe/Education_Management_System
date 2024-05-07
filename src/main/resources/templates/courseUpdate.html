@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <title>Update Course</title>
   <link rel="stylesheet" type="text/css" href="/css/courseUpdate.css">
+  <script src="/js/courseUpdate.js" defer></script>
 
 </head>
 <body>
@@ -27,6 +28,22 @@
       <input type="text" th:field="${course.courseCode}"/>
       <div th:if="${#fields.hasErrors('courseCode')}" th:errorclass="error" th:errors="*{courseCode}"></div>
     </div>
+
+    <div class="control-group">
+      <label>Course Type: </label>
+      <select th:id="courseType" th:field="${course.courseType}">
+        <option value="Special Course">Special Course</option>
+        <option value="Basic Course">Basic Course</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>Credit: </label>
+      <input th:id="credit" type="text" th:field="${course.credit}" placeholder="e.g., 1,2,3">
+      <div th:if="${#fields.hasErrors('credit')}" th:errors="*{credit}"></div>
+    </div>
+
+
     <div class = "control-group">
       <label>Semester: </label>
       <select th:field="${course.semester.semesterId}">
@@ -36,12 +53,15 @@
         </option>
       </select>
     </div>
-    <div class = "control-group">
+    <div class="control-group">
       <label>Major: </label>
-      <select th:field="${course.major.majorId}">
+      <select th:id="majorSelect" th:field="${course.major.majorId}" data-special-fee="${major.tuitionSpecializedCourse}"
+              data-basic-fee="${major.tuitionBasedCourse}">
         <option th:each="major : ${majors}"
                 th:value="${major.majorId}"
-                th:text="${major.majorName}">
+                th:text="${major.majorName}"
+                th:attr="data-special-fee=${major.tuitionSpecializedCourse}, data-basic-fee=${major.tuitionBasedCourse}">
+
         </option>
       </select>
     </div>
@@ -53,6 +73,10 @@
                 th:text="${teacher.user.userFullname}">
         </option>
       </select>
+    </div>
+    <div class="control-group">
+      <label>Fee:</label>
+      <input type="text" th:field="*{fee}" id="fee" readonly>
     </div>
 
 

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.expression.Strings;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +41,11 @@ public class AdminController {
     private MajorRepository majorRepository;
     @Autowired
     private SemesterRepository semesterRepository;
+    @Autowired
+    private ClassroomRepository classroomRepository;
+    @Autowired
+    private TimetableRepository timetableRepository;
+
 
     // CRUD admin
     @GetMapping("/addUser")
@@ -82,7 +89,7 @@ public class AdminController {
             if(admin != null){
                 model.addAttribute("admins", admin);
             } else {
-                model.addAttribute("notFoundMessage", "No teacher found with the provided admin code");
+                model.addAttribute("notFoundMessage", "No Admin found with the provided admin code");
             }
         } else {
             admins = adminRepository.findAll();
@@ -190,7 +197,6 @@ public class AdminController {
     @GetMapping(value = "/studentDetail/{studentCode}")
     public String showStudentDetail(@PathVariable Integer studentCode, Model model){
         Student student = studentRepository.findByStudentCode(studentCode);
-        System.out.println(student.getUser().getEmail());
         model.addAttribute("student", student);
         return "studentDetail";
     }
@@ -373,7 +379,7 @@ public class AdminController {
             if(accountant != null){
                 model.addAttribute("accountants", accountant);
             } else {
-                model.addAttribute("notFoundMessage", "No teacher found with the provided teacher id");
+                model.addAttribute("notFoundMessage", "No accountant found with the provided teacher id");
             }
         } else {
             accountants = accountantRepository.findAll();
@@ -440,9 +446,7 @@ public class AdminController {
             result.rejectValue("majorName", "duplicate.key", "Major Name already exists");
             return "majorAdd";
         }
-        System.out.println(major.getMajorName());
         majorRepository.save(major);
-
         return "redirect:/admin/listMajor";
     }
 
@@ -465,7 +469,7 @@ public class AdminController {
             if(major != null){
                 model.addAttribute("majors", major);
             } else {
-                model.addAttribute("notFoundMessage", "No teacher found with the provided teacher id");
+                model.addAttribute("notFoundMessage", "No major found with the provided teacher id");
             }
         } else {
             majors = majorRepository.findAll();
@@ -501,8 +505,6 @@ public class AdminController {
         majorRepository.delete(major);
         return "redirect:/admin/listMajor";
     }
-
-
 
 
 
@@ -548,7 +550,7 @@ public class AdminController {
             if(semester != null){
                 model.addAttribute("semesters", semester);
             } else {
-                model.addAttribute("notFoundMessage", "No teacher found with the provided teacher id");
+                model.addAttribute("notFoundMessage", "No semester found with the provided teacher id");
             }
         } else {
             semesters = semesterRepository.findAll();
@@ -589,6 +591,78 @@ public class AdminController {
 
 
 
+
+
+
+    // CRUD classroom
+    @GetMapping("/addClassroom")
+    public String addClassroom(Model model) {
+        model.addAttribute("classroom", new Classroom());
+        return "classroomAdd";
+    }
+    @RequestMapping(value = "/insertClassroom")
+    public String insertClassroom(@Valid Classroom classroom, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "classroomAdd";
+        }else if (isDuplicateClassroom(classroom.getRoomNumber())) {
+            result.rejectValue("roomNumber", "duplicate.key", "Classroom already exists");
+            return "classroomAdd";
+        }
+        classroomRepository.save(classroom);
+        return "redirect:/admin/listClassroom";
+    }
+    private boolean isDuplicateClassroom(String roomNumber) {
+        return classroomRepository.existsByRoomNumber(roomNumber);
+    }
+
+    @GetMapping(value = "/listClassroom")
+    public String showAllClassroom(Model model, @RequestParam(name = "classroomId", required = false) Long classroomId,
+                                  @RequestParam(name = "showAll", required = false) String showAll){
+        Iterable<Classroom> classrooms;
+        Classroom classroom;
+        if (showAll != null) {
+            classrooms = classroomRepository.findAll();
+            model.addAttribute("classrooms", classrooms);
+            return "classroomList";
+        }
+        if(classroomId != null){
+            classroom = classroomRepository.findByClassroomId(classroomId);
+            if(classroom!= null){
+                model.addAttribute("classrooms", classroom);
+            } else {
+                model.addAttribute("notFoundMessage", "No Classroom found with the provided teacher id");
+            }
+        } else {
+            classrooms = classroomRepository.findAll();
+            model.addAttribute("classrooms", classrooms);
+        }
+
+        return "classroomList";
+    }
+    @GetMapping("/classroomDetail/{classroomId}")
+    public String showClassroomDetail(@PathVariable Long classroomId, Model model){
+        Classroom classroom = classroomRepository.findByClassroomId(classroomId);
+        model.addAttribute("classroom", classroom);
+        return "classroomDetail";
+    }
+    @GetMapping(value = "/updateClassroom/{classroomId}")
+    public String updateClassroom(@PathVariable Long classroomId, Model model){
+        Classroom classroom = classroomRepository.findByClassroomId(classroomId);
+        model.addAttribute("classroom", classroom);
+        return "classroomUpdate";
+    }
+    @PostMapping(value = "/saveClassroom")
+    public String saveClassroom(@Valid Classroom classroom, BindingResult result){
+        if(result.hasErrors()){
+            return "classroomUpdate";
+        }
+        classroomRepository.save(classroom);
+        return "redirect:/admin/listClassroom";
+    }
+
+
+    // CRUD course
+
     @GetMapping("/addCourse")
     public String addCourse(Model model, RedirectAttributes redirectAttributes) {
         model.addAttribute("course", new Course());
@@ -604,9 +678,10 @@ public class AdminController {
     @RequestMapping(value = "/insertCourse")
     public String insertCourse(@Valid Course course, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()){
+            redirectAttributes.addFlashAttribute("errorMessage", "All field must be fill up");
             return "redirect:/admin/addCourse";
         }else if (isDuplicateCourse(course.getCourseCode(), course.getCourseName())) {
-            System.out.println("yo");
+
             redirectAttributes.addFlashAttribute("errorMessage", "Course already exists");
 
             return "redirect:/admin/addCourse";
@@ -632,7 +707,7 @@ public class AdminController {
         }
         if(courseId != null){
             course = courseRepository.findByCourseId(courseId);
-            System.out.println("Iam");
+
             if(course != null){
                 model.addAttribute("courses", course);
             } else {
@@ -668,6 +743,85 @@ public class AdminController {
         Course course = courseRepository.findByCourseId(courseId);
         courseRepository.delete(course);
         return "redirect:/admin/listCourse";
+
     }
 
+
+    // CRUD timetable
+    @GetMapping("/addTimetable")
+    public String addTimetable(Model model, RedirectAttributes redirectAttributes) {
+        model.addAttribute("timetable", new Timetable());
+        model.addAttribute("courses", courseRepository.findAll());
+        model.addAttribute("classrooms", classroomRepository.findAll());
+        model.addAttribute("majors", majorRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
+        model.addAttribute("semesters", semesterRepository.findAll());
+        if (redirectAttributes.containsAttribute("errorMessage")) {
+            model.addAttribute("errorMessage", redirectAttributes.getAttribute("errorMessage"));
+        }
+        return "timetableAdd";
+
+    }
+
+    @RequestMapping(value = "/insertTimetable")
+    public String insertTimetable(@Valid Timetable timetable, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        if(result.hasErrors()){
+            redirectAttributes.addFlashAttribute("errorMessage", "All field must be fill up");
+            return "redirect:/admin/addTimetable";
+        }
+        else if (isDuplicateTimetable(timetable.getCourse().getCourseId())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Timetable already exists");
+
+            return "redirect:/admin/addTimetable";
+        }
+        timetableRepository.save(timetable);
+        return "redirect:/admin/addTimetable";
+    }
+
+    private boolean isDuplicateTimetable(Long courseId) {
+        return timetableRepository.existsByCourseCourseId(courseId);
+    }
+
+    @GetMapping(value = "/listTimetable")
+    public String showAllTimetable(Model model, @RequestParam(name = "timetableId", required = false) Long timetableId,
+                                @RequestParam(name = "showAll", required = false) String showAll){
+        Iterable<Timetable> timetables;
+        Timetable timetable;
+        if (showAll != null) {
+            timetables = timetableRepository.findAll();
+            model.addAttribute("timetables", timetables);
+            return "timetableList";
+        }
+        if(timetableId != null){
+            timetable = timetableRepository.findByTimetableId(timetableId);
+            if(timetable != null){
+                model.addAttribute("timetables", timetable);
+            } else {
+                model.addAttribute("notFoundMessage", "No timetable found with the provided course code");
+            }
+        } else {
+            timetables = timetableRepository.findAll();
+            model.addAttribute("timetables", timetables);
+        }
+        return "timetableList";
+    }
+
+    @GetMapping("/timetableDetail/{timetableId}")
+    public String showTimetableDetail(@PathVariable Long timetableId, Model model){
+        System.out.println(timetableId);
+        Timetable timetable = timetableRepository.findByTimetableId(timetableId);
+        model.addAttribute("timetable", timetable);
+        return "timetableDetail";
+    }
+
+    @GetMapping(value = "/updateTimetable/{timetableId}")
+    public String updateTimetable(@PathVariable Long timetableId, Model model){
+        Timetable timetable = timetableRepository.findByTimetableId(timetableId);
+        model.addAttribute("courses", courseRepository.findAll());
+        model.addAttribute("classrooms", classroomRepository.findAll());
+        model.addAttribute("majors", majorRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
+        model.addAttribute("semesters", semesterRepository.findAll());
+        return "courseUpdate";
+    }
 }

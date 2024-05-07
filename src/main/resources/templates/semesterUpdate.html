@@ -11,6 +11,8 @@
 <body>
 <div layout:fragment="content" class="form-container">
   <form th:action="@{/admin/saveSemester}" method="post" th:object="${semester}">
+    <h2>Update Semester</h2>
+
     <div class="control-group">
       <label>Semester Id:</label>
       <input type="text" th:field="${semester.semesterId}"readonly/>
