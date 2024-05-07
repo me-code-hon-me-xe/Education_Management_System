@@ -68,6 +68,21 @@ public class AdminController {
         return accountant;
     }
 
+    @ModelAttribute("semester")
+    public Semester semester() {
+        return new Semester();
+    }
+
+    @ModelAttribute("major")
+    public Major major() {
+        return new Major();
+    }
+
+    @ModelAttribute("course")
+    public Course course() {
+        return new Course();
+    }
+
     // CRUD admin
     @GetMapping("/addUser")
     public String addUser(){
@@ -547,15 +562,15 @@ public class AdminController {
     public String addSemester(Model model) {
         model.addAttribute("semester", new Semester());
 
-        return "semesterAdd";
+        return "semester-management";
     }
     @RequestMapping(value = "/insertSemester")
     public String insertSemester(@Valid Semester semester, BindingResult result) {
         if(result.hasErrors()){
-            return "semesterAdd";
+            return "semester-management";
         }else if (isDuplicateSemester(semester.getStartYear(), semester.getEndYear(), semester.getSemesterNum())) {
             result.rejectValue("startYear", "duplicate.key", "Semester already exists");
-            return "semesterAdd";
+            return "semester-management";
         }
         semesterRepository.save(semester);
         return "redirect:/admin/listSemester";
@@ -573,7 +588,7 @@ public class AdminController {
         if (showAll != null) {
             semesters = semesterRepository.findAll();
             model.addAttribute("semesters", semesters);
-            return "semesterList";
+            return "semester-management";
         }
         if(semesterId != null){
             semester = semesterRepository.findBySemesterId(semesterId);
@@ -587,7 +602,7 @@ public class AdminController {
             model.addAttribute("semesters", semesters);
         }
 
-        return "semesterList";
+        return "semester-management";
     }
 
     @GetMapping("/semesterDetail/{semesterId}")
@@ -600,13 +615,13 @@ public class AdminController {
     public String updateSemester(@PathVariable Long semesterId, Model model){
         Semester semester = semesterRepository.findBySemesterId(semesterId);
         model.addAttribute("semester", semester);
-        return "semesterUpdate";
+        return "semester-detail-edit";
     }
 
     @PostMapping(value = "/saveSemester")
     public String saveSemester(@Valid Semester semester, BindingResult result){
         if(result.hasErrors()){
-            return "semesterUpdate";
+            return "semester-detail-edit";
         }
         semesterRepository.save(semester);
         return "redirect:/admin/listSemester";
