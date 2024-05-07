@@ -14,6 +14,7 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adminCode;
 
+    @Valid
     @OneToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;

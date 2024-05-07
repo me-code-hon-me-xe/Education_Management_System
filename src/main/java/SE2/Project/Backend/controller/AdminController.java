@@ -34,37 +34,48 @@ public class AdminController {
 
     @ModelAttribute("admin")
     public Admin admin() {
-        return new Admin();
+        Admin admin=new Admin();
+        User user = new User();
+        user.setRole("Admin");
+        admin.setUser(user);
+        return admin;
     }
 
     @ModelAttribute("student")
     public Student student() {
-        return new Student();
+        Student student=new Student();
+        User user = new User();
+        user.setRole("Admin");
+        student.setUser(user);
+        return student;
     }
 
     @ModelAttribute("teacher")
     public Teacher teacher() {
-        return new Teacher();
+        Teacher teacher=new Teacher();
+        User user = new User();
+        user.setRole("Teacher");
+        teacher.setUser(user);
+        return teacher;
     }
 
     @ModelAttribute("accountant")
     public Accountant accountant() {
-        return new Accountant();
+        Accountant accountant=new Accountant();
+        User user = new User();
+        user.setRole("Accountant");
+        accountant.setUser(user);
+        return accountant;
     }
 
     // CRUD admin
     @GetMapping("/addUser")
-    public String addUser(Model model){
-
-        model.addAttribute("student", new Student());
-        model.addAttribute("admin", new Admin());
-        model.addAttribute("teacher", new Teacher());
-        model.addAttribute("accountant", new Accountant());
+    public String addUser(){
         return "admin-account-management";
     }
 
     @RequestMapping(value = "/insertAdmin")
-    public String insertAdmin(@Valid Admin admin, BindingResult result, Model model) {
+    public String insertAdmin(@Valid Admin admin, BindingResult result) {
 
         if(result.hasErrors()){
             return "admin-account-management";
@@ -73,7 +84,6 @@ public class AdminController {
             return "admin-account-management";
         }
         User user = admin.getUser();
-        user.setRole("Admin");
         admin.setUser(user);
         userRepository.save(user);
         adminRepository.save(admin);
@@ -160,7 +170,7 @@ public class AdminController {
     // CRUD student
 
     @RequestMapping(value = "/insertStudent")
-    public String insertStudent(@Valid Student student, BindingResult result, Model model) {
+    public String insertStudent(@Valid Student student, BindingResult result) {
 
         if(result.hasErrors()){
             return "student-account-management";
@@ -221,7 +231,7 @@ public class AdminController {
 
 
     @PostMapping("/saveStudent")
-    public String saveStudent(@Valid @ModelAttribute("student") Student student, BindingResult result, Model model) {
+    public String saveStudent(@Valid @ModelAttribute("student") Student student, BindingResult result) {
         if (result.hasErrors()) {
             return "studentUpdate"; // Return to the update form if there are validation errors
         }
@@ -261,7 +271,7 @@ public class AdminController {
     // CRUD teacher
 
     @RequestMapping(value = "/insertTeacher")
-    public String insertTeacher(@Valid Teacher teacher, BindingResult result, Model model) {
+    public String insertTeacher(@Valid Teacher teacher, BindingResult result) {
         if(result.hasErrors()){
             return "teacher-account-management";
         } else if (isDuplicateEntry(teacher.getUser().getUsername())) {
@@ -270,8 +280,6 @@ public class AdminController {
         }
 
         User user = teacher.getUser();
-        user.setRole("Teacher");
-        teacher.setUser(user);
         userRepository.save(user);
         teacherRepository.save(teacher);
 
@@ -359,7 +367,7 @@ public class AdminController {
     // CRUD accountant
 
     @RequestMapping(value = "/insertAccountant")
-    public String insertAccountant(@Valid Accountant accountant, BindingResult result, Model model) {
+    public String insertAccountant(@Valid Accountant accountant, BindingResult result) {
         if(result.hasErrors()){
             return "accountantAdd";
         } else if (isDuplicateEntry(accountant.getUser().getUsername())) {
@@ -450,7 +458,7 @@ public class AdminController {
         return "majorAdd";
     }
     @RequestMapping(value = "/insertMajor")
-    public String insertMajor(@Valid Major major, BindingResult result, Model model) {
+    public String insertMajor(@Valid Major major, BindingResult result) {
         if(result.hasErrors()){
             return "majorAdd";
         }else if (isDuplicateMajorName(major.getMajorName())) {
@@ -535,7 +543,7 @@ public class AdminController {
         return "semesterAdd";
     }
     @RequestMapping(value = "/insertSemester")
-    public String insertSemester(@Valid Semester semester, BindingResult result, Model model) {
+    public String insertSemester(@Valid Semester semester, BindingResult result) {
         if(result.hasErrors()){
             return "semesterAdd";
         }else if (isDuplicateSemester(semester.getStartYear(), semester.getEndYear(), semester.getSemesterNum())) {
@@ -619,7 +627,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/insertCourse")
-    public String insertCourse(@Valid Course course, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String insertCourse(@Valid Course course, BindingResult result, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()){
             return "redirect:/admin/addCourse";
         }else if (isDuplicateCourse(course.getCourseCode(), course.getCourseName())) {

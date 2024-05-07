@@ -89,7 +89,7 @@
                             <th>Date of Birth:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
+                                    <input type="date" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
                                 </label>
                             </td>
                         </tr>
@@ -102,7 +102,16 @@
                                 </label>
                             </td>
                         </tr>
-
+                        <tr>
+                            <th>Role:</th>
+                            <td>
+                                <label>
+                                    <p th:value="Admin" th:field="*{user.setRole('Admin')}">
+                                        Admin
+                                    </p>
+                                </label>
+                            </td>
+                        </tr>
                         <tr>
                             <th>Gender:</th>
                             <td>

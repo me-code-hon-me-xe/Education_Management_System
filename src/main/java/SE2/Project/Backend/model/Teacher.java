@@ -19,7 +19,7 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer teacherCode;
 
-    @Valid
+//    @Valid
     @OneToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
