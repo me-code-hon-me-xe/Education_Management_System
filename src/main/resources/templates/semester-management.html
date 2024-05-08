@@ -39,13 +39,18 @@
         </div>
     </div>
 
-
+    <div id="error-popup" class="error-popup">
+        <p id="error-text"> Warning </p>
+        <span id="error-message"></span>
+        <button  onclick="closeErrorPopup()">Close</button>
+    </div>
     <!--Admin modal-->
     <div id="add-modal" class="modal">
         <form
                 th:action="@{/admin/insertSemester}"
                 th:object="${semester}"
                 method="post"
+                onsubmit="return validateForm()"
         >
             <div class="modal-content">
                 <h1>ADD SEMESTER</h1>
@@ -55,24 +60,21 @@
                             <th>Start Year:</th>
                             <td>
                                 <div>
-                                    <input type="number" th:field="*{startYear}" />
-                                    <div th:if="${#fields.hasErrors('startYear')}" th:errors="*{startYear}" class="error_message"></div>
+                                    <input type="number" th:field="*{startYear}" class="add-input" />
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <th>End Year:</th>
                             <td>
-                                <input type="number" th:field="*{endYear}">
-                                <div th:if="${#fields.hasErrors('endYear')}" th:errors="*{endYear}" class="error_message"></div>
+                                <input type="number" th:field="*{endYear}" class="add-input">
 
                             </td>
                         </tr>
                         <tr>
                             <th>Semester Number:</th>
                             <td>
-                                <input type="number" th:field="*{semesterNum}">
-                                <div th:if="${#fields.hasErrors('semesterNum')}" th:errors="*{semesterNum}" class="error_message"></div>
+                                <input type="number" th:field="*{semesterNum}" class="add-input">
                             </td>
                         </tr>
                     </table>

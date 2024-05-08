@@ -27,17 +27,28 @@
     <div class="controller">
         <div class="options-container">
             <button id="add-button">Add Admin</button>
-            <button>Delete Selected</button>
+            <form th:action="@{/admin/listAdmin}" method="get">
+                <button type="submit" name="showAll">Show All</button>
+            </form>
+        </div>
+        <div id="searcher">
+            <form th:action="@{/admin/listAdmin}" method="get">
+                <input type="text" name="adminCode" placeholder="Search by Admin Code">
+                <button type="submit">Search</button>
+            </form>
         </div>
     </div>
-
+    <div id="error-popup" class="error-popup">
+        <p id="error-text"> Warning </p>
+        <span id="error-message"></span>
+        <button  onclick="closeErrorPopup()">Close</button>
+    </div>
     <!--Admin modal-->
     <div id="add-modal" class="modal">
-        <form
-                th:action="@{/admin/insertAdmin}"
-                th:object="${admin}"
-                method="post"
-        >
+        <form th:action="@{/admin/insertAdmin}"
+              th:object="${admin}"
+              method="post"
+              onsubmit="return validateForm()">
             <div class="modal-content">
                 <h1>ADD ADMIN</h1>
                 <div class="table-container">
@@ -47,11 +58,11 @@
                             <td>
                                 <div>
                                     <label>
-                                        <input type="text" th:field="*{user.username}" name="username"/>
+                                        <input type="text" th:field="*{user.username}" name="username" id="username" class="add-input"/>
                                     </label>
-                                    <!--                                <div th:if="${#fields.hasErrors('user.username')}"-->
-                                    <!--                                     th:errors="*{user.username}"-->
-                                    <!--                                ></div>-->
+                                    <!--                                    <div th:if="${#fields.hasErrors('user.username')}"-->
+                                    <!--                                         th:errors="*{user.username}"-->
+                                    <!--                                    ></div>-->
                                 </div>
                             </td>
                         </tr>
@@ -59,7 +70,7 @@
                             <th>Password:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{user.password}" name="password"/>
+                                    <input type="text" th:field="*{user.password}" name="password"  id="password" class="add-input"/>
                                 </label>
                             </td>
                         </tr>
@@ -67,7 +78,7 @@
                             <th>Full Name:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{user.userFullname}" name="userFullname"/>
+                                    <input type="text" th:field="*{user.userFullname}" name="userFullname" class="add-input"/>
                                 </label>
                             </td>
                         </tr>
@@ -75,7 +86,7 @@
                             <th>Address:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{user.address}" name="address"/>
+                                    <input type="text" th:field="*{user.address}" name="address" class="add-input"/>
                                 </label>
                             </td>
                         </tr>
@@ -83,7 +94,7 @@
                             <th>Email:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{user.email}" name="email"/>
+                                    <input type="email" th:field="*{user.email}" name="email" class="add-input"/>
                                 </label>
                             </td>
                         </tr>
@@ -91,7 +102,7 @@
                             <th>Date of Birth:</th>
                             <td>
                                 <label>
-                                    <input type="date" th:field="*{user.dateOfBirth}" name="dateOfBirth"/>
+                                    <input type="date" th:field="*{user.dateOfBirth}" name="dateOfBirth" class="add-input"/>
                                 </label>
                             </td>
                         </tr>
@@ -100,7 +111,7 @@
                             <th>Phone Number:</th>
                             <td>
                                 <label>
-                                    <input type="text" th:field="*{user.phoneNumber}" name="phoneNumber"/>
+                                    <input type="number" th:field="*{user.phoneNumber}" name="phoneNumber" class="add-input"/>
                                 </label>
                             </td>
                         </tr>
@@ -214,16 +225,6 @@
         </tbody>
 
     </table>
-    <div class="pagination">
-        <a href="#">&lt; </a>
-        <a href="#" class="current-page">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-        <a href="#">&gt;</a>
-    </div>
 </div>
 
 </body>

@@ -216,29 +216,57 @@
       height: 30px;
     }
 
-    .logo-table-container {
-      text-align: center;
-    }
-    .pagination {
-      position: fixed;
-      bottom: 20px; /* Adjust as needed */
-      left: 50%;
-      transform: translateX(-50%);
-      display: inline-block;
-    }
+.logo-table-container {
+    text-align: center;
+}
 
-    .pagination a {
-      color: black;
-      float: left;
-      padding: 8px 16px;
-      text-decoration: none;
-    }
-    .pagination a:hover {
-      background-color: #fa9f42; /* Change to whatever color you want */
-      border-radius: 4px;
-    }
-    .pagination a.current-page {
-      background-color: #9a2229;
-      color: white;
-      border-radius: 4px;
-    }
+
+
+
+.error-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* Đảm bảo hộp error-popup ở trên cùng của modal */
+    background-color: #f6ecec;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Thêm hiệu ứng bóng đổ */
+    height: 100px;
+    width: 200px;
+    text-align: center; /* Align text center horizontally */
+}
+
+#error-text {
+    color: red;
+    font-weight: bold;
+    font-size: 26px;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#error-message {
+    color: black;
+    position: absolute;
+    top: 35%;
+    left: 0%;
+    transform: translateX(10%);
+    padding-bottom: 30px;
+}
+
+.error-popup button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 40px; /* Tăng chiều cao của button */
+    background-color: #fa9f42;
+    border-radius: 5px;
+    cursor: pointer;
+}

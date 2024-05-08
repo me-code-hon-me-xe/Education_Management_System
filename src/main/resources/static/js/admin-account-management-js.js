@@ -1,37 +1,71 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    var editModal = document.getElementById("edit-modal");
     var addAdminModal = document.getElementById("add-modal");
-// Get the button that opens the editModal
-    var editBtn = document.getElementById("edit-button");
     var addBtn = document.getElementById("add-button");
-    var addAdminCancel = document.getElementById("cancel-add")
+    var addAdminCancel = document.getElementById("cancel-add");
+
     addBtn.onclick = function () {
         addAdminModal.style.display = "block";
     }
-    // const errorMessageElement = document.querySelectorAll(".error-message");
-    // let errorMessage;
-    // // Check if the error message is present
-    // errorMessage = errorMessageElement.textContent.trim();
-    // console.log(errorMessage);
-    // // If there is an error message or the errorMessage variable is not empty, show the modal
-    // if (errorMessage) {
-    //     addAdminModal.style.display = "block";
-    // }
-// When the user clicks the button, open the editModal
-    if (editBtn) {
-        editBtn.onclick = function () {
-            console.log("Hello")
-            editModal.style.display = "block";
+
+
+    addAdminCancel.onclick = function () {
+        addAdminModal.style.display = "none";
+    }
+});
+
+function checkEmptyFields(fields, errorMessage) {
+    for (let i = 0; i < fields.length; i++) {
+        const element = fields[i];
+        if (element.tagName === 'INPUT') {
+            const inputType = element.getAttribute('type');
+            if (inputType === 'text' || inputType === 'date' || inputType === 'tel' || inputType === "email") {
+                if (element.value.trim() === '') {
+                    errorMessage = "Please fill all fields"
+                }
+            } else if (inputType === 'number') {
+                if (isNaN(element.value)) {
+                    errorMessage = "Please fill all fields"
+                }
+            }
         }
     }
+    return errorMessage
+}
 
+function checkFieldsValue(fields, errorMessage) {
 
+}
 
-// When the user clicks on <editSpan> (x), close the editModal
-    addAdminCancel.onclick = function () {
-        addAdminModal.style.display = "none"
+function validateForm() {
+    var fields = document.getElementsByClassName("add-input");
+    if (fields) {
+        console.log(fields)
+    } else {console.log("Error")}
+    // Clear previous error messages
+    document.getElementById("error-message").innerText = "";
+    closeErrorPopup(); // Close the error popup
+
+    // Perform validation checks
+    var errorMessage = "";
+
+    // check empty fields
+    errorMessage = checkEmptyFields(fields, errorMessage)
+
+    if (errorMessage !== "") {
+        // Display error messages in the popup
+        document.getElementById("error-message").innerText = errorMessage;
+        openErrorPopup();
+        return false; // Prevent form submission
     }
 
+    return true; // Allow form submission if all checks pass
+}
 
-});
+function openErrorPopup() {
+    document.getElementById("error-popup").style.display = "block";
+}
+
+function closeErrorPopup() {
+    document.getElementById("error-popup").style.display = "none";
+}
