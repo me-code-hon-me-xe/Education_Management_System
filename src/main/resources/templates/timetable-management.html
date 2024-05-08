@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{_layout_admin}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Timetable Management</title>
+    <link
+            href="https://fonts.googleapis.com/css?family=Inter"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="/css/admin-account-management-style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/header-style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css"/>
+    <script
+            type="text/javascript"
+            th:src="@{/js/admin-account-management-js.js}"
+    ></script>
+</head>
+
+<body>
+<div layout:fragment="content" class="container">
+    <h1>Timetable Information</h1>
+    <div class="controller">
+        <div class="options-container">
+            <button id="add-button">Add Timetable</button>
+            <form th:action="@{/admin/listTimetable}" method="get">
+                <button type="submit" name="showAll">Show All</button>
+            </form>
+        </div>
+        <div id="searcher">
+            <form th:action="@{/admin/listTimetable}" method="get">
+                <input type="text" name="timetableId" placeholder="Search by Timetable ID">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!--Admin modal-->
+    <div id="add-modal" class="modal">
+        <form
+                th:action="@{/admin/insertTimetable}"
+                th:object="${timetable}"
+                method="post"
+        >
+            <div class="modal-content">
+                <h1>ADD TIMETABLE</h1>
+                <div th:if="${errorMessage}" class="error-message">
+                    <span th:text="${errorMessage}" class="error-text"></span>
+                </div>
+                <div class="table-container">
+                    <table class="info-table">
+                        <tr>
+                            <th>Course:</th>
+                            <td>
+                                <select th:field="*{course.courseId}">
+                                    <option th:each="course : ${courses}"
+                                            th:value="${course.courseId}"
+                                            th:text="${course.courseName} + '-' + ${course.courseCode}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Classroom:</th>
+                            <td>
+                                <select th:field="*{classroom.classroomId}">
+                                    <option th:each="classroom : ${classrooms}"
+                                            th:value="${classroom.classroomId}"
+                                            th:text="${classroom.roomNumber}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Teaching Day:</th>
+                            <td>
+                                <input type="text" th:field="*{teachingDay}" placeholder="e.g., monday, tuesday, wednesday">
+                                <div th:if="${#fields.hasErrors('teachingDay')}" th:errors="*{teachingDay}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Starting Date:</th>
+                            <td>
+                                <input type="date" th:field="*{startDate}">
+                                <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Ending Date:</th>
+                            <td>
+                                <input type="date" th:field="*{endDate}">
+                                <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Starting Time:</th>
+                            <td>
+                                <input type="time" th:field="*{startTime}">
+                                <div th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></div>
+                            </td>
+                        </tr> <tr>
+                        <th>Ending Time:</th>
+                        <td>
+                            <input type="time" th:field="*{endTime}">
+                            <div th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></div>
+                        </td>
+                    </tr>
+                    </table>
+                </div>
+                <div th:if="${errorMessage}" class="error-message">
+                    <span th:text="${errorMessage}" class="error-text"></span>
+                </div>
+                <div class="grade-options-container">
+                    <button type="submit" class="confirm-field">Confirm</button>
+                    <button type="reset" id="cancel-add" class="close-field">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!--Admin accounts table-->
+
+    <table class="content-table">
+        <thead>
+        <tr id="table-header">
+            <th>Id</th>
+            <th>Course</th>
+            <th>Course Code</th>
+            <th>Classroom</th>
+            <th>Teacher</th>
+            <th>Teaching Day</th>
+            <th>Starting Date</th>
+            <th>Ending Date</th>
+            <th>Starting Time</th>
+            <th>Ending Time</th>
+            <th colspan="3" style="width: 10%; height: 20px">Option</th>
+        </tr>
+        <tr id="table-searcher">
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="timetable : ${timetables}">
+            <td th:text="${timetable.timetableId}"></td>
+            <td th:text="${timetable.course.courseName}"></td>
+            <td th:text="${timetable.course.courseCode}"></td>
+            <td th:text="${timetable.classroom.roomNumber}"></td>
+            <td th:text="${timetable.course.teacher.user.userFullname}"></td>
+            <td th:text="${timetable.teachingDay}"></td>
+            <td th:text="${timetable.startDate}"></td>
+            <td th:text="${timetable.endDate}"></td>
+            <td th:text="${timetable.startTime}"></td>
+            <td th:text="${timetable.endTime}"></td>
+            <td class="utility-column">
+                <div class="logo-table-container">
+                    <a th:href="'/admin/updateTimetable/' + ${timetable.timetableId}">
+                        <input type="image" class="logo-table" alt="edit" th:src="@{../images/edit.png}"/>
+                    </a>
+                </div>
+            </td>
+            <td class="utility-column">
+                <div class="logo-table-container">
+                    <a th:href="'/admin/timetableDetail/' + ${timetable.timetableId}">
+                        <input type="image" class="logo-table" th:src="@{../images/menu.png}" alt="menu"/>
+                    </a>
+                </div>
+            </td>
+            <td class="utility-column">
+                <div class="logo-table-container">
+                    <a th:href="'/admin/deleteTimetable/' + ${timetable.timetableId}">
+                        <input type="image" class="logo-table" th:src="@{../images/delete.png}" alt="delete"/>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>

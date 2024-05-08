@@ -140,9 +140,21 @@
                         <tr>
                             <th>Training System:</th>
                             <td>
-                                <label>
-                                    <input type="text" th:field="*{trainingSystem}" name="trainingSystem"/>
-                                </label>
+                                <select th:field="*{trainingSystem}"
+                                        >
+                                    <option value="Select Training System">
+                                        Select Training System
+                                    </option>
+                                    <option value="Bachelor">
+                                        Bachelor
+                                    </option>
+                                    <option value="Master">
+                                        Master
+                                    </option>
+                                    <option value="PhD">
+                                        PhD
+                                    </option>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -181,8 +193,34 @@
             <th>Major</th>
             <th colspan="3" style="width: 10%; height: 20px">Option</th>
         </tr>
+        <tr id="table-searcher">
+            <th class="utility-column">
+                <div class="logo-table-container">
+                    <input
+                            id="modalOpener"
+                            type="image"
+                            class="logo-table"
+                            src="/images/search.png"
+                            alt="search"
+                    />
+                </div>
+            </th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+            <th>...</th>
+
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
+
         <tr th:each="student : ${students}">
             <td th:text="${student.studentCode}">
             </td>

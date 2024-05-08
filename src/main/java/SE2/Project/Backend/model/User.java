@@ -2,6 +2,7 @@ package SE2.Project.Backend.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
