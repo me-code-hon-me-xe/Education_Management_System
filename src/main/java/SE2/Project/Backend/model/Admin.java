@@ -10,7 +10,6 @@ import org.hibernate.validator.constraints.Length;
 @Table(name = "admin")
 public class Admin {
     // Backgound Information
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adminCode;

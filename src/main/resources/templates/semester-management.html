@@ -60,21 +60,27 @@
                             <th>Start Year:</th>
                             <td>
                                 <div>
-                                    <input type="number" th:field="*{startYear}" class="add-input" />
+                                    <label>
+                                        <input type="number" th:field="*{startYear}" class="add-input" />
+                                    </label>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <th>End Year:</th>
                             <td>
-                                <input type="number" th:field="*{endYear}" class="add-input">
+                                <label>
+                                    <input type="number" th:field="*{endYear}" class="add-input">
+                                </label>
 
                             </td>
                         </tr>
                         <tr>
                             <th>Semester Number:</th>
                             <td>
-                                <input type="number" th:field="*{semesterNum}" class="add-input">
+                                <label>
+                                    <input type="number" th:field="*{semesterNum}" class="add-input">
+                                </label>
                             </td>
                         </tr>
                     </table>

@@ -18,7 +18,7 @@ public class Classroom {
 
     @NotNull
     @Column(name = "room_capacity")
-    private int roomCapacity;
+    private Integer roomCapacity;
 
     @NotEmpty
     @Column(name = "room_number")
@@ -32,11 +32,11 @@ public class Classroom {
         this.classroomId = classroomId;
     }
 
-    public int getRoomCapacity() {
+    public Integer getRoomCapacity() {
         return roomCapacity;
     }
 
-    public void setRoomCapacity(int roomCapacity) {
+    public void setRoomCapacity(Integer roomCapacity) {
         this.roomCapacity = roomCapacity;
     }
 

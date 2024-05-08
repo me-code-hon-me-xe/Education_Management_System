@@ -17,18 +17,15 @@ public class Semester {
 
     @Column(name = "start_year")
     @NotNull
-    @Min(value = 2000,message = "Invalid start year")
-    private int startYear;
+    private Integer startYear;
 
     @NotNull
-    @Min(value = 2000,message = "Invalid end year")
     @Column(name = "end_year")
-    private int endYear;
+    private Integer endYear;
 
     @NotNull
-    @Min(value=1,message = "Invalid semester number")
     @Column(name = "semester_num")
-    private int semesterNum;
+    private Integer semesterNum;
 
     public Long getSemesterId() {
         return semesterId;
@@ -38,27 +35,27 @@ public class Semester {
         this.semesterId = semesterId;
     }
 
-    public int getStartYear() {
+    public Integer getStartYear() {
         return startYear;
     }
 
-    public void setStartYear(int startYear) {
+    public void setStartYear(Integer startYear) {
         this.startYear = startYear;
     }
 
-    public int getEndYear() {
+    public Integer getEndYear() {
         return endYear;
     }
 
-    public void setEndYear(int endYear) {
+    public void setEndYear(Integer endYear) {
         this.endYear = endYear;
     }
 
-    public int getSemesterNum() {
+    public Integer getSemesterNum() {
         return semesterNum;
     }
 
-    public void setSemesterNum(int semesterNum) {
+    public void setSemesterNum(Integer semesterNum) {
         this.semesterNum = semesterNum;
     }
 }

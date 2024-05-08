@@ -25,7 +25,8 @@ function checkEmptyFields(fields, errorMessage) {
                     errorMessage = "Please fill all fields"
                 }
             } else if (inputType === 'number') {
-                if (isNaN(element.value)) {
+                console.log(element.value)
+                if (isNaN(element.valueAsNumber)||element.valueAsNumber<=0) {
                     errorMessage = "Please fill all fields"
                 }
             }
