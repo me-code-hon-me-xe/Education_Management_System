@@ -104,10 +104,7 @@ public class SecurityCfg {
                         .failureUrl("/login?error=true")
                         .failureHandler(authenticationFailureHandler())
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/")
-                        .deleteCookies("JSESSIONID")
-                        .logoutSuccessHandler(logoutSuccessHandler())
+                .logout(logout -> logout.logoutSuccessUrl("/").permitAll()
                 );
         return http.build();
     }
