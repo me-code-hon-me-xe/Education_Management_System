@@ -97,6 +97,16 @@ public class AdminController {
     public Course course() {
         return new Course();
     }
+    @ModelAttribute("classroom")
+    public Classroom classroom() {
+        return new Classroom();
+    }
+    @ModelAttribute("timetable")
+    public Timetable timetable() {
+        return new Timetable();
+    }
+
+
 
     // CRUD admin
     @GetMapping("/addUser")
@@ -652,15 +662,15 @@ public class AdminController {
     @GetMapping("/addClassroom")
     public String addClassroom(Model model) {
         model.addAttribute("classroom", new Classroom());
-        return "classroomAdd";
+        return "classroom-management";
     }
     @RequestMapping(value = "/insertClassroom")
     public String insertClassroom(@Valid Classroom classroom, BindingResult result, Model model) {
         if(result.hasErrors()){
-            return "classroomAdd";
+            return "classroom-management";
         }else if (isDuplicateClassroom(classroom.getRoomNumber())) {
             result.rejectValue("roomNumber", "duplicate.key", "Classroom already exists");
-            return "classroomAdd";
+            return "classroom-management";
         }
         classroomRepository.save(classroom);
         return "redirect:/admin/listClassroom";
@@ -677,7 +687,7 @@ public class AdminController {
         if (showAll != null) {
             classrooms = classroomRepository.findAll();
             model.addAttribute("classrooms", classrooms);
-            return "classroomList";
+            return "classroom-management";
         }
         if(classroomId != null){
             classroom = classroomRepository.findByClassroomId(classroomId);
@@ -691,7 +701,7 @@ public class AdminController {
             model.addAttribute("classrooms", classrooms);
         }
 
-        return "classroomList";
+        return "classroom-management";
     }
     @GetMapping("/classroomDetail/{classroomId}")
     public String showClassroomDetail(@PathVariable Long classroomId, Model model){
@@ -703,15 +713,22 @@ public class AdminController {
     public String updateClassroom(@PathVariable Long classroomId, Model model){
         Classroom classroom = classroomRepository.findByClassroomId(classroomId);
         model.addAttribute("classroom", classroom);
-        return "classroomUpdate";
+        return "classroom-detail-edit";
     }
     @PostMapping(value = "/saveClassroom")
     public String saveClassroom(@Valid Classroom classroom, BindingResult result){
         if(result.hasErrors()){
-            return "classroomUpdate";
+            return "classroom-detail-edit";
         }
         classroomRepository.save(classroom);
         return "redirect:/admin/listClassroom";
+    }
+    @RequestMapping(value = "/deleteClassroom/{classrooomId}")
+    public String deleteClassroom(@PathVariable Long classrooomId){
+        Classroom classroom = classroomRepository.findByClassroomId(classrooomId);
+        classroomRepository.delete(classroom);
+        return "redirect:/admin/listCourse";
+
     }
 
 
