@@ -68,6 +68,12 @@
                         <input type="text" th:field="${teacher.user.phoneNumber}">
                     </div>
                     <div class="info-group">
+                        <div class="info-label">Major:</div>
+                        <select th:field="${teacher.major}">
+                            <option th:each="major : ${majors}" th:value="${major.majorId}" th:text="${major.majorName}"></option>
+                        </select>
+                    </div>
+                    <div class="info-group">
                         <div class="info-label">Gender:</div>
                         <select th:field="${teacher.user.gender}">
                             <option value="Male">Male</option>

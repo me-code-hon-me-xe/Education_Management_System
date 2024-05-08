@@ -110,7 +110,7 @@
             <th>...</th>
             <th>...</th>
             <th>...</th>
-            <th></th>
+            <th>...</th>
             <th></th>
             <th></th>
         </tr>
@@ -125,8 +125,8 @@
             <td th:text="${major.majorId}">
             </td>
             <td th:text="${major.majorName}"></td>
-            <td th:text="${major.tuitionBasedCourse}"></td>
-            <td th:text="${major.tuitionSpecializedCourse}"></td>
+            <td th:text="'$'+${major.tuitionBasedCourse}"></td>
+            <td th:text="'$'+${major.tuitionSpecializedCourse}"></td>
             <td class="utility-column">
                 <div class="logo-table-container">
                     <a th:href="'/admin/updateMajor/' + ${major.majorId}">

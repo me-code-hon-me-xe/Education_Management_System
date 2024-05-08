@@ -17,7 +17,8 @@
     <script
             type="text/javascript"
             th:src="@{/js/admin-account-management-js.js}"
-    ></script>
+    >
+    </script>
 </head>
 
 <body>
@@ -55,7 +56,7 @@
                             <td>
                                 <div>
                                     <input type="number" th:field="*{startYear}" />
-                                    <div th:if="${#fields.hasErrors('startYear')}" th:errors="*{startYear}"></div>
+                                    <div th:if="${#fields.hasErrors('startYear')}" th:errors="*{startYear}" class="error_message"></div>
                                 </div>
                             </td>
                         </tr>
@@ -63,14 +64,15 @@
                             <th>End Year:</th>
                             <td>
                                 <input type="number" th:field="*{endYear}">
-                                <div th:if="${#fields.hasErrors('endYear')}" th:errors="*{endYear}"></div>
+                                <div th:if="${#fields.hasErrors('endYear')}" th:errors="*{endYear}" class="error_message"></div>
+
                             </td>
                         </tr>
                         <tr>
                             <th>Semester Number:</th>
                             <td>
                                 <input type="number" th:field="*{semesterNum}">
-                                <div th:if="${#fields.hasErrors('semesterNum')}" th:errors="*{semesterNum}"></div>
+                                <div th:if="${#fields.hasErrors('semesterNum')}" th:errors="*{semesterNum}" class="error_message"></div>
                             </td>
                         </tr>
                     </table>
@@ -110,7 +112,7 @@
             <th>...</th>
             <th>...</th>
             <th>...</th>
-            <th></th>
+            <th>...</th>
             <th></th>
             <th></th>
         </tr>

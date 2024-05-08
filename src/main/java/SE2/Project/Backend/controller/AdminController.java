@@ -319,10 +319,11 @@ public class AdminController {
     @RequestMapping(value = "/insertTeacher")
     public String insertTeacher(@Valid Teacher teacher, BindingResult result) {
         if(result.hasErrors()){
+            System.out.println("Username already exists");
             return "teacher-account-management";
         } else if (isDuplicateEntry(teacher.getUser().getUsername())) {
             result.rejectValue("user.username", "duplicate.key", "Username already exists");
-            return "teacher-account-management";
+            return "redirect:/admin/listTeacher";
         }
 
         User user = teacher.getUser();
@@ -341,6 +342,7 @@ public class AdminController {
                                   @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Teacher> teachers;
         Teacher teacher;
+        Iterable<Major> majors;
         if (showAll != null) {
             teachers = teacherRepository.findAll();
             model.addAttribute("teachers", teachers);
@@ -354,6 +356,8 @@ public class AdminController {
                 model.addAttribute("notFoundMessage", "No teacher found with the provided teacher id");
             }
         } else {
+            majors = majorRepository.findAll();
+            model.addAttribute("majors", majors);
             teachers = teacherRepository.findAll();
             model.addAttribute("teachers", teachers);
         }
@@ -371,6 +375,8 @@ public class AdminController {
     @GetMapping(value = "/updateTeacher/{teacherCode}")
     public String updateTeacher(@PathVariable Integer teacherCode, Model model){
         Teacher teacher = teacherRepository.findByTeacherCode(teacherCode);
+        Iterable<Major> majors=majorRepository.findAll();
+        model.addAttribute("majors",majors);
         model.addAttribute("teacher", teacher);
         return "teacher-detail-edit";
     }
@@ -793,6 +799,13 @@ public class AdminController {
             model.addAttribute("courses", courses);
         }
         return "course-management";
+    }
+    @GetMapping("/courseDetail/{courseId}")
+    public String showCourseDetail(@PathVariable Long courseId, Model model){
+        System.out.println(courseId);
+        Course course = courseRepository.findByCourseId(courseId);
+        model.addAttribute("course", course);
+        return "course-detail";
     }
 
     @GetMapping(value = "/updateCourse/{courseId}")

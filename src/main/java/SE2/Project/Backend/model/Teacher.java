@@ -27,6 +27,18 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher")
     private List<Course> courses;
 
+    @OneToOne
+    @JoinColumn(name="major_id",referencedColumnName = "major_id")
+    private Major major;
+
+    public Major getMajor() {
+        return major;
+    }
+
+    public void setMajor(Major major) {
+        this.major = major;
+    }
+
     public Integer getTeacherCode() {
         return teacherCode;
     }

@@ -1,6 +1,9 @@
 package SE2.Project.Backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -14,13 +17,16 @@ public class Semester {
 
     @Column(name = "start_year")
     @NotNull
+    @Min(value = 2000,message = "Invalid start year")
     private int startYear;
 
     @NotNull
+    @Min(value = 2000,message = "Invalid end year")
     @Column(name = "end_year")
     private int endYear;
 
     @NotNull
+    @Min(value=1,message = "Invalid semester number")
     @Column(name = "semester_num")
     private int semesterNum;
 
