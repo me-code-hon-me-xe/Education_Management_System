@@ -26,15 +26,7 @@
     <div class="controller">
         <div class="options-container">
             <button id="add-button">Add Teacher</button>
-            <form th:action="@{/admin/listTeacher}" method="get">
-                <button type="submit" name="showAll">Show All</button>
-            </form>
-        </div>
-        <div id="searcher">
-            <form th:action="@{/admin/listTeacher}" method="get">
-                <input type="text" name="teacherCode" placeholder="Search by Teacher Code">
-                <button type="submit">Search</button>
-            </form>
+            <button>Delete Selected</button>
         </div>
     </div>
 
@@ -209,6 +201,16 @@
         </tbody>
 
     </table>
+    <div class="pagination">
+        <a href="#">&lt; </a>
+        <a href="#" class="current-page">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">&gt;</a>
+    </div>
 </div>
 
 </body>
