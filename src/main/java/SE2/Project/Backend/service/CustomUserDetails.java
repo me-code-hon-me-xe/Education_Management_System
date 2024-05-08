@@ -1,6 +1,8 @@
 package SE2.Project.Backend.service;
 
 import SE2.Project.Backend.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,20 +14,24 @@ import java.util.Collections;
 import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
-
+    private static final Logger logger = LoggerFactory.getLogger(CustomUserDetails.class);
     private final User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
     }
 
-    @Override
+    @Override// potential risk
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Return the roles of the user as GrantedAuthority collection
-        // You can implement this method based on how roles are stored in your User model
-        // For example, if your User model has a field for roles, you can convert them to GrantedAuthority objects
         String role = user.getRole();
-
+        // Log the role of the user
+        if ("Admin".equals(role)) {
+            // Log a message only if the user has the "Admin" role
+            logger.info("User has Admin role");
+        }
+        else {
+            logger.info("User has no role");
+        }
         // Create a GrantedAuthority object based on the user's role
         GrantedAuthority authority = new SimpleGrantedAuthority(role);
 
@@ -44,11 +50,6 @@ public class CustomUserDetails implements UserDetails {
         // Return the username of the user
         return user.getUsername();
     }
-//    @Override
-//    public String getRole() {
-//        // Return the username of the user
-//        return user.getRole();
-//    }
 
     @Override
     public boolean isAccountNonExpired() {
