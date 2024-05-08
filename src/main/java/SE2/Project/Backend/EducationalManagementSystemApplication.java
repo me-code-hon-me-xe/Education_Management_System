@@ -10,4 +10,5 @@ public class EducationalManagementSystemApplication {
 		SpringApplication.run(EducationalManagementSystemApplication.class, args);
 	}
 // Anh dang test nhánh Dang tien dat _ backend 2 có pull vào main được k lần 3
+
 }
