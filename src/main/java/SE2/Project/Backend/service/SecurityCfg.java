@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -67,13 +68,13 @@ public class SecurityCfg {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authenticationProvider(authenticationProvider());
-        http.csrf(c -> c.disable())
-//                .userDetailsService(customUserDetailsService)
+        http.csrf(AbstractHttpConfigurer::disable)
+                //.userDetailsService(customUserDetailsService)
                 .authorizeHttpRequests(auth ->
-                    auth
-                            .requestMatchers("/admin/**").hasRole("Admin")
-                            .requestMatchers("/login*").permitAll()
-                            .anyRequest().authenticated()
+                        auth
+                                .requestMatchers("/admin/**").hasAuthority("Admin")
+                                .requestMatchers("/login*").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
@@ -103,10 +104,7 @@ public class SecurityCfg {
                         .failureUrl("/login?error=true")
                         .failureHandler(authenticationFailureHandler())
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/")
-                        .deleteCookies("JSESSIONID")
-                        .logoutSuccessHandler(logoutSuccessHandler())
+                .logout(logout -> logout.logoutSuccessUrl("/").permitAll()
                 );
         return http.build();
     }

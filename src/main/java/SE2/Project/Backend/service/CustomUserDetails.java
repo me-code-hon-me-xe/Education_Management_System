@@ -34,7 +34,13 @@ public class CustomUserDetails implements UserDetails {
         }
         // Create a GrantedAuthority object based on the user's role
         GrantedAuthority authority = new SimpleGrantedAuthority(role);
-
+        if (authority != null) {
+            // Log a message only if the user has the "Admin" role
+            logger.info("User has Admin role: " + authority);
+        }
+        else {
+            logger.info("User has no role: " + authority);
+        }
         // Return a collection containing the single GrantedAuthority object
         return Collections.singletonList(authority);
     }

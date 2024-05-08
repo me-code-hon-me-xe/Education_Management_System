@@ -19,11 +19,11 @@ public class User {
     private Long userID;
 
     @Length(min = 3, max = 20)
-    @NotEmpty(message = "password cannot be empty")
+    @NotEmpty(message = "username cannot be empty")
     @Column(nullable = false)
     private String username;
 
-    @Length(min = 3, max = 20)
+    @Length(min = 3, max = 255)
     @NotEmpty(message = "password cannot be empty")
     @Column(nullable = false)
     private String password;
