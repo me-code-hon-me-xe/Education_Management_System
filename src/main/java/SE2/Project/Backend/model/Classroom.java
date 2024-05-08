@@ -1,7 +1,9 @@
 package SE2.Project.Backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -14,9 +16,11 @@ public class Classroom {
     @Column(name = "classroom_id")
     private Long classroomId;
 
+    @NotNull
     @Column(name = "room_capacity")
     private int roomCapacity;
 
+    @NotEmpty
     @Column(name = "room_number")
     private String roomNumber;
 

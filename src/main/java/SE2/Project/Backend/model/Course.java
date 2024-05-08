@@ -2,7 +2,9 @@ package SE2.Project.Backend.model;
 
 import jakarta.persistence.Table;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.checkerframework.common.aliasing.qual.Unique;
 
 @Entity
@@ -14,31 +16,39 @@ public class Course {
     @Column(name = "course_id")
     private Long courseId;
 
+    @NotNull
     @Column(name = "course_code")
     private String courseCode;
 
-
+    @NotNull
     @Column(name = "course_name")
     @Unique
     private String courseName;
 
+    @NotNull
     @Column(name = "credit")
     private Integer credit;
 
+    @NotNull
     @Column(name = "fee")
     private Double fee;
 
+    @NotNull
     @Column(name = "course_type")
     private String courseType;
 
+   
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "semester_id", referencedColumnName = "semester_id")
     private Semester semester;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "major_id", referencedColumnName = "major_id")
     private Major major;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "teacherCode", referencedColumnName = "teacherCode")
     private Teacher teacher;

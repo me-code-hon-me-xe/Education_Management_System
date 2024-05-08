@@ -1,6 +1,8 @@
 package SE2.Project.Backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "grade")
@@ -11,26 +13,33 @@ public class Grade {
     @Column(name = "grade_id")
     private Long gradeId;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "student_code", referencedColumnName = "student_code")
     private Student student;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;
 
+    @NotNull
     @Column(name = "attendance")
     private double attendance;
 
+    @NotNull
     @Column(name = "midterm_grade")
     private double midtermGrade;
 
+    @NotNull
     @Column(name = "final_grade")
     private double finalGrade;
 
+    @NotNull
     @Column(name = "total_grade")
     private double totalGrade;
 
+    @NotNull
     @Column(name = "study_status")
     private String studyStatus;
 

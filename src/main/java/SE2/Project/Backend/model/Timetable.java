@@ -1,6 +1,8 @@
 package SE2.Project.Backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -15,30 +17,32 @@ public class Timetable {
     @Column(name = "timetable_id")
     private Long timetableId;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "classroom_id")
     private Classroom classroom;
 
-
+    @NotNull
     @Column(name = "TeachingDay")
     private String teachingDay;
-
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "start_date")
     private LocalDate startDate;
-
+    @NotNull
     @DateTimeFormat(pattern = "HH:mm")
     @Column(name = "start_time")
     private LocalTime startTime;
-
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "end_date")
     private LocalDate endDate;
-
+    @NotNull
     @DateTimeFormat(pattern = "HH:mm")
     @Column(name = "end_time")
     private LocalTime endTime;

@@ -3,6 +3,7 @@ package SE2.Project.Backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,12 +24,13 @@ public class Student {
     @Column(name = "training_system")
     private String trainingSystem; // Bachelor, Master, Part-Time
 
-    @Valid
+    @NotNull
     @OneToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
 
-    @OneToOne
+    @NotNull
+    @ManyToOne
     @JoinColumn(name = "major_id", referencedColumnName = "major_id")
     private Major major;
 

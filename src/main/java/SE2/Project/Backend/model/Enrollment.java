@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,21 +19,26 @@ public class Enrollment {
     @Column(name = "enrollment_id")
     private Long enrollmentId;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "student_code", referencedColumnName = "student_code")
     private Student student;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "semester_id", referencedColumnName = "semester_id")
     private Semester semester;
 
+    @NotNull
     @Column(name = "enroll_date")
     private LocalDate enrollDate;
 
+    @NotNull
     @Column(name = "enroll_time")
     private LocalTime enrollTime;
 

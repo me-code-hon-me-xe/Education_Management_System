@@ -851,12 +851,12 @@ public class AdminController {
     public String insertTimetable(@Valid Timetable timetable, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()){
             redirectAttributes.addFlashAttribute("errorMessage", "All field must be fill up");
-            return "redirect:/admin/listTimetable";
+            return "timetable-management";
         }
         else if (isDuplicateTimetable(timetable.getCourse().getCourseId())) {
             redirectAttributes.addFlashAttribute("errorMessage", "Timetable already exists");
 
-            return "redirect:/admin/listTimetable";
+            return "timetable-management";
         }
         timetableRepository.save(timetable);
         return "redirect:/admin/listTimetable";

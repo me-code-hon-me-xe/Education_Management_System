@@ -109,17 +109,7 @@
                             <th>Major:</th>
                             <td>
                                 <label>
-                                    <select th:field="*{major}">
-                                        <option th:each="major : ${majors}" th:value="${major.majorId}" th:text="${major.majorName}"></option>
-                                    </select>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Major:</th>
-                            <td>
-                                <label>
-                                    <select th:field="*{major}">
+                                    <select th:field="*{major}" class="add-input">
                                         <option th:each="major : ${majors}" th:value="${major.majorId}" th:text="${major.majorName}"></option>
                                     </select>
                                 </label>

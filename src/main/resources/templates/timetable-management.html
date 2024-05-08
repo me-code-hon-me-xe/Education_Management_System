@@ -37,7 +37,11 @@
             </form>
         </div>
     </div>
-
+    <div id="error-popup" class="error-popup">
+        <p id="error-text"> Warning </p>
+        <span id="error-message"></span>
+        <button  onclick="closeErrorPopup()">Close</button>
+    </div>
 
     <!--Admin modal-->
     <div id="add-modal" class="modal">
@@ -45,6 +49,7 @@
                 th:action="@{/admin/insertTimetable}"
                 th:object="${timetable}"
                 method="post"
+                onsubmit="return validateForm()"
         >
             <div class="modal-content">
                 <h1>ADD TIMETABLE</h1>
@@ -78,35 +83,30 @@
                         <tr>
                             <th>Teaching Day:</th>
                             <td>
-                                <input type="text" th:field="*{teachingDay}" placeholder="e.g., monday, tuesday, wednesday">
-                                <div th:if="${#fields.hasErrors('teachingDay')}" th:errors="*{teachingDay}"></div>
+                                <input type="text" th:field="*{teachingDay}" placeholder="e.g., monday, tuesday, wednesday" class="add-input">
                             </td>
                         </tr>
                         <tr>
                             <th>Starting Date:</th>
                             <td>
-                                <input type="date" th:field="*{startDate}">
-                                <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
+                                <input type="date" th:field="*{startDate}" class="add-input">
                             </td>
                         </tr>
                         <tr>
                             <th>Ending Date:</th>
                             <td>
-                                <input type="date" th:field="*{endDate}">
-                                <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
+                                <input type="date" th:field="*{endDate}" class="add-input">
                             </td>
                         </tr>
                         <tr>
                             <th>Starting Time:</th>
                             <td>
-                                <input type="time" th:field="*{startTime}">
-                                <div th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></div>
+                                <input type="time" th:field="*{startTime}" class="add-input">
                             </td>
                         </tr> <tr>
                         <th>Ending Time:</th>
                         <td>
-                            <input type="time" th:field="*{endTime}">
-                            <div th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></div>
+                            <input type="time" th:field="*{endTime}" class="add-input">
                         </td>
                     </tr>
                     </table>

@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.boot.model.naming.Identifier;
 
@@ -14,12 +15,12 @@ import java.util.List;
 @Entity
 @Table(name = "accountant")
 public class Accountant {
-    @Valid
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountantCode;
 
-    @Valid
+    @NotNull
     @OneToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;

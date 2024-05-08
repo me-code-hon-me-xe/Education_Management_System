@@ -3,9 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
     var addAdminModal = document.getElementById("add-modal");
     var addBtn = document.getElementById("add-button");
     var addAdminCancel = document.getElementById("cancel-add");
-
+    var fields = document.getElementsByClassName("add-input");
     addBtn.onclick = function () {
         addAdminModal.style.display = "block";
+        console.log(fields);
     }
 
 
@@ -19,7 +20,7 @@ function checkEmptyFields(fields, errorMessage) {
         const element = fields[i];
         if (element.tagName === 'INPUT') {
             const inputType = element.getAttribute('type');
-            if (inputType === 'text' || inputType === 'date' || inputType === 'tel' || inputType === "email") {
+            if (inputType === 'text' || inputType === 'date' || inputType === 'tel' || inputType === "email"||inputType==="time") {
                 if (element.value.trim() === '') {
                     errorMessage = "Please fill all fields"
                 }
@@ -49,7 +50,20 @@ function validateForm() {
     // Perform validation checks
     var errorMessage = "";
 
-    // check empty fields
+    // check empty field
+    try {
+        var majorSelect = document.getElementsByTagName("select")
+        if (majorSelect.length > 0) {
+            for (let i = 0; i < majorSelect.length; i++) {
+                const element = majorSelect[i];
+                if (element.options.length === 0) {
+                    errorMessage = "Selection is empty"
+                }
+            }
+        }
+    } catch (error) {
+
+    }
     errorMessage = checkEmptyFields(fields, errorMessage)
 
     if (errorMessage !== "") {

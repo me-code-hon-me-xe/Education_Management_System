@@ -37,7 +37,11 @@
             </form>
         </div>
     </div>
-
+    <div id="error-popup" class="error-popup">
+        <p id="error-text"> Warning </p>
+        <span id="error-message"></span>
+        <button  onclick="closeErrorPopup()">Close</button>
+    </div>
 
     <!--Admin modal-->
     <div id="add-modal" class="modal">
@@ -45,6 +49,7 @@
                 th:action="@{/admin/insertClassroom}"
                 th:object="${classroom}"
                 method="post"
+                onsubmit="return validateForm()"
         >
             <div class="modal-content">
                 <h1>ADD CLASSROOM</h1>
@@ -54,7 +59,7 @@
                             <th>Room Number:</th>
                             <td>
                                 <div>
-                                    <input type="text" th:field="*{roomNumber}">
+                                    <input type="text" th:field="*{roomNumber}" class="add-input">
                                     <div th:if="${#fields.hasErrors('roomNumber')}" th:errors="*{roomNumber}"></div>
                                 </div>
                             </td>
@@ -62,7 +67,7 @@
                         <tr>
                             <th>Room capacity:</th>
                             <td>
-                                <input type="number" th:field="*{roomCapacity}">
+                                <input type="number" th:field="*{roomCapacity}" class="add-input">
                                 <div th:if="${#fields.hasErrors('roomCapacity')}" th:errors="*{roomCapacity}"></div>
                             </td>
                         </tr>

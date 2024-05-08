@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.boot.model.naming.Identifier;
 
@@ -14,20 +15,18 @@ import java.util.List;
 @Entity
 @Table(name = "teacher")
 public class Teacher {
-    @Valid
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer teacherCode;
 
-    @Valid
+    @NotNull
     @OneToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
 
-    @OneToMany(mappedBy = "teacher")
-    private List<Course> courses;
-
-    @OneToOne
+    @NotNull
+    @ManyToOne
     @JoinColumn(name="major_id",referencedColumnName = "major_id")
     private Major major;
 
@@ -55,13 +54,7 @@ public class Teacher {
         this.user = user;
     }
 
-    public List<Course> getCourses() {
-        return courses;
-    }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
 
     // Constructors, getters, and setters
 }

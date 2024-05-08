@@ -3,18 +3,19 @@ package SE2.Project.Backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "admin")
 public class Admin {
     // Backgound Information
-    @Valid
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adminCode;
 
-    @Valid
+    @NotNull
     @OneToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
