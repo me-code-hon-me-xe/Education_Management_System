@@ -8,6 +8,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,6 +47,10 @@ public class AdminController {
     private ClassroomRepository classroomRepository;
     @Autowired
     private TimetableRepository timetableRepository;
+
+    private PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 
     @ModelAttribute("admin")
@@ -124,6 +130,7 @@ public class AdminController {
             return "admin-account-management";
         }
         User user = admin.getUser();
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
         admin.setUser(user);
         userRepository.save(user);
         adminRepository.save(admin);
@@ -133,7 +140,7 @@ public class AdminController {
 
     @GetMapping(value = "/listAdmin")
     public String showAllAdmin(Model model, @RequestParam(name = "adminCode", required = false) Integer adminCode,
-                                  @RequestParam(name = "showAll", required = false) String showAll){
+                               @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Admin> admins;
         Admin admin;
         if (showAll != null) {
@@ -219,6 +226,7 @@ public class AdminController {
             return "student-account-management";
         }
         User user = student.getUser();
+        user.setRole("Student");
         student.setUser(user);
         userRepository.save(user);
         studentRepository.save(student);
@@ -231,8 +239,6 @@ public class AdminController {
                                   @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Student> students;
         Student student;
-        Iterable<Major> majors;
-        Major major;
         if (showAll != null) {
             students = studentRepository.findAll();
             model.addAttribute("students", students);
@@ -246,8 +252,6 @@ public class AdminController {
                 model.addAttribute("notFoundMessage", "No student found with the provided student code");
             }
         } else {
-            majors = majorRepository.findAll();
-            model.addAttribute("majors", majors);
             students = studentRepository.findAll();
             model.addAttribute("students", students);
         }
@@ -421,10 +425,10 @@ public class AdminController {
     @RequestMapping(value = "/insertAccountant")
     public String insertAccountant(@Valid Accountant accountant, BindingResult result) {
         if(result.hasErrors()){
-            return "accountant-account-management";
+            return "accountantAdd";
         } else if (isDuplicateEntry(accountant.getUser().getUsername())) {
             result.rejectValue("user.username", "duplicate.key", "Username already exists");
-            return "accountant-account-management";
+            return "accountantAdd";
         }
 
         User user = accountant.getUser();
@@ -436,13 +440,13 @@ public class AdminController {
     }
     @GetMapping(value = "/listAccountant")
     public String showAllAccountant(Model model, @RequestParam(name = "accountantCode", required = false) Integer accountantCode,
-                                  @RequestParam(name = "showAll", required = false) String showAll){
+                                    @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Accountant> accountants;
         Accountant accountant;
         if (showAll != null) {
             accountants = accountantRepository.findAll();
             model.addAttribute("accountants", accountants);
-            return "accountant-account-management";
+            return "accountantList";
         }
         if(accountantCode != null){
             accountant = accountantRepository.findByAccountantCode(accountantCode);
@@ -456,25 +460,25 @@ public class AdminController {
             model.addAttribute("accountants", accountants);
         }
 
-        return "accountant-account-management";
+        return "accountantList";
     }
     @GetMapping(value = "/accountantDetail/{accountantCode}")
     public String showAccountantDetail(@PathVariable Integer accountantCode, Model model){
         Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
         model.addAttribute("accountant", accountant);
-        return "accountant-detail";
+        return "accountantDetail";
     }
     @GetMapping(value = "/updateAccountant/{accountantCode}")
     public String updateAccountant(@PathVariable Integer accountantCode, Model model){
         Accountant accountant = accountantRepository.findByAccountantCode(accountantCode);
         model.addAttribute("accountant", accountant);
-        return "accountant-detail-edit";
+        return "accountantUpdate";
     }
 
     @PostMapping(value = "/saveAccountant")
     public String saveAccountant(@Valid Accountant accountant, BindingResult result){
         if(result.hasErrors()){
-            return "accountant-detail-edit";
+            return "accountantUpdate";
         }
         User user = accountant.getUser();
         userRepository.save(user);
@@ -526,7 +530,7 @@ public class AdminController {
 
     @GetMapping(value = "/listMajor")
     public String showAllMajor(Model model, @RequestParam(name = "majorId", required = false) Long majorId,
-                                    @RequestParam(name = "showAll", required = false) String showAll){
+                               @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Major> majors;
         Major major;
         if (showAll != null) {
@@ -607,7 +611,7 @@ public class AdminController {
 
     @GetMapping(value = "/listSemester")
     public String showAllSemester(Model model, @RequestParam(name = "semesterId", required = false) Long semesterId,
-                               @RequestParam(name = "showAll", required = false) String showAll){
+                                  @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Semester> semesters;
         Semester semester;
         if (showAll != null) {
@@ -687,7 +691,7 @@ public class AdminController {
 
     @GetMapping(value = "/listClassroom")
     public String showAllClassroom(Model model, @RequestParam(name = "classroomId", required = false) Long classroomId,
-                                  @RequestParam(name = "showAll", required = false) String showAll){
+                                   @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Classroom> classrooms;
         Classroom classroom;
         if (showAll != null) {
@@ -774,7 +778,7 @@ public class AdminController {
 
     @GetMapping(value = "/listCourse")
     public String showAllCourse(Model model, @RequestParam(name = "courseId", required = false) Long courseId,
-                                  @RequestParam(name = "showAll", required = false) String showAll){
+                                @RequestParam(name = "showAll", required = false) String showAll){
         Iterable<Course> courses;
         Course course;
         model.addAttribute("course", new Course());
@@ -872,7 +876,7 @@ public class AdminController {
 
     @GetMapping(value = "/listTimetable")
     public String showAllTimetable(Model model, @RequestParam(name = "timetableId", required = false) Long timetableId,
-                                @RequestParam(name = "showAll", required = false) String showAll){
+                                   @RequestParam(name = "showAll", required = false) String showAll){
         model.addAttribute("courses", courseRepository.findAll());
         model.addAttribute("classrooms", classroomRepository.findAll());
         model.addAttribute("majors", majorRepository.findAll());
