@@ -834,7 +834,7 @@ public class AdminController {
         if (redirectAttributes.containsAttribute("errorMessage")) {
             model.addAttribute("errorMessage", redirectAttributes.getAttribute("errorMessage"));
         }
-        return "timetableAdd";
+        return "timetable-management";
 
     }
 
@@ -842,15 +842,15 @@ public class AdminController {
     public String insertTimetable(@Valid Timetable timetable, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()){
             redirectAttributes.addFlashAttribute("errorMessage", "All field must be fill up");
-            return "redirect:/admin/addTimetable";
+            return "redirect:/admin/listTimetable";
         }
         else if (isDuplicateTimetable(timetable.getCourse().getCourseId())) {
             redirectAttributes.addFlashAttribute("errorMessage", "Timetable already exists");
 
-            return "redirect:/admin/addTimetable";
+            return "redirect:/admin/listTimetable";
         }
         timetableRepository.save(timetable);
-        return "redirect:/admin/addTimetable";
+        return "redirect:/admin/listTimetable";
     }
 
     private boolean isDuplicateTimetable(Long courseId) {
@@ -860,12 +860,17 @@ public class AdminController {
     @GetMapping(value = "/listTimetable")
     public String showAllTimetable(Model model, @RequestParam(name = "timetableId", required = false) Long timetableId,
                                 @RequestParam(name = "showAll", required = false) String showAll){
+        model.addAttribute("courses", courseRepository.findAll());
+        model.addAttribute("classrooms", classroomRepository.findAll());
+        model.addAttribute("majors", majorRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
+        model.addAttribute("semesters", semesterRepository.findAll());
         Iterable<Timetable> timetables;
         Timetable timetable;
         if (showAll != null) {
             timetables = timetableRepository.findAll();
             model.addAttribute("timetables", timetables);
-            return "timetableList";
+            return "timetable-management";
         }
         if(timetableId != null){
             timetable = timetableRepository.findByTimetableId(timetableId);
@@ -878,7 +883,7 @@ public class AdminController {
             timetables = timetableRepository.findAll();
             model.addAttribute("timetables", timetables);
         }
-        return "timetableList";
+        return "timetable-management";
     }
 
     @GetMapping("/timetableDetail/{timetableId}")
@@ -886,7 +891,7 @@ public class AdminController {
         System.out.println(timetableId);
         Timetable timetable = timetableRepository.findByTimetableId(timetableId);
         model.addAttribute("timetable", timetable);
-        return "timetableDetail";
+        return "timetable-detail";
     }
 
     @GetMapping(value = "/updateTimetable/{timetableId}")
@@ -897,6 +902,13 @@ public class AdminController {
         model.addAttribute("majors", majorRepository.findAll());
         model.addAttribute("teachers", teacherRepository.findAll());
         model.addAttribute("semesters", semesterRepository.findAll());
-        return "courseUpdate";
+        return "timetable-detail-edit";
     }
+    @RequestMapping(value = "/deleteTimetable/{timetableId}")
+    public String deleteTimetable(@PathVariable Long timetableId){
+        Timetable timetable = timetableRepository.findByTimetableId(timetableId);
+        timetableRepository.delete(timetable);
+        return "redirect:/admin/listTimetable";
+    }
+
 }

@@ -15,7 +15,7 @@
 
     <div class="control-group">
       <label>Timetable Id:</label>
-      <input type="text" th:field="${major.majorId}"readonly/>
+      <input type="text" th:field="${timetable.timetableId}"readonly/>
       <div th:if="${#fields.hasErrors('majorId')}" th:errorclass="error" th:errors="*{majorId}"></div>
     </div>
     <div class="control-group">
