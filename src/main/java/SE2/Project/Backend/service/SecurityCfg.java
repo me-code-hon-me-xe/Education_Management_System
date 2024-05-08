@@ -73,6 +73,7 @@ public class SecurityCfg {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/admin/**").hasAuthority("Admin")
+                                .requestMatchers("/teacher/**").hasAuthority("Teacher")//modify this
                                 .requestMatchers("/login*").permitAll()
                                 .anyRequest().authenticated()
                 )
@@ -83,21 +84,20 @@ public class SecurityCfg {
                             //potential risk
                             boolean isAdmin = authentication.getAuthorities().stream()
                                     .anyMatch(grantedAuthority -> "Admin".equalsIgnoreCase(grantedAuthority.getAuthority()));
-
-
-                            // Get the username of the authenticated user
-                            //String username = authentication.getName();
-
-                            // Retrieve the user from the database based on the username
-                            //SE2.Project.Backend.model.User user = userRepository.findByUsername(username); // Adjust this to your repository method
-
-                            // Retrieve the role of the user
-                            //String role = user.getRole();
-
+                            boolean isStudent = authentication.getAuthorities().stream()
+                                    .anyMatch(grantedAuthority -> "Student".equalsIgnoreCase(grantedAuthority.getAuthority()));
+                            boolean isTeacher = authentication.getAuthorities().stream()
+                                    .anyMatch(grantedAuthority -> "Teacher".equalsIgnoreCase(grantedAuthority.getAuthority()));
                             if (isAdmin) {
                                 response.sendRedirect("/admin/listAdmin");
                             } else {
-                                response.sendRedirect("/");
+                                if(isTeacher){
+                                    response.sendRedirect("/");//modify this
+                                }
+                                else if(isStudent){
+                                    response.sendRedirect("/");//modify this
+                                }
+
                             }
                         })
 
