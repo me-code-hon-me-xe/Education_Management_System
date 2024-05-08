@@ -366,8 +366,7 @@ public class AdminController {
     public String showTeacherDetail(@PathVariable Integer teacherCode, Model model){
         Teacher teacher = teacherRepository.findByTeacherCode(teacherCode);
         model.addAttribute("teacher", teacher);
-        return "teacher-detail";
-    }
+        return "teacher-detail";}
 
     @GetMapping(value = "/updateTeacher/{teacherCode}")
     public String updateTeacher(@PathVariable Integer teacherCode, Model model){
@@ -907,17 +906,25 @@ public class AdminController {
     @GetMapping(value = "/updateTimetable/{timetableId}")
     public String updateTimetable(@PathVariable Long timetableId, Model model){
         Timetable timetable = timetableRepository.findByTimetableId(timetableId);
-        model.addAttribute("courses", courseRepository.findAll());
         model.addAttribute("classrooms", classroomRepository.findAll());
         model.addAttribute("majors", majorRepository.findAll());
         model.addAttribute("teachers", teacherRepository.findAll());
         model.addAttribute("semesters", semesterRepository.findAll());
+        model.addAttribute("timetable",timetable);
         return "timetable-detail-edit";
     }
     @RequestMapping(value = "/deleteTimetable/{timetableId}")
     public String deleteTimetable(@PathVariable Long timetableId){
         Timetable timetable = timetableRepository.findByTimetableId(timetableId);
         timetableRepository.delete(timetable);
+        return "redirect:/admin/listTimetable";
+    }
+    @RequestMapping(value="/saveTimetable")
+    public String saveTimetable(@Valid Timetable timetable, BindingResult result){
+        if(result.hasErrors()){
+            return "timetable-detail-edit";
+        }
+        timetableRepository.save(timetable);
         return "redirect:/admin/listTimetable";
     }
 
