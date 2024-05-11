@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Course List</title>
+  <link rel="stylesheet" type="text/css" href="/css/courseList.css">
+</head>
+<body>
+<div layout:fragment="content">
+
+  <h2>Course List</h2>
+  <form th:action="@{/admin/listCourse}" method="get">
+    <input type="text" name="courseId" placeholder="Search by Course Id">
+    <button type="submit">Search</button>
+  </form>
+  <form th:action="@{/admin/listCourse}" method="get">
+    <button type="submit" name="showAll">Show All</button>
+  </form>
+  <table>
+    <thead>
+    <tr>
+      <th>Course Id</th>
+      <th>Course Name</th>
+      <th>Course Code</th>
+      <th>Course Type</th>
+      <th>Credit</th>
+      <th>Semester</th>
+      <th>Major</th>
+      <th>Teacher</th>
+      <th>Fee</th>
+
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="course : ${courses}">
+      <td>
+        <a th:href="'/admin/courseDetail/' + ${course.courseId}" th:text="${course.courseId}"/>
+      </td>
+      <td th:text="${course.courseName}"></td>
+      <td th:text="${course.courseCode}"></td>
+      <td th:text="${course.courseType}"></td>
+      <td th:text="${course.credit}"></td>
+      <td th:text="'Semester ' + ${course.semester.semesterNum} +
+      ', Year: ' + ${course.semester.startYear} + '-' + ${course.semester.endYear}"></td>
+      <td th:text="${course.major.majorName}"></td>
+      <td th:text="${course.teacher.user.userFullname}"></td>
+      <td th:text="${course.fee}"></td>
+
+      <td>
+        <a th:href="'/admin/updateCourse/' + ${course.courseId}">UPDATE</a>
+        <a th:href="'/admin/deleteCourse/' + ${course.courseId}">DELETE</a>
+
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

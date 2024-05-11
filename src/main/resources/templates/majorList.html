@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Major List</title>
+  <link rel="stylesheet" type="text/css" href="/css/majorList.css">
+</head>
+<body>
+<div layout:fragment="content">
+
+  <h2>Major List</h2>
+  <form th:action="@{/admin/listMajor}" method="get">
+    <input type="text" name="majorId" placeholder="Search by Major Id">
+    <button type="submit">Search</button>
+  </form>
+  <form th:action="@{/admin/listMajor}" method="get">
+    <button type="submit" name="showAll">Show All</button>
+  </form>
+  <table>
+    <thead>
+    <tr>
+      <th>Major Id</th>
+      <th>Major Name</th>
+      <th>Based Course Tuition Fee</th>
+      <th>Specialized Course Tuition Fee</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="major : ${majors}">
+      <td>
+        <a th:href="'/admin/majorDetail/' + ${major.majorId}" th:text="${major.majorId}"/>
+      </td>
+      <td th:text="${major.majorName}"></td>
+      <td th:text="${major.tuitionBasedCourse}"></td>
+      <td th:text="${major.tuitionSpecializedCourse}"></td>
+      <td>
+        <a th:href="'/admin/updateMajor/' + ${major.majorId}">UPDATE</a>
+        <a th:href="'/admin/deleteMajor/' + ${major.majorId}">DELETE</a>
+
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
